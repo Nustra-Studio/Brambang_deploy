@@ -4,6 +4,10 @@
         <!-- Title and Top Buttons Start -->
         <div class="page-title-container">
         <div class="row g-0">
+            @php
+                use App\Models\Barang;
+               $data = Barang::all();
+            @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
             <div class="w-auto sw-md-30">
