@@ -203,7 +203,7 @@
                 </div>
                 <div class="modal-footer border-1">
                     
-                    <button type="submit" href="#" class="btn btn-icon btn-icon-end btn-primary">
+                    <button type="submit"class="btn btn-icon btn-icon-end btn-primary">
                     <span>Save</span>
                     <i data-acorn-icon="save"></i>
                     </button>
@@ -216,9 +216,7 @@
             <!-- Delete Modal -->
             <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <form method="POST" action="{{ route('barang.destroy', $item->id) }}">
-                    @csrf
-                    @method('DELETE')
+                
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title fw-bold">Hapus Data?</h5>
@@ -228,11 +226,15 @@
                         Konfirmasi Hapus Data
                     </div>
                     <div class="modal-footer">
+                        <form method="POST" action="{{ route('barang.destroy', $item->id) }}">
+                            @csrf
+                            @method('DELETE')
                         <button type="submit" class="btn btn-danger border shadow">Hapus</button>
                         <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                    </form>
                     </div>
                     </div>
-                </form>
+
             </div>
             </div>
             <!-- Delete Modal End -->
