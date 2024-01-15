@@ -43,7 +43,7 @@ class BarangController extends Controller
             'unit'=>$request->unit
         ];
         Barang::create($data);
-        return redirect('barang')->with('status', 'success insert item');
+        return redirect('inputbarang')->with('status', 'success insert item');
     }
 
     /**
@@ -77,7 +77,21 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'price'=>'required',
+            'basic_price'=>'required',
+            'qty'=>'required',
+            'unit'=>'required'
+            // Add other validation rules for your fields
+        ]);
+
+        // Find the record by ID
+        $barang = Barang::find($id);
+
+        // Update the record with the new data
+        $barang->update($validatedData);
+        return redirect('inputbarang')->with('status', 'success Update item');
     }
 
     /**
@@ -88,6 +102,10 @@ class BarangController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $yourModel = Barang::find($id);
+
+        // Delete the record
+        $yourModel->delete();
+        return redirect('inputbarang')->with('status', 'success Update item');
     }
 }

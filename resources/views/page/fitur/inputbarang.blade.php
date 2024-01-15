@@ -171,41 +171,42 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form
-                    
+                    <form method="POST" action="{{ route('barang.update', $item->id) }}">
+                        @csrf
+                        @method('PUT')
                     >
                     <div class="mb-3">
                         <label class="form-label">Nama</label>
-                        <input type="text" class="form-control" value="Brambang Goreng" />
+                        <input type="text" class="form-control" value="{{$item->name}}" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Harga Beli</label>
-                        <input type="text" class="form-control" value="Rp. 20.000.00" />
+                        <input type="text" class="form-control" value="{{$item->basic_price}}" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Harga Jual</label>
-                        <input type="text" class="form-control" value="Rp. 30.000.00" />
+                        <input type="text" class="form-control" value="{{$item->price}}" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Stok</label>
-                        <input type="text" class="form-control" value="210" />
+                        <input type="text" class="form-control" value="{{$item->qty}}" />
                     </div>
                     <div class="mb-3 w-100">
                         <label class="form-label">Satuan</label>
                         <select class="form-select" aria-placeholder="Pilih jabatan">
-                            <option value="Inactive">PCS</option>
-                            <option value="Active">KG</option>
-                            <option value="Expired">Liter</option>
+                            <option @if($item->unit === 'PCS') selected @endif value="PCS">PCS</option>
+                            <option @if($item->unit === 'KG') selected @endif value="KG">KG</option>
+                            <option @if($item->unit === 'Liter') selected @endif value="Liter">Liter</option>
                         </select>
                     </div>
                     </form>
                 </div>
                 <div class="modal-footer border-1">
                     
-                    <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
+                    <button type="submit" href="#" class="btn btn-icon btn-icon-end btn-primary">
                     <span>Save</span>
                     <i data-acorn-icon="save"></i>
-                    </a>
+                    </button>
                 </div>
                 </div>
             </div>
@@ -215,19 +216,23 @@
             <!-- Delete Modal -->
             <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold">Hapus Data?</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Konfirmasi Hapus Data
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-danger border shadow">Hapus</button>
-                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
-                </div>
-                </div>
+                <form method="POST" action="{{ route('barang.destroy', $item->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fw-bold">Hapus Data?</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Konfirmasi Hapus Data
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger border shadow">Hapus</button>
+                        <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                    </div>
+                    </div>
+                </form>
             </div>
             </div>
             <!-- Delete Modal End -->
@@ -271,10 +276,10 @@
                                 </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Satuan</label>
-                                    <select name="units" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="Inactive">PCS</option>
-                                        <option value="Active">KG</option>
-                                        <option value="Expired">Liter</option>
+                                    <select name="unit" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="PCS">PCS</option>
+                                        <option value="KG">KG</option>
+                                        <option value="Liter">Liter</option>
                                     </select>
                                 </div>
                                 
