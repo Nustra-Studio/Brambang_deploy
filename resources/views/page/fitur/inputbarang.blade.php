@@ -174,7 +174,6 @@
                     <form method="POST" action="{{ route('barang.update', $item->id) }}">
                         @csrf
                         @method('PUT')
-                    >
                     <div class="mb-3">
                         <label class="form-label">Nama</label>
                         <input type="text" class="form-control" value="{{$item->name}}" />
