@@ -36,11 +36,11 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $data = [
-            'name'=>$item->name,
-            'price'=>$item->price,
-            'basic_price'=>$item->basic_price,
-            'qty'=>$item->qty,
-            'unit'=>$item->unit
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'basic_price'=>$request->basic_price,
+            'qty'=>$request->qty,
+            'unit'=>$request->unit
         ];
         Barang::create($data);
         return redirect('barang')->with('status', 'success insert item');
