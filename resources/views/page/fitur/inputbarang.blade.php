@@ -176,23 +176,23 @@
                         @method('PUT')
                     <div class="mb-3">
                         <label class="form-label">Nama</label>
-                        <input type="text" class="form-control" value="{{$item->name}}" />
+                        <input type="text" name="name" class="form-control" value="{{$item->name}}" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Harga Beli</label>
-                        <input type="text" class="form-control" value="{{$item->basic_price}}" />
+                        <input type="text" name="basic_price" class="form-control" value="{{$item->basic_price}}" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Harga Jual</label>
-                        <input type="text" class="form-control" value="{{$item->price}}" />
+                        <input type="text" name="price" class="form-control" value="{{$item->price}}" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Stok</label>
-                        <input type="text" class="form-control" value="{{$item->qty}}" />
+                        <input type="text" name="qty" class="form-control" value="{{$item->qty}}" />
                     </div>
                     <div class="mb-3 w-100">
                         <label class="form-label">Satuan</label>
-                        <select class="form-select" aria-placeholder="Pilih jabatan">
+                        <select name="unit" class="form-select" aria-placeholder="Pilih jabatan">
                             <option @if($item->unit === 'PCS') selected @endif value="PCS">PCS</option>
                             <option @if($item->unit === 'KG') selected @endif value="KG">KG</option>
                             <option @if($item->unit === 'Liter') selected @endif value="Liter">Liter</option>
