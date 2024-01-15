@@ -103,7 +103,52 @@
             <div id="checkboxTable">
             <!-- start LOOP -->
             <div class="card mb-2">
+                @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+              @endif
                 <div class="card-body py-4 py-lg-0 sh-lg-8">
+                <div class="row g-0 h-100 align-content-center">
+                    <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
+                    <div class="text-muted text-small d-lg-none">Nama</div>
+                    <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
+                        Brambang Goreng
+                    </a>
+                    </div>
+                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
+                    <div class="text-muted text-small d-lg-none">Harga Beli</div>
+                    <div class="text-alternate">Rp. 20.000.00</div>
+                    </div>
+                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
+                    <div class="text-muted text-small d-lg-none">Harga Jual</div>
+                    <div class="text-alternate">Rp. 50.000.00</div>
+                    </div>
+                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
+                    <div class="text-muted text-small d-lg-none">Stok</div>
+                    <div class="text-alternate">230</div>
+                    </div>
+                    <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
+                    <div class="text-muted text-small d-lg-none">Satuan</div>
+                    <div>
+                        <span class="badge rounded-pill bg-outline-primary">PCS</span>
+                    </div>
+                    </div>
+                    <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
+                    <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
+                        <div class="col">
+                            <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
                 <div class="row g-0 h-100 align-content-center">
                     <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
                     <div class="text-muted text-small d-lg-none">Nama</div>
@@ -160,7 +205,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form
+                
+                >
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" class="form-control" value="Brambang Goreng" />
@@ -228,39 +275,44 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form
+                    action="{{route('barang.store')}}"
+                    method="POST"
+                >
+                @csrf
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="name" class="form-control" />
                 </div>
                 <div class="mb-3 w-100">
                     <label class="form-label">Harga Beli</label>
-                    <input type="text" class="form-control">
+                    <input type="text" name="basic_price" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Harga Jual</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="price" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Stok</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="qty" class="form-control" />
                 </div>
                 <div class="mb-3 w-100">
                     <label class="form-label">Satuan</label>
-                    <select class="form-select" aria-placeholder="Pilih jabatan">
+                    <select name="units" class="form-select" aria-placeholder="Pilih jabatan">
                         <option value="Inactive">PCS</option>
                         <option value="Active">KG</option>
                         <option value="Expired">Liter</option>
                     </select>
                 </div>
-                </form>
+                
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
+                <button type="submit" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
                 <span>Tambah</span>
                 <i data-acorn-icon="plus"></i>
-                </a>
+                </button>
             </div>
+        </form>
             </div>
         </div>
         </div>
