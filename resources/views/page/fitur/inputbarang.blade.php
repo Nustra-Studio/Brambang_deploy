@@ -108,214 +108,184 @@
                     {{ session('status') }}
                 </div>
               @endif
-                <div class="card-body py-4 py-lg-0 sh-lg-8">
-                <div class="row g-0 h-100 align-content-center">
-                    <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
-                    <div class="text-muted text-small d-lg-none">Nama</div>
-                    <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                        Brambang Goreng
+                @foreach ($data as $item)
+                    <div class="card-body py-4 py-lg-0 sh-lg-8">
+                        <div class="row g-0 h-100 align-content-center">
+                            <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
+                            <div class="text-muted text-small d-lg-none">Nama</div>
+                            <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
+                                {{$item->name}}
+                            </a>
+                            </div>
+                            @php
+                                $basic_price = $item->basic_price;
+                                $price = $item->price;
+                                $basic_price = 'RP ' . number_format($basic_price, 0, ',', '.');
+                                $price = 'RP ' . number_format($price, 0, ',', '.');
+                            @endphp
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
+                            <div class="text-muted text-small d-lg-none">Harga Beli</div>
+                            <div class="text-alternate">{{$basic_price}}</div>
+                            </div>
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
+                            <div class="text-muted text-small d-lg-none">Harga Jual</div>
+                            <div class="text-alternate">{{$price}}</div>
+                            </div>
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
+                            <div class="text-muted text-small d-lg-none">Stok</div>
+                            <div class="text-alternate">{{$item->qty}}</div>
+                            </div>
+                            <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
+                            <div class="text-muted text-small d-lg-none">Satuan</div>
+                            <div>
+                                <span class="badge rounded-pill bg-outline-primary">{{$item->unit}}</span>
+                            </div>
+                            </div>
+                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
+                            <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
+                                <div class="col">
+                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                            <!-- Discount Detail Modal Start -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form
+                    
+                    >
+                    <div class="mb-3">
+                        <label class="form-label">Nama</label>
+                        <input type="text" class="form-control" value="Brambang Goreng" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Harga Beli</label>
+                        <input type="text" class="form-control" value="Rp. 20.000.00" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Harga Jual</label>
+                        <input type="text" class="form-control" value="Rp. 30.000.00" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Stok</label>
+                        <input type="text" class="form-control" value="210" />
+                    </div>
+                    <div class="mb-3 w-100">
+                        <label class="form-label">Satuan</label>
+                        <select class="form-select" aria-placeholder="Pilih jabatan">
+                            <option value="Inactive">PCS</option>
+                            <option value="Active">KG</option>
+                            <option value="Expired">Liter</option>
+                        </select>
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-1">
+                    
+                    <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
+                    <span>Save</span>
+                    <i data-acorn-icon="save"></i>
                     </a>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
-                    <div class="text-muted text-small d-lg-none">Harga Beli</div>
-                    <div class="text-alternate">Rp. 20.000.00</div>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
-                    <div class="text-muted text-small d-lg-none">Harga Jual</div>
-                    <div class="text-alternate">Rp. 50.000.00</div>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
-                    <div class="text-muted text-small d-lg-none">Stok</div>
-                    <div class="text-alternate">230</div>
-                    </div>
-                    <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
-                    <div class="text-muted text-small d-lg-none">Satuan</div>
-                    <div>
-                        <span class="badge rounded-pill bg-outline-primary">PCS</span>
-                    </div>
-                    </div>
-                    <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
-                    <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
-                        <div class="col">
-                            <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="row g-0 h-100 align-content-center">
-                    <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
-                    <div class="text-muted text-small d-lg-none">Nama</div>
-                    <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                        Brambang Goreng
-                    </a>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
-                    <div class="text-muted text-small d-lg-none">Harga Beli</div>
-                    <div class="text-alternate">Rp. 20.000.00</div>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
-                    <div class="text-muted text-small d-lg-none">Harga Jual</div>
-                    <div class="text-alternate">Rp. 50.000.00</div>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
-                    <div class="text-muted text-small d-lg-none">Stok</div>
-                    <div class="text-alternate">230</div>
-                    </div>
-                    <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
-                    <div class="text-muted text-small d-lg-none">Satuan</div>
-                    <div>
-                        <span class="badge rounded-pill bg-outline-primary">PCS</span>
-                    </div>
-                    </div>
-                    <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
-                    <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
-                        <div class="col">
-                            <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    </div>
                 </div>
                 </div>
+            </div>
+            </div>
+            <!-- Discount Detail Modal End -->
+    
+            <!-- Delete Modal -->
+            <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Hapus Data?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Konfirmasi Hapus Data
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger border shadow">Hapus</button>
+                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                </div>
+                </div>
+            </div>
+            </div>
+            <!-- Delete Modal End -->
+    
+
+                @endforeach
             </div>
             </div>
         </div>
         </div>
         <!-- Discount List End -->
+                    <!-- Discount Add Modal Start -->
+                    <div class="modal fade" id="addProdukModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold">Tambahkan Produk</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form
+                                    action="{{route('barang.store')}}"
+                                    method="POST"
+                                >
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" />
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Harga Beli</label>
+                                    <input type="text" name="basic_price" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Harga Jual</label>
+                                    <input type="text" name="price" class="form-control" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Stok</label>
+                                    <input type="text" name="qty" class="form-control" />
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Satuan</label>
+                                    <select name="units" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="Inactive">PCS</option>
+                                        <option value="Active">KG</option>
+                                        <option value="Expired">Liter</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
+                                <span>Tambah</span>
+                                <i data-acorn-icon="plus"></i>
+                                </button>
+                            </div>
+                        </form>
+                            </div>
+                        </div>
+                        </div>
 
-        <!-- Discount Detail Modal Start -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Produk</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form
-                
-                >
-                <div class="mb-3">
-                    <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" value="Brambang Goreng" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Harga Beli</label>
-                    <input type="text" class="form-control" value="Rp. 20.000.00" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Harga Jual</label>
-                    <input type="text" class="form-control" value="Rp. 30.000.00" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Stok</label>
-                    <input type="text" class="form-control" value="210" />
-                </div>
-                <div class="mb-3 w-100">
-                    <label class="form-label">Satuan</label>
-                    <select class="form-select" aria-placeholder="Pilih jabatan">
-                        <option value="Inactive">PCS</option>
-                        <option value="Active">KG</option>
-                        <option value="Expired">Liter</option>
-                    </select>
-                </div>
-                </form>
-            </div>
-            <div class="modal-footer border-1">
-                
-                <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
-                <span>Save</span>
-                <i data-acorn-icon="save"></i>
-                </a>
-            </div>
-            </div>
-        </div>
-        </div>
-        <!-- Discount Detail Modal End -->
-
-        <!-- Delete Modal -->
-        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold">Hapus Data?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Konfirmasi Hapus Data
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger border shadow">Hapus</button>
-                <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
-            </div>
-            </div>
-        </div>
-        </div>
-        <!-- Delete Modal End -->
-
-        <!-- Discount Add Modal Start -->
-        <div class="modal fade" id="addProdukModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold">Tambahkan Produk</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form
-                    action="{{route('barang.store')}}"
-                    method="POST"
-                >
-                @csrf
-                <div class="mb-3">
-                    <label class="form-label">Nama</label>
-                    <input type="text" name="name" class="form-control" />
-                </div>
-                <div class="mb-3 w-100">
-                    <label class="form-label">Harga Beli</label>
-                    <input type="text" name="basic_price" class="form-control">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Harga Jual</label>
-                    <input type="text" name="price" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Stok</label>
-                    <input type="text" name="qty" class="form-control" />
-                </div>
-                <div class="mb-3 w-100">
-                    <label class="form-label">Satuan</label>
-                    <select name="units" class="form-select" aria-placeholder="Pilih jabatan">
-                        <option value="Inactive">PCS</option>
-                        <option value="Active">KG</option>
-                        <option value="Expired">Liter</option>
-                    </select>
-                </div>
-                
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
-                <span>Tambah</span>
-                <i data-acorn-icon="plus"></i>
-                </button>
-            </div>
-        </form>
-            </div>
-        </div>
-        </div>
         <!-- Discount Add Modal End -->
     </div>
     @endsection

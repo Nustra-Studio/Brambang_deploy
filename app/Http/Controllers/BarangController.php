@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Barang;
 
 class BarangController extends Controller
 {
@@ -34,7 +35,15 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'name'=>$item->name,
+            'price'=>$item->price,
+            'basic_price'=>$item->basic_price,
+            'qty'=>$item->qty,
+            'unit'=>$item->unit
+        ];
+        Barang::create($data);
+        return redirect('barang')->with('status', 'success insert item');
     }
 
     /**
