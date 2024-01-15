@@ -198,7 +198,7 @@
                             <option @if($item->unit === 'Liter') selected @endif value="Liter">Liter</option>
                         </select>
                     </div>
-                    </form>
+                    
                 </div>
                 <div class="modal-footer border-1">
                     
@@ -207,6 +207,7 @@
                     <i data-acorn-icon="save"></i>
                     </button>
                 </div>
+            </form>
                 </div>
             </div>
             </div>
