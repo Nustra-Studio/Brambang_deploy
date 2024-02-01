@@ -178,15 +178,15 @@
                 <form action="{{Route('customer.update', $subdata->id)}}" method="POST">
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" value="{{$subdata->name}}" />
+                    <input type="text" class="form-control" name="name" value="{{$subdata->name}}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">No hp</label>
-                    <input type="text" class="form-control" value="{{$subdata->hp}}" />
+                    <input type="text" class="form-control" name="hp" value="{{$subdata->hp}}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" value="{{$subdata->address}}" />
+                    <input type="text" class="form-control" name="address" value="{{$subdata->address}}" />
                 </div>
                 
             </div>
@@ -195,8 +195,8 @@
                     <span>Save</span>
                     <i data-acorn-icon="save"></i>
                 </button>
-                </form>
             </div>
+        </form>
             </div>
         </div>
         </div>
