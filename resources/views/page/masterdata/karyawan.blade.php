@@ -4,6 +4,10 @@
         <!-- Title and Top Buttons Start -->
         <div class="page-title-container">
         <div class="row g-0">
+            @php
+                use App\Models\Karyawan;
+                $data = Karyawan::all();
+            @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
             <div class="w-auto sw-md-30">
@@ -104,46 +108,52 @@
             <!-- start LOOP -->
             <div class="card mb-2">
                 <div class="card-body py-4 py-lg-0 sh-lg-8">
-                <div class="row g-0 h-100 align-content-center">
-                    <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
-                    <div class="text-muted text-small d-lg-none">Nama</div>
-                    <a href="#" class="text-truncate h-100 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                        Wirayasa
-                    </a>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
-                    <div class="text-muted text-small d-lg-none">No. HP</div>
-                    <div class="text-alternate">08421539428</div>
-                    </div>
-                    <div class="col-6 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
-                    <div class="text-muted text-small d-lg-none">Alamat</div>
-                    <div class="text-alternate">Jln. Nganjuk No.13</div>
-                    </div>
-                    <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
-                    <div class="text-muted text-small d-lg-none">Gaji Harian</div>
-                    <div class="text-alternate">Rp. 30.000.00</div>
-                    </div>
-                    <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
-                    <div class="text-muted text-small d-lg-none">Jabatan</div>
-                    <div>
-                        <span class="badge rounded-pill bg-outline-primary">Manager</span>
-                    </div>
-                    </div>
-                    <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
-                    <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
-                        <div class="col">
-                            <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
+                    @foreach ($data as $item)
+                        <div class="row g-0 h-100 align-content-center">
+                            <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
+                            <div class="text-muted text-small d-lg-none">Nama</div>
+                            <a href="#" class="text-truncate h-100 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#discountDetailModal">
+                                {{$item->name}}
+                            </a>
+                            </div>
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
+                            <div class="text-muted text-small d-lg-none">No. HP</div>
+                            <div class="text-alternate">{{$item->hp}}</div>
+                            </div>
+                            <div class="col-6 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
+                            <div class="text-muted text-small d-lg-none">Alamat</div>
+                            <div class="text-alternate">{{$item->address}}</div>
+                            </div>
+                            @php
+                                $gaji = $item->salary;
+                                $gaji = 'Rp' . number_format($gaji, 0, ',', '.');
+                            @endphp
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
+                            <div class="text-muted text-small d-lg-none">Gaji Harian</div>
+                            <div class="text-alternate">{{$gaji}}</div>
+                            </div>
+                            <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
+                            <div class="text-muted text-small d-lg-none">Jabatan</div>
+                            <div>
+                                <span class="badge rounded-pill bg-outline-primary">{{$item->departement}}</span>
+                            </div>
+                            </div>
+                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
+                            <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
+                                <div class="col">
+                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </div>
+                                <div class="col">
+                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                    @endforeach
                 </div>
             </div>
             </div>
