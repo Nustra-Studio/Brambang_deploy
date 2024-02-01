@@ -166,7 +166,7 @@
         <!-- Discount Detail Modal Start -->
         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            @if ($data !== null)
+            @if ($data->id !== null)
                 @php
                     $subdata = Customer::where('id', $item->id)->first();
                 @endphp
