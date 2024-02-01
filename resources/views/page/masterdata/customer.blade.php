@@ -4,6 +4,10 @@
         <!-- Title and Top Buttons Start -->
         <div class="page-title-container">
         <div class="row g-0">
+            @php
+                use App\Models\Customer;
+                $data = Customer::all();
+            @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
             <div class="w-auto sw-md-30">
@@ -102,21 +106,27 @@
             <div id="checkboxTable">
             <!-- start LOOP -->
             <div class="card mb-2">
+                @if (session('status'))
+                    <div class="alert alert-danger">
+                        {{ session('status')}}
+                    </div>
+                @endif
+                @foreach ($data as $item)
                 <div class="card-body py-4 py-lg-0 sh-lg-8">
                 <div class="row g-0 h-100 align-content-center">
                     <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
                     <div class="text-muted text-small d-lg-none">Nama</div>
                     <a href="#" class="text-truncate h-100 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                        Galang
+                        {{ $item->name }}
                     </a>
                     </div>
                     <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
                     <div class="text-muted text-small d-lg-none">No. HP</div>
-                    <div class="text-alternate">08421539428</div>
+                    <div class="text-alternate">{{$item->hp}}</div>
                     </div>
                     <div class="col-6 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
                     <div class="text-muted text-small d-lg-none">Alamat</div>
-                    <div class="text-alternate">Jln. Nganjuk No.13</div>
+                    <div class="text-alternate">{{$item->address}}</div>
                     </div>
                     <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
                     <div class="text-muted text-small d-lg-none">Jumlah Transaksi</div>
@@ -141,6 +151,8 @@
                     </div>
                 </div>
                 </div>
+                    
+                @endforeach
             </div>
             </div>
         </div>
