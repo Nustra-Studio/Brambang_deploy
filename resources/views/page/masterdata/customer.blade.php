@@ -195,8 +195,8 @@
                     <span>Save</span>
                     <i data-acorn-icon="save"></i>
                 </button>
-            </form>
             </div>
+            </form>
             </div>
         </div>
         </div>
