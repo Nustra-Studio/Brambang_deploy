@@ -175,7 +175,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{Route('customer.update', $subdata->id)}}">
+                <form action="{{Route('customer.update', $subdata->id)}}" method="POST">
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" class="form-control" value="{{$subdata->name}}" />
@@ -195,8 +195,8 @@
                     <span>Save</span>
                     <i data-acorn-icon="save"></i>
                 </button>
+                </form>
             </div>
-            </form>
             </div>
         </div>
         </div>
