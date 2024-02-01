@@ -107,7 +107,7 @@
             <!-- start LOOP -->
             <div class="card mb-2">
                 @if (session('status'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-primary">
                         {{ session('status')}}
                     </div>
                 @endif
