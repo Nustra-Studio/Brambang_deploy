@@ -291,7 +291,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-icon btn-icon-end btn-primary" type="submit" data-bs-dismiss="modal">
+                <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
                     <span>Tambah</span>
                     <i data-acorn-icon="plus"></i>
                 </button>
