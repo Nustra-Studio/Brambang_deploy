@@ -156,7 +156,6 @@
                 </div>
                 </div>
                     
-                @endforeach
             </div>
             </div>
         </div>
@@ -166,31 +165,27 @@
         <!-- Discount Detail Modal Start -->
         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            @if ($data->id !== null)
-                @php
-                    $subdata = Customer::where('id', $item->id)->first();
-                @endphp
-            @endif
+           
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Data Customer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{Route('customer.update', $subdata->id)}}" method="POST">
+                <form action="{{Route('customer.update', $item->id)}}" method="POST">
                     @csrf
                     @method('PUT')
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" name="name" value="{{$subdata->name}}" />
+                    <input type="text" class="form-control" name="name" value="{{$item->name}}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">No hp</label>
-                    <input type="text" class="form-control" name="hp" value="{{$subdata->hp}}" />
+                    <input type="text" class="form-control" name="hp" value="{{$item->hp}}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" name="address" value="{{$subdata->address}}" />
+                    <input type="text" class="form-control" name="address" value="{{$item->address}}" />
                 </div>
                 
             </div>
@@ -204,6 +199,8 @@
             </div>
         </div>
         </div>
+        @endforeach
+
         <!-- Discount Detail Modal End -->
 
         <!-- Delete Modal -->
