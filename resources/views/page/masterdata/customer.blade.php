@@ -226,13 +226,13 @@
                     <label class="form-label">Alamat</label>
                     <input type="text" name="alamat" class="form-control" />
                 </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
-                <span>Tambah</span>
-                <i data-acorn-icon="plus"></i>
-                </a>
+                <button class="btn btn-icon btn-icon-end btn-primary" action="submit">
+                    <span>Tambah</span>
+                    <i data-acorn-icon="plus"></i>
+                </button>
+            </form>
             </div>
             </div>
         </div>
