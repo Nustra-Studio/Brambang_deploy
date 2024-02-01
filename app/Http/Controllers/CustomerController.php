@@ -34,7 +34,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'name' =>$request->nama,
+            'address'=>$request->address,
+            'hp'=>$request->nohp,
+            'status'=>'customer'
+        ];
+        Customer::create($data);
+        return redirect('customer')->with('status', 'Success Input Customer');
     }
 
     /**
@@ -68,7 +75,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

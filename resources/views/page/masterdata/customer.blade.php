@@ -215,15 +215,15 @@
                 <form>
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="nama" class="form-control" />
                 </div>
                 <div class="mb-3 w-100">
                     <label class="form-label">No Hp.</label>
-                    <input type="text" class="form-control">
+                    <input type="text" name="nohp" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="alamat" class="form-control" />
                 </div>
                 </form>
             </div>
