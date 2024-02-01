@@ -237,6 +237,7 @@
             <div class="modal-body">
                 <form action="{{Route('customer.store')}}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" name="nama" class="form-control" />
@@ -251,7 +252,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-icon btn-icon-end btn-primary" action="submit">
+                <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
                     <span>Tambah</span>
                     <i data-acorn-icon="plus"></i>
                 </button>
