@@ -110,6 +110,10 @@
                     <div class="alert alert-primary">
                         {{ session('status')}}
                     </div>
+                @elseif (session('hapus'))
+                    <div class="alert alert-danger">
+                        {{ session('hapus')}}
+                    </div>
                 @endif
                 @foreach ($data as $item)
                 <div class="card-body py-4 py-lg-0 sh-lg-8">

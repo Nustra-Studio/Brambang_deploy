@@ -90,6 +90,6 @@ class CustomerController extends Controller
         $data = Customer::find($id);
 
         $data->delete();
-        return redirect('customer')->with('status', 'Hapus Data');
+        return redirect('customer')->with('hapus', 'Berhasil Hapus Data');
     }
 }
