@@ -85,7 +85,7 @@ class CustomerController extends Controller
         $barang = Customer::find($id);
     
         $barang->update($validateData);
-        return redirect('customer')->with('success', 'Edit data Berhasil');
+        return redirect('customer')->with('status', 'Edit data Berhasil');
     }
 
     /**
