@@ -207,8 +207,12 @@
                 Konfirmasi Hapus Data
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger border shadow">Hapus</button>
-                <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                <form action="{{Route('customer.destroy', $item->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger border shadow" type="submit">Hapus</button>
+                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                </form>
             </div>
             </div>
         </div>

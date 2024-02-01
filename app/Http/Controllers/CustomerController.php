@@ -87,6 +87,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Customer::find($id);
+
+        $data->delete();
+        return redirect('sucess')->with('status', 'Hapus Data');
     }
 }
