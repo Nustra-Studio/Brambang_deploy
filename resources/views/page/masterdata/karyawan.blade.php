@@ -263,7 +263,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{Route('karyawan.store')}}">
+                <form action="{{Route('karyawan.store')}}" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" name="name" class="form-control" />
