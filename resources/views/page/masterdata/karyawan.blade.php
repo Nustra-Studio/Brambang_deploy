@@ -253,6 +253,7 @@
         </div>
         <!-- Delete Modal End -->
 
+        {{-- add karyawan --}}
         <!-- Discount Add Modal Start -->
         <div class="modal fade" id="addKaryawanModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -262,38 +263,38 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{Route('karyawan.store')}}">
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="name" class="form-control" />
                 </div>
                 <div class="mb-3 w-100">
                     <label class="form-label">No Hp.</label>
-                    <input type="text" class="form-control">
+                    <input type="text" name="hp" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" />
+                    <input type="text" name="address" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Gaji Harian</label>
-                    <input type="text" class="form-control" />
+                    <input type="number" name="salary" class="form-control" />
                 </div>
                 <div class="mb-3 w-100">
                     <label class="form-label">Jabatan</label>
-                    <select class="form-select" aria-placeholder="Pilih jabatan">
+                    <select class="form-select" name="departement" aria-placeholder="Pilih jabatan">
                     <option value="Inactive">Karyawan</option>
                     <option value="Active">Manager</option>
                     <option value="Expired">Supervisor</option>
                     </select>
                 </div>
-                </form>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
-                <span>Tambah</span>
-                <i data-acorn-icon="plus"></i>
-                </a>
+                <button class="btn btn-icon btn-icon-end btn-primary" type="submit" data-bs-dismiss="modal">
+                    <span>Tambah</span>
+                    <i data-acorn-icon="plus"></i>
+                </button>
+                </form>
             </div>
             </div>
         </div>
