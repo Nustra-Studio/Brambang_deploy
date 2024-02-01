@@ -176,6 +176,8 @@
             </div>
             <div class="modal-body">
                 <form action="{{Route('customer.update', $subdata->id)}}" method="POST">
+                    @csrf
+                    @method('PUT')
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" class="form-control" name="name" value="{{$subdata->name}}" />
@@ -191,7 +193,7 @@
                 
             </div>
             <div class="modal-footer border-1">
-                <button class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal" type="submit">
+                <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
                     <span>Save</span>
                     <i data-acorn-icon="save"></i>
                 </button>
@@ -237,7 +239,6 @@
             <div class="modal-body">
                 <form action="{{Route('customer.store')}}" method="POST">
                 @csrf
-                @method('PUT')
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" name="nama" class="form-control" />

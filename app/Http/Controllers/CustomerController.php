@@ -81,8 +81,10 @@ class CustomerController extends Controller
             'address' => 'required',
             'hp' => 'required'
         ]);
+
+        $barang == Barang::find($id);
     
-        $customer->update($validateData);
+        $barang->update($validateData);
         return redirect('customer')->with('success', 'Edit data Berhasil');
     }
 
