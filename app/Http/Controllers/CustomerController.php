@@ -37,7 +37,7 @@ class CustomerController extends Controller
     {
         $data = [
             'name' =>$request->nama,
-            'address'=>$request->address,
+            'address'=>$request->alamat,
             'hp'=>$request->nohp,
             'status'=>'customer'
         ];
