@@ -199,7 +199,6 @@
             </div>
         </div>
         </div>
-        @endforeach
 
         <!-- Discount Detail Modal End -->
 
@@ -223,6 +222,7 @@
                 </form>
             </div>
             </div>
+                @endforeach
         </div>
         </div>
         <!-- Delete Modal End -->
