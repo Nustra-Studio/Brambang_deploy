@@ -167,7 +167,6 @@
         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             @php
-                use App\Models\Customer;
                 $subdata = Customer::where('id', $item->id)->first();
             @endphp
             <div class="modal-content">
