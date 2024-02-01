@@ -76,7 +76,14 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        $validateData = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'hp' => 'required'
+        ]);
+    
+        $customer->update($validateData);
+        return redirect('customer')->with('success', 'Edit data Berhasil');
     }
 
     /**

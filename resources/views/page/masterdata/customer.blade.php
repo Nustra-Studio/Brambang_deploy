@@ -166,33 +166,37 @@
         <!-- Discount Detail Modal Start -->
         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
+            @php
+                use App\Models\Customer;
+                $subdata = Customer::where('id', $item->id)->first();
+            @endphp
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Data Customer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{Route('customer.update', $subdata->id)}}">
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
-                    <input type="text" class="form-control" value="Galang" />
+                    <input type="text" class="form-control" value="{{$subdata->name}}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">No hp</label>
-                    <input type="text" class="form-control" value="08421539428" />
+                    <input type="text" class="form-control" value="{{$subdata->hp}}" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
-                    <input type="text" class="form-control" value="Jln. Warujayeng" />
+                    <input type="text" class="form-control" value="{{$subdata->address}}" />
                 </div>
                 
-                </form>
             </div>
             <div class="modal-footer border-1">
-                <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
-                <span>Save</span>
-                <i data-acorn-icon="save"></i>
-                </a>
+                <button class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal" type="submit">
+                    <span>Save</span>
+                    <i data-acorn-icon="save"></i>
+                </button>
+            </form>
             </div>
             </div>
         </div>
