@@ -94,19 +94,19 @@
         <div class="row">
         <div class="col-12 mb-5">
             <div class="card mb-2 bg-transparent no-shadow d-none d-lg-block">
-            <div class="card-body pt-0 pb-0 sh-3">
-                <div class="row g-0 h-100 align-content-center">
-                <div class="col-12 col-lg-2 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
-                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">No. HP</div>
-                <div class="col-6 col-lg-4 d-flex align-items-center text-alternate text-medium text-muted text-small">Alamat</div>
-                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Gaji Harian</div>
-                <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Jabatan</div>
+                <div class="card-body pt-0 pb-0 sh-3">
+                    <div class="row g-0 h-100 align-content-center">
+                    <div class="col-12 col-lg-2 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
+                    <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">No. HP</div>
+                    <div class="col-6 col-lg-4 d-flex align-items-center text-alternate text-medium text-muted text-small">Alamat</div>
+                    <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Gaji Harian</div>
+                    <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Jabatan</div>
+                    </div>
                 </div>
             </div>
-            </div>
+            @foreach ($data as $item)
             <div id="checkboxTable">
                 <!-- start LOOP -->
-                @foreach ($data as $item)
                 <div class="card">
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
