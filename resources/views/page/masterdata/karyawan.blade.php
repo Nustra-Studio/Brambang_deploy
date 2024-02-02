@@ -146,7 +146,7 @@
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
                             <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
                                 <div class="col">
-                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal{{$item->name}}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </div>
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="editUserModal{{$item->name}}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                             <div class="modal-header">
