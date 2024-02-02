@@ -104,14 +104,14 @@
                     </div>
                 </div>
             </div>
+            @if (session('success'))
+                <div class="alert alert-primary">
+                    {{session('success')}}
+                </div>
+            @endif
+            @foreach ($data as $item)
             <div id="checkboxTable">
                 <!-- start LOOP -->
-                @if (session('success'))
-                    <div class="alert alert-primary">
-                        {{session('success')}}
-                    </div>
-                @endif
-                @foreach ($data as $item)
                 <div class="card mb-2">
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
