@@ -40,7 +40,7 @@ class KaryawanController extends Controller
             'address' => $request->address,
             'salary' => $request->salary,
             'hp' => $request->hp,
-            'departement' => $request->departement,
+            'department' => $request->department,
             'status' => 'karyawan'
         ]);
     
@@ -84,7 +84,7 @@ class KaryawanController extends Controller
             'address' => 'required',
             'hp' => 'required',
             'salary' => 'required',
-            'departement' => 'required'
+            'department' => 'required'
         ]);
 
         $barang = Karyawan::Find($id);
