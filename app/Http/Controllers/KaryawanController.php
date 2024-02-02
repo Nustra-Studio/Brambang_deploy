@@ -102,6 +102,7 @@ class KaryawanController extends Controller
     {
         $barang = Karyawan::find($id);
         $barang->delete();
-        redirect('karyawan');
+        
+        return redirect('karyawan')->with('hapus', 'Hapus Data Karyawan');
     }
 }
