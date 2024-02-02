@@ -116,10 +116,10 @@
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
                             <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
-                            <div class="text-muted text-small d-lg-none">Nama</div>
-                            <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                                {{$item->name}}
-                            </a>
+                                <div class="text-muted text-small d-lg-none">Nama</div>
+                                <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
+                                    {{$item->name}}
+                                </a>
                             </div>
                             @php
                                 $basic_price = $item->basic_price;
