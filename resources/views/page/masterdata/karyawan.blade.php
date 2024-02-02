@@ -106,7 +106,12 @@
             </div>
             <div id="checkboxTable">
                 <!-- start LOOP -->
-                <div class="card">
+                <div class="card mb-2">
+                    @if (session('success'))
+                        <div class="alert alert-primary">
+                            {{session('success')}}
+                        </div>
+                    @endif
                     @foreach ($data as $item)
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
@@ -154,6 +159,78 @@
                             </div>
                         </div>
                     </div>
+                
+                    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold">Edit Karyawan</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{Route('karyawan.update', $item->id)}}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    <label class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" value="{{$item->name}}"/>
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">No Hp.</label>
+                                    <input type="text" name="hp" class="form-control" value="{{$item->hp}}">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Alamat</label>
+                                    <input type="text" name="address" class="form-control" value="{{$item->address}}"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Gaji Harian</label>
+                                    <input type="number" name="salary" class="form-control" value="{{$item->salary}}"/>
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Jabatan</label>
+                                    <select class="form-select" name="departement" aria-placeholder="Pilih jabatan">
+                                        <option value="Inactive">Karyawan</option>
+                                        <option value="Active">Manager</option>
+                                        <option value="Expired">Supervisor</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
+                                    <span>Tambah</span>
+                                    <i data-acorn-icon="plus"></i>
+                                </button>
+                            </div>
+                        </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <!-- Discount Detail Modal End -->
+            
+                    <!-- Delete Modal -->
+                    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title fw-bold">Hapus Data?</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Konfirmasi Hapus Data
+                        </div>
+                        <div class="modal-footer">
+                            <form action="{{route('karyawan.destroy', $item->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger border shadow" type="submit">Hapus</button>
+                                <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,77 +238,7 @@
         <!-- Discount List End -->
 
         <!-- Discount Detail Modal Start -->
-        <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold">Edit Karyawan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{Route('karyawan.update', $item->id)}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-3">
-                        <label class="form-label">Nama</label>
-                        <input type="text" name="name" class="form-control" value="{{$item->name}}"/>
-                    </div>
-                    <div class="mb-3 w-100">
-                        <label class="form-label">No Hp.</label>
-                        <input type="text" name="hp" class="form-control" value="{{$item->hp}}">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Alamat</label>
-                        <input type="text" name="address" class="form-control" value="{{$item->address}}"/>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Gaji Harian</label>
-                        <input type="number" name="salary" class="form-control" value="{{$item->salary}}"/>
-                    </div>
-                    <div class="mb-3 w-100">
-                        <label class="form-label">Jabatan</label>
-                        <select class="form-select" name="departement" aria-placeholder="Pilih jabatan">
-                            <option value="Inactive">Karyawan</option>
-                            <option value="Active">Manager</option>
-                            <option value="Expired">Supervisor</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
-                        <span>Tambah</span>
-                        <i data-acorn-icon="plus"></i>
-                    </button>
-                </div>
-            </form>
-                </div>
-                
-            </div>
-        </div>
-        <!-- Discount Detail Modal End -->
-
-        <!-- Delete Modal -->
-        <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title fw-bold">Hapus Data?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Konfirmasi Hapus Data
-            </div>
-            <div class="modal-footer">
-                <form action="{{route('karyawan.destroy', $item->id)}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button class="btn btn-danger border shadow" type="submit">Hapus</button>
-                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
-                </form>
-            </div>
-            </div>
-        </div>
-        </div>
+        
                     @endforeach
 
         <!-- Delete Modal End -->
