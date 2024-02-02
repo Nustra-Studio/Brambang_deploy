@@ -135,7 +135,7 @@
                             <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
                             <div class="text-muted text-small d-lg-none">Jabatan</div>
                             <div>
-                                <span class="badge rounded-pill bg-outline-primary">{{$item->department}}</span>
+                                <span class="badge rounded-pill bg-outline-primary"></span>
                             </div>
                             </div>
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
@@ -208,7 +208,6 @@
                 
             </div>
         </div>
-        @endforeach
         <!-- Discount Detail Modal End -->
 
         <!-- Delete Modal -->
@@ -223,12 +222,18 @@
                 Konfirmasi Hapus Data
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger border shadow">Hapus</button>
-                <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                <form action="{{Route('karyawan.destroy', $item->id)}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger border shadow" type="submit">Hapus</button>
+                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                </form>
             </div>
             </div>
         </div>
         </div>
+        @endforeach
+
         <!-- Delete Modal End -->
 
         {{-- add karyawan --}}

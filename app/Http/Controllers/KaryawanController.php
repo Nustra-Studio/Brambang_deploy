@@ -100,6 +100,8 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $barang = Karyawan::find($id);
+        $barang->delete();
+        reditect('karyawan')->with('success', 'Hapus data karyawan');
     }
 }
