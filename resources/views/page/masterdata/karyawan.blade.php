@@ -104,10 +104,10 @@
                     </div>
                 </div>
             </div>
-            @foreach ($data as $item)
             <div id="checkboxTable">
                 <!-- start LOOP -->
                 <div class="card">
+                    @foreach ($data as $item)
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
                             <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
@@ -232,7 +232,7 @@
             </div>
         </div>
         </div>
-        @endforeach
+                    @endforeach
 
         <!-- Delete Modal End -->
 
