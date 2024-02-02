@@ -135,7 +135,7 @@
                             <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
                             <div class="text-muted text-small d-lg-none">Jabatan</div>
                             <div>
-                                <span class="badge rounded-pill bg-outline-primary">{{$item->departement}}</span>
+                                <span class="badge rounded-pill bg-outline-primary">Manager</span>
                             </div>
                             </div>
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
@@ -156,81 +156,59 @@
                     </div>
                 </div>
             </div>
-            @endforeach
         </div>
         </div>
         <!-- Discount List End -->
 
         <!-- Discount Detail Modal Start -->
         <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Discount Detail</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                <div class="mb-3">
-                    <label class="form-label">Code</label>
-                    <input type="text" class="form-control" value="SUMMERSALE" />
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Edit Karyawan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3 w-100">
-                    <label class="form-label">Type</label>
-                    <select class="select-single-no-search">
-                    <option label="&nbsp;"></option>
-                    <option value="Fixed Amount">Fixed Amount</option>
-                    <option value="Free Shipping">Free Shipping</option>
-                    <option value="Percentage" selected>Percentage</option>
-                    </select>
+                <div class="modal-body">
+                    <form action="{{Route('karyawan.update')}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="mb-3">
+                        <label class="form-label">Nama</label>
+                        <input type="text" name="name" class="form-control" value="{{$item->name}}"/>
+                    </div>
+                    <div class="mb-3 w-100">
+                        <label class="form-label">No Hp.</label>
+                        <input type="text" name="hp" class="form-control" value="{{$item->hp}}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Alamat</label>
+                        <input type="text" name="address" class="form-control" value="{{$item->address}}"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Gaji Harian</label>
+                        <input type="number" name="salary" class="form-control" value="{{$item->salary}}"/>
+                    </div>
+                    <div class="mb-3 w-100">
+                        <label class="form-label">Jabatan</label>
+                        <select class="form-select" name="departement" aria-placeholder="Pilih jabatan">
+                        <option value="Inactive">Karyawan</option>
+                        <option value="Active">Manager</option>
+                        <option value="Expired">Supervisor</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Start</label>
-                    <input type="text" class="form-control date-picker-close" value="06/01/2020" />
+                <div class="modal-footer">
+                    <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
+                        <span>Tambah</span>
+                        <i data-acorn-icon="plus"></i>
+                    </button>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">End</label>
-                    <input type="text" class="form-control date-picker-close" value="07/01/2020" />
+            </form>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Limit</label>
-                    <input type="text" class="form-control" value="5000" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Usage</label>
-                    <input type="text" class="form-control" value="2723" readonly />
-                </div>
-                <div class="mb-3 w-100">
-                    <label class="form-label">Status</label>
-                    <select class="select-single-no-search">
-                    <option label="&nbsp;"></option>
-                    <option value="Active" selected>Active</option>
-                    <option value="Inactive">Inactive</option>
-                    <option value="Expired">Expired</option>
-                    </select>
-                </div>
-                </form>
-            </div>
-            <div class="modal-footer border-0">
-                <a
-                href="#"
-                class="btn btn-icon btn-icon-only btn-outline-primary"
-                data-delay='{"show":"500", "hide":"0"}'
-                data-bs-toggle="tooltip"
-                data-bs-placement="top"
-                title="Delete"
-                data-bs-dismiss="modal"
-                >
-                <i data-acorn-icon="bin"></i>
-                </a>
-                <a href="#" class="btn btn-icon btn-icon-end btn-primary" data-bs-dismiss="modal">
-                <span>Save</span>
-                <i data-acorn-icon="save"></i>
-                </a>
-            </div>
+                
             </div>
         </div>
-        </div>
+        @endforeach
         <!-- Discount Detail Modal End -->
 
         <!-- Delete Modal -->

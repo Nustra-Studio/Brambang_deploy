@@ -79,7 +79,17 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = ([
+            'name' => 'required',
+            'address' => 'required',
+            'hp' => 'required',
+            'salary' => 'required',
+            'departement' => 'required'
+        ]);
+
+        $barang = Karyawan::Find($id);
+        $barang->update($validateData);
+        redirect('karyawan')->with('success', 'Telah Edit Data');
     }
 
     /**
