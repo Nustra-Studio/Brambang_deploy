@@ -40,7 +40,8 @@ class KaryawanController extends Controller
             'address' => $request->address,
             'salary' => $request->salary,
             'hp' => $request->hp,
-            'departement' => $request->departement
+            'departement' => $request->departement,
+            'status' => 'karyawan'
         ]);
     
         Karyawan::create($data);
