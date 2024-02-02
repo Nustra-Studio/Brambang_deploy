@@ -89,7 +89,7 @@ class KaryawanController extends Controller
 
         $barang = Karyawan::Find($id);
         $barang->update($validateData);
-        redirect('karyawan')->with('success', 'Telah Edit Data');
+        return redirect('karyawan')->with('success', 'Telah Edit Data');
     }
 
     /**
