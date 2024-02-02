@@ -104,15 +104,15 @@
                     </div>
                 </div>
             </div>
-            @if (session('success'))
-                <div class="alert alert-primary">
-                    {{session('success')}}
-                </div>
-            @endif
-            @foreach ($data as $item)
             <div id="checkboxTable">
                 <!-- start LOOP -->
                 <div class="card mb-2">
+                    @if (session('success'))
+                        <div class="alert alert-primary">
+                            {{session('success')}}
+                        </div>
+                    @endif
+                    @foreach ($data as $item)
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
                             <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
@@ -159,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                
+                    @endforeach
                     <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -239,7 +239,6 @@
 
         <!-- Discount Detail Modal Start -->
         
-                    @endforeach
 
         <!-- Delete Modal End -->
 
