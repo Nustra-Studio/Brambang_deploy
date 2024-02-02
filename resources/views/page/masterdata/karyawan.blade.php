@@ -104,9 +104,9 @@
                 </div>
             </div>
             </div>
+            @foreach ($data as $item)
             <div id="checkboxTable">
                 <!-- start LOOP -->
-                @foreach ($data as $item)
             <div class="card mb-2">
                 <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
@@ -153,10 +153,10 @@
                             </div>
                             </div>
                         </div>
-                @endforeach
+                    </div>
                 </div>
             </div>
-            </div>
+            @endforeach
         </div>
         </div>
         <!-- Discount List End -->
