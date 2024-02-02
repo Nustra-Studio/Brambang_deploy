@@ -106,8 +106,8 @@
             </div>
             <div id="checkboxTable">
                 <!-- start LOOP -->
+                @foreach ($data as $item)
                 <div class="card mb-2">
-                    @foreach ($data as $item)
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
                             <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
