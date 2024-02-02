@@ -222,7 +222,7 @@
                 Konfirmasi Hapus Data
             </div>
             <div class="modal-footer">
-                <form action="{{Route('karyawan.destroy', $item->id)}}" method="POST">
+                <form action="{{route('karyawan.destroy', $item->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger border shadow" type="submit">Hapus</button>
