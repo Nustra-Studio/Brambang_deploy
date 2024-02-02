@@ -206,32 +206,33 @@
                             
                         </div>
                     </div>
+                    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold">Hapus Data?</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Konfirmasi Hapus Data
+                            </div>
+                            <div class="modal-footer">
+                                <form action="{{route('karyawan.destroy', $item->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger border shadow" type="submit">Hapus</button>
+                                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                     @endforeach
                     
                     <!-- Discount Detail Modal End -->
             
                     <!-- Delete Modal -->
-                    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fw-bold">Hapus Data?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Konfirmasi Hapus Data
-                        </div>
-                        <div class="modal-footer">
-                            <form action="{{route('karyawan.destroy', $item->id)}}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger border shadow" type="submit">Hapus</button>
-                                <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
-                            </form>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
