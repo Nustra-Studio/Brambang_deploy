@@ -36,9 +36,10 @@ class KaryawanController extends Controller
     public function store(Request $request)
     {
         $data = ([
-            'name' => $request->nama,
+            'name' => $request->name,
             'address' => $request->address,
             'salary' => $request->salary,
+            'hp' => $request->hp,
             'departement' => $request->departement
         ]);
     
