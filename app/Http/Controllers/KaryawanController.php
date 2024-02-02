@@ -79,7 +79,7 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validateData = ([
+        $validateData = $request->validate([
             'name' => 'required',
             'address' => 'required',
             'hp' => 'required',
@@ -102,7 +102,7 @@ class KaryawanController extends Controller
     {
         $barang = Karyawan::find($id);
         $barang->delete();
-        
+
         return redirect('karyawan')->with('hapus', 'Hapus Data Karyawan');
     }
 }
