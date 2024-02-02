@@ -144,7 +144,7 @@
                             <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
                             <div class="text-muted text-small d-lg-none">Jabatan</div>
                             <div>
-                                <span class="badge rounded-pill bg-outline-primary"></span>
+                                <span class="badge rounded-pill bg-outline-primary">{{$item->department}}</span>
                             </div>
                             </div>
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
@@ -192,10 +192,10 @@
                                 </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Jabatan</label>
-                                    <select class="form-select" name="departement" aria-placeholder="Pilih jabatan">
-                                        <option value="Inactive">Karyawan</option>
-                                        <option value="Active">Manager</option>
-                                        <option value="Expired">Supervisor</option>
+                                    <select class="form-select" name="department" aria-placeholder="Pilih jabatan">
+                                        <option @if ($item->department === 'Karyawan') selected @endif value="Karyawan">Karyawan</option>
+                                        <option @if ($item->department === 'Manager') selected @endif value="Manager">Manager</option>
+                                        <option @if ($item->department === 'Supervisor') selected @endif value="Supervisor">Supervisor</option>
                                     </select>
                                 </div>
                             </div>
@@ -232,22 +232,10 @@
                         </div>
                     </div>
                     @endforeach
-                    
-                    <!-- Discount Detail Modal End -->
-            
-                    <!-- Delete Modal -->
-                    
                 </div>
             </div>
         </div>
         </div>
-        <!-- Discount List End -->
-
-        <!-- Discount Detail Modal Start -->
-        
-
-        <!-- Delete Modal End -->
-
         {{-- add karyawan --}}
         <!-- Discount Add Modal Start -->
         <div class="modal fade" id="addKaryawanModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -279,9 +267,9 @@
                 <div class="mb-3 w-100">
                     <label class="form-label">Jabatan</label>
                     <select class="form-select" name="department" aria-placeholder="Pilih jabatan">
-                    <option value="Inactive">Karyawan</option>
-                    <option value="Active">Manager</option>
-                    <option value="Expired">Supervisor</option>
+                    <option value="Karyawan">Karyawan</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Supervisor">Supervisor</option>
                     </select>
                 </div>
             </div>
