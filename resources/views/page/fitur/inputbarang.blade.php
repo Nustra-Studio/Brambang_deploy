@@ -116,10 +116,10 @@
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
                             <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
-                            <div class="text-muted text-small d-lg-none">Nama</div>
-                            <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                                {{$item->name}}
-                            </a>
+                                <div class="text-muted text-small d-lg-none">Nama</div>
+                                <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
+                                    {{$item->name}}
+                                </a>
                             </div>
                             @php
                                 $basic_price = $item->basic_price;
@@ -148,12 +148,12 @@
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
                             <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
                                 <div class="col">
-                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
+                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal{{$item->id}}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </div>
                                 <div class="col">
-                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{$item->id}}">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </div>
@@ -163,7 +163,7 @@
                     </div>
 
                             <!-- Discount Detail Modal Start -->
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -214,7 +214,7 @@
             <!-- Discount Detail Modal End -->
     
             <!-- Delete Modal -->
-            <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="deleteUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 
                     <div class="modal-content">

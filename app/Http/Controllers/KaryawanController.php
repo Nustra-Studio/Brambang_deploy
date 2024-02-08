@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Karyawan;
 
 class KaryawanController extends Controller
 {
@@ -34,7 +35,17 @@ class KaryawanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = ([
+            'name' => $request->name,
+            'address' => $request->address,
+            'salary' => $request->salary,
+            'hp' => $request->hp,
+            'department' => $request->department,
+            'status' => 'karyawan'
+        ]);
+    
+        Karyawan::create($data);
+        return redirect('karyawan')->with('success', 'Success Daftar Karyawan');
     }
 
     /**
@@ -68,7 +79,17 @@ class KaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'hp' => 'required',
+            'salary' => 'required',
+            'department' => 'required'
+        ]);
+
+        $barang = Karyawan::Find($id);
+        $barang->update($validateData);
+        return redirect('karyawan')->with('success', 'Telah Edit Data');
     }
 
     /**
@@ -79,6 +100,9 @@ class KaryawanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $barang = Karyawan::find($id);
+        $barang->delete();
+
+        return redirect('karyawan')->with('hapus', 'Hapus Data Karyawan');
     }
 }

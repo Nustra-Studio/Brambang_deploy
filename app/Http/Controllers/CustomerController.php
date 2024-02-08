@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Customer;
 
 class CustomerController extends Controller
 {
@@ -34,7 +35,14 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'name' =>$request->nama,
+            'address'=>$request->alamat,
+            'hp'=>$request->nohp,
+            'status'=>'customer'
+        ];
+        Customer::create($data);
+        return redirect('customer')->with('status', 'Success Input Customer');
     }
 
     /**
@@ -68,7 +76,16 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'hp' => 'required'
+        ]);
+
+        $barang = Customer::find($id);
+    
+        $barang->update($validateData);
+        return redirect('customer')->with('status', 'Edit data Berhasil');
     }
 
     /**
@@ -79,6 +96,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Customer::find($id);
+
+        $data->delete();
+        return redirect('customer')->with('hapus', 'Berhasil Hapus Data');
     }
 }

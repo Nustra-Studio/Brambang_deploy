@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::get('/inputbarang', function () {
     return view('page.fitur.inputbarang');
 });
+
 Route::resource('/barang', BarangController::class);
 Route::resource('/customer', CustomerController::class);
 Route::resource('/karyawan', KaryawanController::class);
