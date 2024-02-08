@@ -297,6 +297,6 @@
                         </div>
                         </div>
 
-        <!-- Discount Add Modal End -->
+         <!-- Discount Add Modal End -->
     </div>
     @endsection
