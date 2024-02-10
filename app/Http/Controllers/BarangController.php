@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use App\Models\history;
+use App\Models\keuangan;
 
 class BarangController extends Controller
 {
@@ -14,6 +16,7 @@ class BarangController extends Controller
      */
     public function index()
     {
+        $data = Barang::all();
         return view('page.masterdata.barang');
     }
 
@@ -40,10 +43,31 @@ class BarangController extends Controller
             'price'=>$request->price,
             'basic_price'=>$request->basic_price,
             'qty'=>$request->qty,
-            'unit'=>$request->unit
+            'unit'=>$request->unit,
+            'information'=>$request->category
         ];
         Barang::create($data);
-        return redirect('inputbarang')->with('status', 'success insert item');
+        $data_history = [
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'basic_price'=>$request->basic_price,
+            'qty'=>$request->qty,
+            'unit'=>$request->unit,
+            'information'=> 'barang_masuk'
+        ];
+        history::create($data_history);
+        $category = $request->category;
+        if($category == "bahan_baku"){
+            $cost = $request->qty * $request->price;
+            $data = [
+                'name'=>$request->name,
+                'money'=>$cost,
+                'status'=>'cost',
+                'information'=>"buy_product",
+            ];
+            keuangan::create($data);
+        }
+        return redirect('barang')->with('status', 'success insert item');
     }
 
     /**
@@ -80,18 +104,65 @@ class BarangController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'price'=>'required',
-            'basic_price'=>'required',
             'qty'=>'required',
-            'unit'=>'required'
             // Add other validation rules for your fields
         ]);
 
         // Find the record by ID
         $barang = Barang::find($id);
-
-        // Update the record with the new data
         $barang->update($validatedData);
-        return redirect('inputbarang')->with('status', 'success Update item');
+        $category = $barang->information;
+        if($category == "bahan_baku"){
+                if($barang->qty < $request->qty){
+                    $money = $request->qty * $request->price;
+                    $uang = keuangan::where('name',$barang->name)->first();
+                    $uang->money = $money + $uang->money; // Update qty dengan nilai yang diterima dari form
+                    $uang->save();
+                }
+                else{
+                    $money = $request->qty * $request->price;
+                    $uang = keuangan::where('name',$barang->name)->first();
+                    $uang->money = $money - $uang->money; // Update qty dengan nilai yang diterima dari form
+                    $uang->save();
+                }
+                $data_history = [
+                    'name'=>$request->name,
+                    'price'=>$request->price,
+                    'basic_price'=>$request->basic_price,
+                    'qty'=>$request->qty,
+                    'unit'=>$request->unit,
+                    'information'=> 'barang_masuk'
+                ];
+                history::create($data_history);
+            }
+        // Update the record with the new data
+        return redirect('barang')->with('status', 'success Update item');
+    }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $limit = $request->input('limit', 5); // Default limit is 10, you can change it as needed
+        
+        $data = Barang::where('name', 'LIKE', "%$query%")->take($limit)->get();
+        
+        return response()->json($data, 200);
+    }
+    public function data(Request $request){
+        $data = [];
+    
+        if($request->filled('q')){
+            $data = Barang::select("name", "id")
+                        ->where('name', 'LIKE', '%'. $request->get('q'). '%')
+                        ->get();
+        }
+        elseif($request->filled('namaproduct')){
+            $data = barang::where('id', $request->get('namaproduct'))->first();
+        }
+        else{
+            $data = Barang::select("name", "id")
+                        ->get();
+        }
+        return response()->json($data);
     }
 
     /**
@@ -106,6 +177,6 @@ class BarangController extends Controller
 
         // Delete the record
         $yourModel->delete();
-        return redirect('inputbarang')->with('status', 'success Update item');
+        return redirect('barang')->with('status', 'success Update item');
     }
 }

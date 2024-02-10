@@ -5,17 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class transaction extends Model
+class history extends Model
 {
     use HasFactory;
-    protected $table = 'transactions';
+    protected $table = 'histories';
     protected $fillable =[
         'name',
         'price',
-        'id_barang',
-        'action',
-        'id_customer',
+        'basic_price',
+        'status',
+        'qty',
         'information',
-        'status'
+        'unit',
+        'more'
     ];
 }

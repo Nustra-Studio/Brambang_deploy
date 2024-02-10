@@ -393,3 +393,6 @@
             </div>
         </div>
     @endsection
+    @push('custome-script')
+        
+    @endpush

@@ -6,6 +6,7 @@
         <div class="row g-0">
             @php
                 use App\Models\Barang;
+                use App\Models\Customer;
                $data = Barang::all();
             @endphp
             <!-- Title Start -->
@@ -15,7 +16,7 @@
                 <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                 <span class="text-small align-middle">Home</span>
                 </a>
-                <h1 class="mb-0 pb-0 display-4" id="title">Input Produk</h1>
+                <h1 class="mb-0 pb-0 display-4" id="title">Penjualan</h1>
             </div>
             </div>
             <!-- Title End -->
@@ -30,7 +31,7 @@
                 data-bs-target="#addProdukModal"
             >
                 <i data-acorn-icon="plus"></i>
-                <span>Tambah Produk</span>
+                <span>Tambah Penjualan</span>
             </button>
             
             </div>
@@ -213,30 +214,6 @@
             </div>
             <!-- Discount Detail Modal End -->
     
-            <!-- Delete Modal -->
-            <div class="modal fade" id="deleteUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title fw-bold">Hapus Data?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Konfirmasi Hapus Data
-                    </div>
-                    <div class="modal-footer">
-                        <form method="POST" action="{{ route('barang.destroy', $item->id) }}">
-                            @csrf
-                            @method('DELETE')
-                        <button type="submit" class="btn btn-danger border shadow">Hapus</button>
-                        <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
-                    </form>
-                    </div>
-                    </div>
-
-            </div>
-            </div>
             <!-- Delete Modal End -->
     
 
@@ -256,32 +233,46 @@
                             </div>
                             <div class="modal-body">
                                 <form
-                                    action="{{route('barang.store')}}"
+                                    action="{{route('transaction.store')}}"
                                     method="POST"
                                 >
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label">Nama</label>
-                                    <input type="text" name="name" class="form-control" />
-                                </div>
-                                <div class="mb-3 w-100">
-                                    <label class="form-label">Harga Beli</label>
-                                    <input type="text" name="basic_price" class="form-control">
+                                    @php
+                                        $barang = Barang::where('information','produk')->get();
+                                    @endphp
+                                    <label class="form-label">Product</label>
+                                    <select name="produk" class="form-select" id="product_select">
+                                        @foreach ($barang as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Harga Jual</label>
+                                    <label class="form-label">Harga</label>
                                     <input type="text" name="price" class="form-control" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Stok</label>
+                                    <label class="form-label">Jumlah</label>
                                     <input type="text" name="qty" class="form-control" />
                                 </div>
                                 <div class="mb-3 w-100">
-                                    <label class="form-label">Satuan</label>
-                                    <select name="unit" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="PCS">PCS</option>
-                                        <option value="KG">KG</option>
-                                        <option value="Liter">Liter</option>
+                                    <label class="form-label">Customer</label>
+                                    <select name="customer" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="non">Non</option>
+                                        @php
+                                            $customer = Customer::all();
+                                        @endphp
+                                        @foreach ($customer as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Pembayaran</label>
+                                    <select name="metode" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="Lunas">Lunas</option>
+                                        <option value="tidak_lunas">Belum Lunas</option>
                                     </select>
                                 </div>
                                 
@@ -300,3 +291,36 @@
          <!-- Discount Add Modal End -->
     </div>
     @endsection
+    @push('custom-scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function updateprice() {
+            const product = document.getElementById('product_select').value;
+            const url = `/dataresource/barang/?namaproduct=${product}`; // Corrected URL assuming it's the correct endpoint
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(data) {
+                    console.log(data);
+                    // Assuming the response data contains the price
+                    const price = data.price; // Adjust this based on your actual response structure
+                    // Update the price field in the form
+                    $('input[name="price"]').val(price);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                }
+            });
+        }
+    
+        function initialize() {
+            const selectElement = document.getElementById("product_select");
+            selectElement.addEventListener('change', updateprice);
+            updateprice();
+        }
+        document.addEventListener('DOMContentLoaded', initialize);
+    </script>
+    
+    <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('js/data-table.js') }}"></script>

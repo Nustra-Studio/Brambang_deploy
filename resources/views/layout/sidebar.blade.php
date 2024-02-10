@@ -17,7 +17,7 @@
     <!-- User Menu Start -->
     <div class="user-container d-flex">
         <a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <img src="icon/circle-user-solid.svg" class="profile" alt="profile">
+        <img src="{{asset('icon/circle-user-solid.svg')}}" class="profile" alt="profile">
         <div class="name">Galang Wira</div>
         </a>
         <div class="dropdown-menu dropdown-menu-end user-menu wide">
@@ -61,9 +61,9 @@
             </a>
         </li>
         <li>
-            <a href="{{url('/inputbarang')}}" data-href="Products.html">
+            <a href="{{url('/transaction')}}" data-href="Products.html">
             <i data-acorn-icon="duplicate" class="icon" data-acorn-size="18"></i>
-            <span class="label">Input Produk</span>
+            <span class="label">Penjualan</span>
             </a>
         </li>
         <li>
@@ -97,17 +97,17 @@
             </a>
             <ul id="histori">
             <li>
-                <a href="MasterKaryawan.html">
+                <a href="{{url('/history/barangmasuk')}}">
                 <span class="label">Barang Masuk</span>
                 </a>
             </li>
             <li>
-                <a href="Products.Detail.html">
+                <a href="{{url('/history/barangkeluar')}}">
                 <span class="label">Barang Keluar</span>
                 </a>
             </li>
             <li>
-                <a href="Products.Detail.html">
+                <a href="{{url('/history/transaction')}}">
                 <span class="label">Transaksi</span>
                 </a>
             </li>
@@ -115,7 +115,7 @@
         </li>
         
         <li>
-            <a href="#produksi" data-href="Products.html">
+            <a href="{{url('/production')}}">
             <i data-acorn-icon="factory" class="icon" data-acorn-size="18"></i>
             <span class="label">Produksi</span>
             </a>

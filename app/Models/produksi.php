@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class transaction extends Model
+class produksi extends Model
 {
     use HasFactory;
-    protected $table = 'transactions';
+    protected $table = 'produksis';
     protected $fillable =[
         'name',
-        'price',
-        'id_barang',
-        'action',
-        'id_customer',
+        'start',
+        'finish',
+        'results',
         'information',
-        'status'
+        'unit',
     ];
 }
