@@ -24,7 +24,9 @@ Route::get('/', function () {
 Route::get('/inputbarang', function () {
     return view('page.fitur.inputbarang');
 });
-
+    Route::get('/laporan-keuangan', function () {
+        return view('page.fitur.laporan');
+    });
     Route::get('/history/barangmasuk', function () {
         return view('page.history.masuk');
     });

@@ -16,6 +16,7 @@ class transaction extends Model
         'action',
         'id_customer',
         'information',
-        'status'
+        'status',
+        'qty'
     ];
 }

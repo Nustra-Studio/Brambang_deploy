@@ -7,7 +7,8 @@
             @php
                 use App\Models\Barang;
                 use App\Models\Customer;
-               $data = Barang::all();
+                use App\Models\transaction;
+                $data = transaction::where('status','tidak_lunas')->get();
             @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
@@ -98,10 +99,12 @@
             <div class="card-body pt-0 pb-0 sh-3">
                 <div class="row g-0 h-100 align-content-center">
                 <div class="col-12 col-lg-4 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
-                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Harga Beli</div>
-                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Harga Jual</div>
-                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Stok</div>
-                <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Satuan</div>
+                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Price</div>
+                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Jumlah</div>
+                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Total</div>
+                <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Status</div>
+                <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Customer</div>
+
                 </div>
             </div>
             </div>
@@ -123,30 +126,36 @@
                                 </a>
                             </div>
                             @php
-                                $basic_price = $item->basic_price;
+                                $basic_price = $item->price * $item->qty;
                                 $price = $item->price;
-                                $basic_price = 'RP ' . number_format($basic_price, 0, ',', '.');
+                                $total = 'RP ' . number_format($basic_price, 0, ',', '.');
                                 $price = 'RP ' . number_format($price, 0, ',', '.');
+                                $customer = customer::where('id',$item->id_customer)->first();
+                                $customer = $customer->name;
                             @endphp
                             <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
-                            <div class="text-muted text-small d-lg-none">Harga Beli</div>
-                            <div class="text-alternate">{{$basic_price}}</div>
-                            </div>
-                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
-                            <div class="text-muted text-small d-lg-none">Harga Jual</div>
+                            <div class="text-muted text-small d-lg-none">Harga</div>
                             <div class="text-alternate">{{$price}}</div>
                             </div>
-                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
-                            <div class="text-muted text-small d-lg-none">Stok</div>
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
+                            <div class="text-muted text-small d-lg-none">Jumlah</div>
                             <div class="text-alternate">{{$item->qty}}</div>
                             </div>
-                            <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
-                            <div class="text-muted text-small d-lg-none">Satuan</div>
+                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
+                            <div class="text-muted text-small d-lg-none">Total</div>
+                            <div class="text-alternate">{{$total}}</div>
+                            </div>
+                            <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-6 order-lg-5">
+                            <div class="text-muted text-small d-lg-none">Status</div>
                             <div>
-                                <span class="badge rounded-pill bg-outline-primary">{{$item->unit}}</span>
+                                <span class="badge rounded-pill bg-outline-danger">{{$item->status}}</span>
                             </div>
                             </div>
-                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
+                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-6">
+                                <div class="text-muted text-small d-lg-none">Customer</div>
+                                <div class="text-alternate">{{$customer}}</div>
+                            </div>
+                            {{-- <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
                             <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
                                 <div class="col">
                                     <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal{{$item->id}}">
@@ -159,11 +168,11 @@
                                     </button>
                                 </div>
                             </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
-                            <!-- Discount Detail Modal Start -->
+                            {{-- <!-- Discount Detail Modal Start -->
         <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -215,7 +224,7 @@
             <!-- Discount Detail Modal End -->
     
             <!-- Delete Modal End -->
-    
+     --}}
 
                 @endforeach
             </div>

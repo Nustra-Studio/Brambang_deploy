@@ -47,7 +47,7 @@ class TransactionController extends Controller
         $data = [
             'name'=>$name,
             'price'=>$request->price,
-            'id_product'=>$barang->name,
+            'id_barang'=>$barang->name,
             'id_customer'=>$request->customer,
             'qty'=>$request->qty,
             'status'=>$request->metode,

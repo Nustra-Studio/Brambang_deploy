@@ -5,8 +5,8 @@
     @section('content')
         <div class="data" id="Data-div">
             @php
-            use App\Models\history;
-                $data = history::where('information','barang_masuk')->get();
+            use App\Models\keuangan;
+                $data = keuangan::all();
             @endphp
         </div>
     <div class="container" id="Results">
@@ -20,7 +20,7 @@
                 <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                 <span class="text-small align-middle">Home</span>
                 </a>
-                <h1 class="mb-0 pb-0 display-4" id="title">Barang Masuk</h1>
+                <h1 class="mb-0 pb-0 display-4" id="title">Laporan Keuangan</h1>
             </div>
             </div>
             <!-- Title End -->
@@ -28,7 +28,6 @@
             <!-- Top Buttons Start -->
             <div class="w-100 d-md-none"></div>
             <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            
             </div>
             <!-- Top Buttons End -->
         </div>
@@ -56,10 +55,9 @@
                                 {{-- tabel head nama	kepalaCabang	telepon	alamat	category	keterangan --}}
                                 <th>No</th>
                                 <th>Nama</th>
-                                <th>Harga</th>
-                                <th>Qty</th>
-                                <th>Total</th>
-                                <th>Keterangan</th>
+                                <th>Jumlah</th>
+                                <th>Status</th>
+                                <th>keterangan</th>
                                 <th>Tanggal</th>
                             </tr>
                         </thead>
@@ -67,7 +65,7 @@
                 @foreach ($data as $item)
                     @php
                         $total = $item->price * $item->qty;
-                        $price = $item->price;
+                        $price = $item->money;
                         $total = 'RP ' . number_format($total, 0, ',', '.');
                         $price = 'RP ' . number_format($price, 0, ',', '.');
                         $date = $item->created_at->format('Y-m-d H:i:s')
@@ -76,8 +74,7 @@
                         <td>{{ $loop->index+1 }}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$price}}</td>
-                        <td>{{$item->qty}}</td>
-                        <td>{{$total}}</td>
+                        <td>{{$item->status}}</td>
                         <td>{{$item->information}}</td>
                         <td>{{$date}}</td>
                     </td>

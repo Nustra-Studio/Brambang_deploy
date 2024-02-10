@@ -28,15 +28,6 @@
             <!-- Top Buttons Start -->
             <div class="w-100 d-md-none"></div>
             <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-            <button
-                type="button"
-                class="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto"
-                data-bs-toggle="modal"
-                data-bs-target="#addProdukModal"
-            >
-                <i data-acorn-icon="plus"></i>
-                <span>Tambah Produk</span>
-            </button>
             
             </div>
             <!-- Top Buttons End -->

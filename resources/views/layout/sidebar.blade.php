@@ -120,6 +120,12 @@
             <span class="label">Produksi</span>
             </a>
         </li>
+        <li>
+            <a href="{{url('/laporan-keuangan')}}">
+            <i data-acorn-icon="chart-up" class="icon" data-acorn-size="18"></i>
+            <span class="label">Laporan Keuangan</span>
+            </a>
+        </li>
     </div>
     <!-- Menu End -->
 
