@@ -13,6 +13,7 @@
             use App\Models\produksi;
             use App\Models\costproduksi;
             $data = Barang::where('information','bahan_baku')->get();
+            $product = Barang::where('information','produk')->get();
             $produksi = produksi::all();
         @endphp
     </div>
@@ -56,9 +57,9 @@
         <!-- Discount List Start -->
         <div class="row">
             <div class="col-12 mb-5">
-                @if (session('status'))
+                @if (session('success'))
                     <div class="alert alert-primary">
-                        {{ session('status')}}
+                        {{ session('success')}}
                     </div>
                 @elseif (session('hapus'))
                     <div class="alert alert-danger">
@@ -96,14 +97,67 @@
                                         <td>{{$cost}}</td>
                                         <td>{{$item->information}}</td>
                                         <td>  
-                                            <button class="btn btn-sm btn-primary d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
+                                            <button class="btn btn-sm btn-primary d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal{{$item->id}}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
-                                            <button class="btn btn-sm btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal">
+                                            <button class="btn btn-sm btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{$item->id}}">
                                                 <i class="fa-solid fa-trash"></i>
                                             </button>
                                         </td>
                                     </tr>
+                                    <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                        
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Hasil Produksi</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{Route('production.update', $item->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                <div class="mb-3">
+                                                    <label class="form-label">Hasil</label>
+                                                    <input type="number" class="form-control" name="results" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Selesai Produksi</label>
+                                                    <input type="date" class="form-control" name="finish" />
+                                                    <input type="hidden" value="{{$cost}}" name="cost">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer border-1">
+                                                <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
+                                                    <span>Save</span>
+                                                    <i data-acorn-icon="save"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal fade" id="deleteUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fw-bold">Hapus Data?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Konfirmasi Hapus Data
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{Route('production.destroy', $item->id)}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger border shadow" type="submit">Hapus</button>
+                                                    <button class="btn btn-primary border-1" data-bs-dismiss="modal">Batal</button>
+                                                </form>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -134,6 +188,14 @@
                                 @endphp 
                                 <label class="form-label">Name:</label>
                                 <input value="{{$name_random}}" required name="name" class="form-control mb-4 mb-md-0" id="production" type="text" />
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Mulai Produksi</label>
+                                <select required name="product" class="form-select mb-4 mb-md-0">
+                                    @foreach ($product as $item)
+                                    <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Mulai Produksi</label>

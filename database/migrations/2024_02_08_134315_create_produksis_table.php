@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('results')->nullable();
             $table->string('information')->nullable();
             $table->string('unit')->nullable();
+            $table->string('id_product')->nullable();
             $table->timestamps();
         });
     }

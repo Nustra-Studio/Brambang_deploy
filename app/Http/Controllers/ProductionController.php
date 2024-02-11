@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\produksi;
 use App\Models\costproduksi;
 use App\Models\Barang;
+use App\Models\history;
 
 class ProductionController extends Controller
 {
@@ -45,7 +46,8 @@ class ProductionController extends Controller
             'name'=>$request->name,
             'start'=>$request->start,
             'unit'=>$name_random,
-            'information'=>'pending'
+            'information'=>'pending',
+            'id_product'=>$request->product
         ]);
         $table = $request->input('data_table_values');
         $table = json_decode($table, true);
@@ -61,7 +63,7 @@ class ProductionController extends Controller
             ]);
             costproduksi::create($datas);
             $barang = Barang::findOrFail($name);
-            $stock = $barang->qty - $request->qty;
+            $stock = $barang->qty - $table->qty;
             $barang->qty = $stock; // Update qty dengan nilai yang diterima dari form
             $barang->save();
         }
@@ -100,7 +102,28 @@ class ProductionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = produksi::findOrFail($id);
+        $datas =([
+            'finish'=>$request->finish,
+            'results'=>$request->results,
+            'information'=>'finish'
+        ]);
+        history::create([
+            'name'=>$data->name,
+            'status'=>$data->start,
+            'unit'=>$data->unit,
+            'information'=>'Production',
+            'more'=>$request->finish,
+            'price'=>$request->cost
+        ]);
+        $barang = Barang::findOrFail($data->id_product);
+        $stock = $barang->qty + $request->results;
+        $update = ([
+            'qty'=>$stock
+        ]);
+        $data->update($datas);
+        $barang->update($update);
+    return redirect('production')->with('success', 'Success production ');
     }
 
     /**
@@ -111,6 +134,13 @@ class ProductionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data= produksi::findOrFail($id);
+        $id_barang = $data->unit;
+        $costs = costproduksi::where('id_produksi',$id_barang)->get();
+        foreach ($costs as $cost) {
+            $cost->delete();
+        }        
+        $data->delete();
+        return redirect('production')->with('success', 'Success production Delete');
     }
 }

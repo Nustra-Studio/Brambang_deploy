@@ -42,14 +42,14 @@
 <script src="{{ asset('js/base/helpers.js') }}"></script>
 <script src="{{ asset('js/base/globals.js') }}"></script>
 <script src="{{ asset('js/base/nav.js') }}"></script>
-{{-- <script src="{{ asset('js/base/search.js') }}"></script> --}}
+<script src="{{ asset('js/base/search.js') }}"></script>
 <script src="{{ asset('js/base/settings.js') }}"></script>
 <!-- Template Base Scripts End -->
 
 <!-- Page Specific Scripts Start -->
 <script src="{{ asset('js/cs/charts.extend.js') }}"></script>
 <script src="{{ asset('js/plugin/charts.js') }}"></script>
-{{-- <script src="{{ asset('js/common.js') }}"></script> --}}
+<script src="{{ asset('js/common.js') }}"></script>
 <script src="{{ asset('js/scripts.js') }}"></script>
 
         <!-- Page Specific Scripts End -->

@@ -155,76 +155,8 @@
                                 <div class="text-muted text-small d-lg-none">Customer</div>
                                 <div class="text-alternate">{{$customer}}</div>
                             </div>
-                            {{-- <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
-                            <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
-                                <div class="col">
-                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal{{$item->id}}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{$item->id}}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            </div> --}}
                         </div>
                     </div>
-
-                            {{-- <!-- Discount Detail Modal Start -->
-        <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Produk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('barang.update', $item->id) }}">
-                        @csrf
-                        @method('PUT')
-                    <div class="mb-3">
-                        <label class="form-label">Nama</label>
-                        <input type="text" name="name" class="form-control" value="{{$item->name}}" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Harga Beli</label>
-                        <input type="text" name="basic_price" class="form-control" value="{{$item->basic_price}}" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Harga Jual</label>
-                        <input type="text" name="price" class="form-control" value="{{$item->price}}" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Stok</label>
-                        <input type="text" name="qty" class="form-control" value="{{$item->qty}}" />
-                    </div>
-                    <div class="mb-3 w-100">
-                        <label class="form-label">Satuan</label>
-                        <select name="unit" class="form-select" aria-placeholder="Pilih jabatan">
-                            <option @if($item->unit === 'PCS') selected @endif value="PCS">PCS</option>
-                            <option @if($item->unit === 'KG') selected @endif value="KG">KG</option>
-                            <option @if($item->unit === 'Liter') selected @endif value="Liter">Liter</option>
-                        </select>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer border-1">
-                    
-                    <button type="submit"class="btn btn-icon btn-icon-end btn-primary">
-                    <span>Save</span>
-                    <i data-acorn-icon="save"></i>
-                    </button>
-                </div>
-            </form>
-                </div>
-            </div>
-            </div>
-            <!-- Discount Detail Modal End -->
-    
-            <!-- Delete Modal End -->
-     --}}
 
                 @endforeach
             </div>
@@ -333,3 +265,4 @@
     <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('js/data-table.js') }}"></script>
+@endpush

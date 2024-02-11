@@ -16,5 +16,6 @@ class produksi extends Model
         'results',
         'information',
         'unit',
+        'id_product'
     ];
 }
