@@ -158,7 +158,7 @@
                                 <div class="text-alternate">{{$customer->name}}</div>
                             </div>
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-end mb-2 mb-lg-0 order-last order-lg-6">
-                                <div class="col pt-lg-2">
+                                <div class="col pt-lg-2 bg-danger">
                                     <button class="btn btn-primary d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal{{$item->id}}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
