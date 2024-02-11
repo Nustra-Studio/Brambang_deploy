@@ -116,20 +116,15 @@ class TransactionController extends Controller
             'price'=>$request->price,
             'qty'=>$request->qty,
             'status'=>$request->metode,
-            'information'=> 'penjualan'
+            'information'=> 'pelunasan',
+            'more' => $request->name
         ];
 
-        // $validate = $data->validate([
-        //     'name' => 'required',
-        //     'price' => 'required',
-        //     'qty' => 'required',
-        //     'id_customer' => 'required',
-        //     'status' => 'required',
-        //     'infotmartion' => 'required'
-        // ]); 
-
+        
         $barang = transaction::Find($id);
         $barang->update($data);
+        
+        history::create($data);
         return redirect('transaction')->with('success', 'Edit Succsess');
     }
 
