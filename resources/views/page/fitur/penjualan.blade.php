@@ -103,7 +103,7 @@
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Jumlah</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Total</div>
                 <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Status</div>
-                <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Customer</div>
+                <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Customer</div>
 
                 </div>
             </div>
@@ -153,7 +153,7 @@
                                     <span class="badge rounded-pill bg-outline-danger">{{$item->status}}</span>
                                 </div>
                             </div>
-                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-6">
+                            <div class="col-1 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-6">
                                 <div class="text-muted text-small d-lg-none">Customer</div>
                                 <div class="text-alternate">{{$customer->name}}</div>
                             </div>
