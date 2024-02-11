@@ -8,7 +8,7 @@
                 use App\Models\Barang;
                 use App\Models\Customer;
                 use App\Models\transaction;
-                $data = transaction::where('status','tidak_lunas')->all();
+                $data = transaction::where('status','tidak_lunas')->get();
             @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
