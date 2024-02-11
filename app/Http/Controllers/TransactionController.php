@@ -111,9 +111,16 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = $request->validate([
+        $data = [
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'qty'=>$request->qty,
+            'status'=>$request->metode,
+            'information'=> 'penjualan'
+        ];
+
+        $validate = $data->validate([
             'name' => 'required',
-            'id_barang' => 'required',
             'price' => 'required',
             'qty' => 'required',
             'id_customer' => 'required',
