@@ -128,7 +128,7 @@ class TransactionController extends Controller
         //     'infotmartion' => 'required'
         // ]); 
 
-        $barang = Karyawan::Find($id);
+        $barang = transaction::Find($id);
         $barang->update($data);
         return redirect('transaction')->with('success', 'Edit Succsess');
     }
