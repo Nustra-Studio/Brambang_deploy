@@ -2,6 +2,24 @@
     @section('content')
         <div class="container">
             <!-- Title and Top Buttons Start -->
+            @php
+                use Carbon\Carbon;
+                use App\Models\keuangan;
+                use App\Models\transaction;
+                use App\Models\Karyawan;
+                use App\Models\Barang;
+                use App\Models\Customer;
+                use App\Models\history;
+                $omset = keuangan::whereDate('created_at', Carbon::today())
+                            ->where('status','income')
+                            ->sum('money');
+                $stock = Barang::where('information','produk')->sum('qty');   
+                $penjualan = history::whereDate('created_at', Carbon::today())
+                            ->where('information','Penjualan')
+                            ->sum('qty');
+                $customer = Customer::count('name'); 
+                $karyawan = Karyawan::count('name'); 
+            @endphp
             <div class="page-title-container">
                 <div class="row">
                 <!-- Title Start -->
@@ -41,7 +59,10 @@
                             <i data-acorn-icon="dollar" class="text-primary"></i>
                             </div>
                             <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">OMSET HARIAN</div>
-                            <div class="text-primary cta-4">Rp.3.000.000</div>
+                            @php
+                                $omset = 'RP ' . number_format($omset, 0, ',', '.');
+                            @endphp
+                            <div class="text-primary cta-4">{{$omset}}</div>
                         </div>
                         </div>
                     </div>
@@ -52,7 +73,7 @@
                             <i data-acorn-icon="acorn" class="text-primary"></i>
                             </div>
                             <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">STOK TERSISA</div>
-                            <div class="text-primary cta-4">16</div>
+                            <div class="text-primary cta-4">{{$stock}}</div>
                         </div>
                         </div>
                     </div>
@@ -63,7 +84,7 @@
                             <i data-acorn-icon="money-bag" class="text-primary"></i>
                             </div>
                             <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">BARANG TERJUAL</div>
-                            <div class="text-primary cta-4">120</div>
+                            <div class="text-primary cta-4">{{$penjualan}}</div>
                         </div>
                         </div>
                     </div>
@@ -85,7 +106,7 @@
                             <i data-acorn-icon="user" class="text-primary"></i>
                             </div>
                             <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">TOTAL CUSTOMER</div>
-                            <div class="text-primary cta-4">325</div>
+                            <div class="text-primary cta-4">{{$customer}}</div>
                         </div>
                         </div>
                     </div>
@@ -96,7 +117,7 @@
                             <i data-acorn-icon="user" class="text-primary"></i>
                             </div>
                             <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">TOTAL KARYAWAN</div>
-                            <div class="text-primary cta-4">20</div>
+                            <div class="text-primary cta-4">{{$karyawan}}</div>
                         </div>
                         </div>
                     </div>
@@ -112,46 +133,38 @@
                 <h2 class="small-title">Histori Penjualan</h2>
                 <div class="mb-n2 scroll-out">
                     <div class="scroll-by-count" data-count="6">
+                        @php
+                            $data = history::where('information','Penjualan')
+                                    ->latest() // Mengambil data terbaru
+                                    ->take(5)
+                                    ->get();
+                        @endphp
+                            @foreach ($data as $item)
+                            <div class="card mb-2 sh-15 sh-md-6">
+                                <div class="card-body pt-0 pb-0 h-100">
+                                <div class="row g-0 h-100 align-content-center">
+                                    <div class="col-10 col-md-4 d-flex align-items-center mb-3 mb-md-0 h-md-100">
+                                    <a class="body-link stretched-link" style="cursor: pointer;">{{$item->name}}</a>
+                                    </div>
+                                    <div class="col-2 col-md-3 d-flex align-items-center text-muted mb-1 mb-md-0 justify-content-end justify-content-md-start">
+                                    <span class="badge bg-outline-primary me-1">TERJUAL</span>
+                                    </div>
+                                    <div class="col-12 col-md-2 d-flex align-items-center mb-1 mb-md-0 text-alternate">
+                                    <span>
+                                        <span class="text-small">Rp.</span>
+                                        @php
+                                            $total = $item->price * $item->qty;
+                                            $omset = number_format($total, 0, ',', '.');
+                                        @endphp
+                                        {{$omset}}
+                                    </span>
+                                    </div>
+                                    <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">12-10-2023</div>
+                                </div>
+                                </div>
+                            </div>
+                            @endforeach
         
-                    <div class="card mb-2 sh-15 sh-md-6">
-                        <div class="card-body pt-0 pb-0 h-100">
-                        <div class="row g-0 h-100 align-content-center">
-                            <div class="col-10 col-md-4 d-flex align-items-center mb-3 mb-md-0 h-md-100">
-                            <a class="body-link stretched-link" style="cursor: pointer;">No 230123983</a>
-                            </div>
-                            <div class="col-2 col-md-3 d-flex align-items-center text-muted mb-1 mb-md-0 justify-content-end justify-content-md-start">
-                            <span class="badge bg-outline-primary me-1">TERJUAL</span>
-                            </div>
-                            <div class="col-12 col-md-2 d-flex align-items-center mb-1 mb-md-0 text-alternate">
-                            <span>
-                                <span class="text-small">Rp.</span>
-                                120.000
-                            </span>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">12-10-2023</div>
-                        </div>
-                        </div>
-                    </div>
-        
-                    <div class="card mb-2 sh-15 sh-md-6">
-                        <div class="card-body pt-0 pb-0 h-100">
-                        <div class="row g-0 h-100 align-content-center">
-                            <div class="col-10 col-md-4 d-flex align-items-center mb-3 mb-md-0 h-md-100">
-                            <a class="body-link stretched-link" style="cursor: pointer;">No 230123984</a>
-                            </div>
-                            <div class="col-2 col-md-3 d-flex align-items-center text-muted mb-1 mb-md-0 justify-content-end justify-content-md-start">
-                            <span class="badge bg-outline-quaternary me-1">TERJUAL</span>
-                            </div>
-                            <div class="col-12 col-md-2 d-flex align-items-center mb-1 mb-md-0 text-alternate">
-                            <span>
-                                <span class="text-small">Rp.</span>
-                                300.000
-                            </span>
-                            </div>
-                            <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">12-10-2023</div>
-                        </div>
-                        </div>
-                    </div>
         
                     </div>
                 </div>

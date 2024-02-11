@@ -27,7 +27,12 @@
 
             <!-- Top Buttons Start -->
             <div class="w-100 d-md-none"></div>
-            <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+            <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end  mb-2 mb-sm-0 order-sm-3">
+                <select id="filterStatus" class="form-select">
+                    <option value="">Filter by Status</option>
+                    <option value="buy_product">Pembelian</option>
+                    <option value="sell_product">Penjualan</option>
+                </select>
             </div>
             <!-- Top Buttons End -->
         </div>
@@ -47,7 +52,6 @@
                 @endif
             <div class="card-body">
                 {{-- <p class="text-muted mb-3">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
-                
                 <div class="table-responsive">
                     <table id="dataTableExample" class="table">
                         <thead>
@@ -90,35 +94,37 @@
     @endsection
     @push('custom-scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        // $(document).ready(function() {
-        //     var divdata = document.getElementById("Data-div");
-        //     $('#searchInput').on('input', function() {
-        //         var query = $(this).val();
-        //         var limit = $('#itemCountButton').data('item-count');
-        //         console.log(limit);
-        //         // Change the AJAX URL to match your endpoint
-        //         $.ajax({
-        //             type: 'GET',
-        //             url: '/dataresource/barang', // Change this URL to your actual search endpoint
-        //             data: { query: query, limit: limit },
-        //             success: function(response) {
-        //                 console.log(response);
-        //                 // Set the response data to the innerHTML of the div
-        //                 divdata.innerHTML = response;
-        //             }
-        //         });
-        //     });
-    
-        //     $('.dropdown-item').on('click', function(event) {
-        //         event.preventDefault();
-        //         var itemCount = $(this).data('item-count');
-        //         $('#itemCountButton').text(itemCount + ' Items').data('item-count', itemCount);
-        //         $('#searchInput').trigger('input');
-        //     });
-        // });
-    </script>
+        <script>
+    $(document).ready(function() {
+        'use strict';
+        $('#dataTableExample').DataTable({
+            "aLengthMenu": [
+                [10, 30, 50, -1],
+                [10, 30, 50, "All"]
+            ],
+            "iDisplayLength": 10,
+            "language": {
+                "search": ""
+            },
+            "select": true
+        });
+
+        $('#dataTableExample').each(function() {
+            var datatable = $(this);
+            var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+            search_input.attr('placeholder', 'Search');
+            search_input.removeClass('form-control-sm');
+
+            var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_length] select');
+            length_sel.removeClass('form-control-sm');
+        });
+
+        $('#filterStatus').on('change', function() {
+            var status = $(this).val();
+            $('#dataTableExample').DataTable().columns(4).search(status).draw();
+        });
+    });
+    </script>   
     <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
-    <script src="{{ asset('js/data-table.js') }}"></script>
 @endpush

@@ -10,7 +10,10 @@
     <div class="data" id="Data-div">
         @php
             use App\Models\Barang;
-            $data = Barang::all();
+            use App\Models\produksi;
+            use App\Models\costproduksi;
+            $data = Barang::where('information','bahan_baku')->get();
+            $produksi = produksi::all();
         @endphp
     </div>
 
@@ -76,14 +79,22 @@
                                 </tr>
                             </thead>
                             <tbody id="tb-category">
-                                @foreach ($data as $item)
+                                @foreach ($produksi as $item)
                                     <tr>
+                                        @php
+                                            $produksis = costproduksi::where('id_produksi',$item->unit)->get();
+                                            $cost = 0;
+                                            foreach ($produksis as $produksi) {
+                                                $biayaItemProduksi = $produksi->qty * $produksi->price;
+                                                $cost += $biayaItemProduksi;
+                                            }
+                                            $cost = 'RP ' . number_format($cost, 0, ',', '.');
+                                        @endphp
                                         <td>{{ $loop->index+1 }}</td>
                                         <td>{{$item->name}}</td>
-                                        <td>{{$item->basic_price}}</td>
-                                        <td>{{$item->price}}</td>
-                                        <td>{{$item->qty}}</td>
-                                        <td> <span class="badge rounded-pill bg-outline-primary">{{$item->unit}}</span></td>
+                                        <td>{{$item->start}}</td>
+                                        <td>{{$cost}}</td>
+                                        <td>{{$item->information}}</td>
                                         <td>  
                                             <button class="btn btn-sm btn-primary d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal">
                                                 <i class="fa-solid fa-pen-to-square"></i>
@@ -115,18 +126,28 @@
                         @csrf
                         <div class="row mb-3">
                             <div class="col">
+                                @php
+                                    $currentDate = date('Ymd');
+                                    $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
+                                    $randomDate = $currentDate . $randomNumber;
+                                    $name_random = "PRB$randomDate";
+                                @endphp 
                                 <label class="form-label">Name:</label>
-                                <input name="name" class="form-control mb-4 mb-md-0" id="production" type="text" />
+                                <input value="{{$name_random}}" required name="name" class="form-control mb-4 mb-md-0" id="production" type="text" />
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Mulai Produksi</label>
-                                <input name="start" class="form-control mb-4 mb-md-0" id="product-start-input" type="date"  />
+                                <input required name="start" class="form-control mb-4 mb-md-0" id="product-start-input" type="date"  />
                             </div>
                         </div>
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label">Name Barang:</label>
-                                <input name="barang" class="form-control mb-4 mb-md-0" id="product-name-input" type="text" />
+                                <select name="barang" class="form-select mb-4 mb-md-0" id="product_select" >
+                                    @foreach ($data as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Jumlah Barang</label>
@@ -134,7 +155,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Harga</label>
-                                <input name="harga" class="form-control mb-4 mb-md-0" id="harga-input" type="text"  />
+                                <input name="price" class="form-control mb-4 mb-md-0" id="harga-input" type="text"  />
                             </div>
                         </div>
                         <!-- Rest of the form content -->
@@ -179,7 +200,7 @@
     <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
     <script src="{{ asset('js/data-table.js') }}"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function () {
         // Initialize Select2 for product name input
         $('#product-name-input').select2({
@@ -205,33 +226,42 @@
     });
 
 
-    </script>
+    </script> --}}
     <script>
         const productTable = $('#product-table').DataTable();
         const existingValues = [];
 
         function addRow() {
-            const name = document.getElementById('product-name-input').value;
+            const name = document.getElementById('product_select').value;
             const jumlah = document.getElementById('jumlah-input').value;
             const harga = document.getElementById('harga-input').value;
-
+            const url = `/dataresource/barang/?namaproduct=${name}`;
             const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
             const rowValues = {
-                'Name': name,
-                'jumlah': jumlah,
-                'harga': harga,
+                'name': name,
+                'qty': jumlah,
+                'price': harga,
             };
             existingValues.push(rowValues);
             $('#data-table-values').val(JSON.stringify(existingValues));
-
-            const newRow = productTable.row.add([name, jumlah, harga, deleteButton]).draw();
-            $(newRow.node()).data('node', newRow);
-
-            document.getElementById('product-name-input').value = '';
-            document.getElementById('jumlah-input').value = '';
-            document.getElementById('harga-input').value = '';
-        }
-
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(data) {
+                    console.log(data);
+                    // Assuming the response data contains the price
+                    const names = data.name; // Adjust this based on your actual response structure
+                    const newRow = productTable.row.add([names, jumlah, harga, deleteButton]).draw();
+                    $(newRow.node()).data('node', newRow);
+                    document.getElementById('product_select').value = '';
+                    document.getElementById('jumlah-input').value = '';
+                    document.getElementById('harga-input').value = '';
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                }
+            });
+        }   
         function deleteRow(button) {
             const rowNode = $(button).closest('tr');
             const rowData = productTable.row(rowNode).data();
@@ -242,5 +272,32 @@
 
             productTable.row(rowNode).remove().draw(); // Hapus baris dari tabel
 }
+    </script>
+     <script>
+        function updateprice() {
+            const product = document.getElementById('product_select').value;
+            const url = `/dataresource/barang/?namaproduct=${product}`; // Corrected URL assuming it's the correct endpoint
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function(data) {
+                    console.log(data);
+                    // Assuming the response data contains the price
+                    const price = data.price; // Adjust this based on your actual response structure
+                    // Update the price field in the form
+                    $('input[name="price"]').val(price);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
+                }
+            });
+        }
+    
+        function initialize() {
+            const selectElement = document.getElementById("product_select");
+            selectElement.addEventListener('change', updateprice);
+            updateprice();
+        }
+        document.addEventListener('DOMContentLoaded', initialize);
     </script>
 @endpush
