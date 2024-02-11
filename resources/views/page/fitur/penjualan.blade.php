@@ -158,7 +158,7 @@
                                 <div class="text-alternate">{{$customer->name}}</div>
                             </div>
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-end mb-2 mb-lg-0 order-last order-lg-6">
-                                <div class="col pt-lg-2 d-flex justify-content-end">
+                                <div class="col pt-lg-2">
                                     <button class="btn btn-primary d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal{{$item->id}}">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
@@ -181,61 +181,71 @@
                         </div>
                     </div>
 
-                            {{-- <!-- Discount Detail Modal Start -->
-        <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Produk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form method="POST" action="{{ route('barang.update', $item->id) }}">
-                        @csrf
-                        @method('PUT')
-                    <div class="mb-3">
-                        <label class="form-label">Nama</label>
-                        <input type="text" name="name" class="form-control" value="{{$item->name}}" />
+                    {{-- Modal Edit --}}
+                    <div class="modal fade" id="editProdukmodal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Edit Penjualan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div class="modal-body">
+                                <form
+                                    action="{{route('transaction.update', $item->id)}}"
+                                    method="POST"
+                                >
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    @php    
+                                        $barang = Barang::where('information','produk')->get();
+                                    @endphp
+                                    <label class="form-label">Product</label>
+                                    <select name="produk" class="form-select" id="product_select">
+                                        @foreach ($barang as $item)
+                                            <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Harga</label>
+                                    <input type="text" name="price" class="form-control" value="{{$price}}"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Jumlah</label>
+                                    <input type="text" name="qty" class="form-control" value="{{$item->qty}}"/>
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Customer</label>
+                                    <select name="customer" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="0">None</option>
+                                        @php
+                                            $customer = Customer::all();
+                                        @endphp
+                                        @foreach ($customer as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Pembayaran</label>
+                                    <select name="metode" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="Lunas">Lunas</option>
+                                        <option value="tidak_lunas">Belum Lunas</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-icon btn-icon-end btn-primary">
+                                <span>Edit</span>
+                                <i data-acorn-icon="save"></i>
+                                </button>
+                            </div>
+                        </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Harga Beli</label>
-                        <input type="text" name="basic_price" class="form-control" value="{{$item->basic_price}}" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Harga Jual</label>
-                        <input type="text" name="price" class="form-control" value="{{$item->price}}" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Stok</label>
-                        <input type="text" name="qty" class="form-control" value="{{$item->qty}}" />
-                    </div>
-                    <div class="mb-3 w-100">
-                        <label class="form-label">Satuan</label>
-                        <select name="unit" class="form-select" aria-placeholder="Pilih jabatan">
-                            <option @if($item->unit === 'PCS') selected @endif value="PCS">PCS</option>
-                            <option @if($item->unit === 'KG') selected @endif value="KG">KG</option>
-                            <option @if($item->unit === 'Liter') selected @endif value="Liter">Liter</option>
-                        </select>
-                    </div>
-                    
-                </div>
-                <div class="modal-footer border-1">
-                    
-                    <button type="submit"class="btn btn-icon btn-icon-end btn-primary">
-                    <span>Save</span>
-                    <i data-acorn-icon="save"></i>
-                    </button>
-                </div>
-            </form>
-                </div>
-            </div>
-            </div>
-            <!-- Discount Detail Modal End -->
-    
-            <!-- Delete Modal End -->
-     --}}
-
-
                 @endforeach
             </div>
             </div>
@@ -246,10 +256,10 @@
                     <div class="modal fade" id="addProdukModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title fw-bold">Tambahkan Produk</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Tambahkan Produk</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
                             <div class="modal-body">
                                 <form
                                     action="{{route('transaction.store')}}"
@@ -305,7 +315,7 @@
                         </form>
                             </div>
                         </div>
-                        </div>
+                    </div>
 
          <!-- Discount Add Modal End -->
     </div>

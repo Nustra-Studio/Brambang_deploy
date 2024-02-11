@@ -111,7 +111,19 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $request->validate([
+            'name' => 'required',
+            'id_barang' => 'required',
+            'price' => 'required',
+            'qty' => 'required',
+            'id_customer' => 'required',
+            'status' => 'required',
+            'infotmartion' => 'required'
+        ]); 
+
+        $barang = Karyawan::Find($id);
+        $barang->update($validate);
+        return redirect('transaction')->with('success', 'Edit Succsess');
     }
 
     /**
