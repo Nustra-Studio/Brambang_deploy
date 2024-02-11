@@ -209,7 +209,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Harga</label>
-                                    <input type="text" name="price" class="form-control" value="{{$price}}"/>
+                                    <input type="text" name="price" class="form-control" value="{{$item->price}}"/>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Jumlah</label>
