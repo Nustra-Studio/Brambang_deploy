@@ -185,7 +185,7 @@
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title fw-bold">Edit Penjualan</h5>
+                                    <h5 class="modal-title fw-bold">Edit Pembayaran</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                             <div class="modal-body">
@@ -195,45 +195,13 @@
                                 >
                                 @csrf
                                 @method('PUT')
-                                <div class="mb-3">
-                                    @php    
-                                        $barang = Barang::where('information','produk')->get();
-                                    @endphp
-                                    <label class="form-label">Product</label>
-                                    <select name="produk" class="form-select" id="product_select">
-                                        @foreach ($barang as $item)
-                                            <option value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Harga</label>
-                                    <input type="text" name="price" class="form-control" value="{{$item->price}}"/>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Jumlah</label>
-                                    <input type="text" name="qty" class="form-control" value="{{$item->qty}}"/>
-                                </div>
-                                <div class="mb-3 w-100">
-                                    <label class="form-label">Customer</label>
-                                    <select name="customer" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="0">None</option>
-                                        @php
-                                            $customer = Customer::all();
-                                        @endphp
-                                        @foreach ($customer as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Pembayaran</label>
                                     <select name="metode" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="Lunas">Lunas</option>
                                         <option value="tidak_lunas">Belum Lunas</option>
+                                        <option value="Lunas">Lunas</option>
                                     </select>
                                 </div>
-                                
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-icon btn-icon-end btn-primary">
