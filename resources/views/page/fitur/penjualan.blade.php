@@ -213,7 +213,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Jumlah</label>
-                                    <input type="text" name="qty" class="form-control" value="{{$item->qty}}"/>
+                                    <input type="text" name="qty" class="form-control" value="{{12}}"/>
                                 </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Customer</label>
