@@ -98,7 +98,7 @@
             <div class="card mb-2 bg-transparent no-shadow d-none d-lg-block">
             <div class="card-body pt-0 pb-0 sh-3">
                 <div class="row g-0 h-100 align-content-center">
-                <div class="col-12 col-lg-4 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
+                <div class="col-12 col-lg-3 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Price</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Jumlah</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Total</div>
@@ -119,7 +119,7 @@
                 @foreach ($data as $item)
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
-                            <div class="col-11 col-lg-3 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
+                            <div class="col-12 col-lg-3 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
                                 <div class="text-muted text-small d-lg-none">Nama</div>
                                 <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
                                     {{$item->name}}
