@@ -268,7 +268,7 @@
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Customer</label>
                                     <select name="customer" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="non">Non</option>
+                                        <option value="0">None</option>
                                         @php
                                             $customer = Customer::all();
                                         @endphp
