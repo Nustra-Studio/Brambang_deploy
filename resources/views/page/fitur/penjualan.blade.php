@@ -98,7 +98,7 @@
             <div class="card mb-2 bg-transparent no-shadow d-none d-lg-block">
             <div class="card-body pt-0 pb-0 sh-3">
                 <div class="row g-0 h-100 align-content-center">
-                <div class="col-12 col-lg-4 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
+                <div class="col-12 col-lg-3 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Price</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Jumlah</div>
                 <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Total</div>
@@ -119,7 +119,7 @@
                 @foreach ($data as $item)
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
-                            <div class="col-11 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
+                            <div class="col-12 col-lg-3 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
                                 <div class="text-muted text-small d-lg-none">Nama</div>
                                 <a href="#" class="text-truncate h-100 d-flex align-items-center " data-bs-toggle="modal" data-bs-target="#discountDetailModal">
                                     {{$item->name}}
@@ -131,33 +131,78 @@
                                 $total = 'RP ' . number_format($basic_price, 0, ',', '.');
                                 $price = 'RP ' . number_format($price, 0, ',', '.');
                                 $customer = customer::where('id',$item->id_customer)->first();
-                                $customer = $customer->name;
+                                // $customer = $customer->name;
                             @endphp
                             <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
-                            <div class="text-muted text-small d-lg-none">Harga</div>
-                            <div class="text-alternate">{{$price}}</div>
+                                <div class="text-muted text-small d-lg-none">Harga</div>
+                                <div class="text-alternate">{{$price}}</div>
                             </div>
                             <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
-                            <div class="text-muted text-small d-lg-none">Jumlah</div>
-                            <div class="text-alternate">{{$item->qty}}</div>
+                                <div class="text-muted text-small d-lg-none">Jumlah</div>
+                                <div class="text-alternate">{{$item->qty}}</div>
                             </div>
                             <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
-                            <div class="text-muted text-small d-lg-none">Total</div>
-                            <div class="text-alternate">{{$total}}</div>
+                                <div class="text-muted text-small d-lg-none">Total</div>
+                                <div class="text-alternate">{{$total}}</div>
                             </div>
                             <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-6 order-lg-5">
-                            <div class="text-muted text-small d-lg-none">Status</div>
-                            <div>
-                                <span class="badge rounded-pill bg-outline-danger">{{$item->status}}</span>
-                            </div>
+                                <div class="text-muted text-small d-lg-none">
+                                    Status
+                                </div>
+                                <div>
+                                    <span class="badge rounded-pill bg-outline-danger">{{$item->status}}</span>
+                                </div>
                             </div>
                             <div class="col-1 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-6">
                                 <div class="text-muted text-small d-lg-none">Customer</div>
-                                <div class="text-alternate">{{$customer}}</div>
+                                <div class="text-alternate">{{$customer->name}}</div>
+                            </div>
+                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-end mb-2 mb-lg-0 order-last order-lg-6">
+                                <div class="col pt-lg-2">
+                                    <button class="btn btn-primary d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editProdukmodal{{$item->id}}">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
 
+=======
+                    {{-- Modal Edit --}}
+                    <div class="modal fade" id="editProdukmodal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Edit Pembayaran</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                            <div class="modal-body">
+                                <form
+                                    action="{{route('transaction.update', $item->id)}}"
+                                    method="POST"
+                                >
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3 w-100">
+                                    <label class="form-label">Pembayaran</label>
+                                    <select name="metode" class="form-select" aria-placeholder="Pilih jabatan">
+                                        <option value="tidak_lunas">Belum Lunas</option>
+                                        <option value="Lunas">Lunas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-icon btn-icon-end btn-primary">
+                                <span>Edit</span>
+                                <i data-acorn-icon="save"></i>
+                                </button>
+                            </div>
+                        </form>
+                            </div>
+                        </div>
+                    </div>
+>>>>>>> 0d4c11149c75323417007186e22762f3f0d0a885
                 @endforeach
             </div>
             </div>
@@ -168,10 +213,10 @@
                     <div class="modal fade" id="addProdukModal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title fw-bold">Tambahkan Produk</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold">Tambahkan Penjualan</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
                             <div class="modal-body">
                                 <form
                                     action="{{route('transaction.store')}}"
@@ -200,7 +245,7 @@
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Customer</label>
                                     <select name="customer" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="non">Non</option>
+                                        <option value="0">None</option>
                                         @php
                                             $customer = Customer::all();
                                         @endphp
@@ -212,8 +257,8 @@
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Pembayaran</label>
                                     <select name="metode" class="form-select" aria-placeholder="Pilih jabatan">
-                                        <option value="Lunas">Lunas</option>
                                         <option value="tidak_lunas">Belum Lunas</option>
+                                        <option value="Lunas">Lunas</option>
                                     </select>
                                 </div>
                                 
@@ -227,7 +272,7 @@
                         </form>
                             </div>
                         </div>
-                        </div>
+                    </div>
 
          <!-- Discount Add Modal End -->
     </div>

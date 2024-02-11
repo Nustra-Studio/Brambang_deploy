@@ -111,7 +111,35 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = [
+            'name'=>$request->name,
+            'price'=>$request->price,
+            'qty'=>$request->qty,
+            'status'=>$request->metode,
+            'information'=> 'pelunasan',
+            'more' => $request->name
+        ];
+
+        
+        $barang = transaction::Find($id);
+        $barang->update($data);
+
+        history::create($data);
+
+        // $barang = Barang::findOrFail($request->produk);
+        // $stock = $barang->qty - $request->qty;
+        // $barang->qty = $stock; // Update qty dengan nilai yang diterima dari form
+        // $barang->save();
+        // $income = $request->qty * $request->price;
+        //     $data = [
+        //         'name'=>$name,
+        //         'money'=>$income,
+        //         'status'=>'income',
+        //         'information'=>"sell_product",
+        //     ];
+        //     keuangan::create($data);
+
+        return redirect('transaction')->with('success', 'Edit Succsess');
     }
 
     /**
