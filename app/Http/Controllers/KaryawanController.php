@@ -61,7 +61,7 @@ class KaryawanController extends Controller
     public function gaji(Request $request){
         $gaji = karyawan::where('id',$request->id)->first();
         $makan = Gaji::where('id_karyawan',$request->id)->where('name','makan')->value('total');
-        if(!empty($makan)){$makan=0;}
+        if(empty($makan)){$makan=0;}
         if($request->status =="lembur")
         {
             Absen::create([
