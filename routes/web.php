@@ -21,8 +21,11 @@ use App\Http\Controllers\TransactionController;
 Route::get('/', function () {
     return view('page.dashboard');
 });
+Route::get('/login',function(){
+    return view('page.auth.index');
+});
 Route::get('/inputbarang', function () {
-    return view('page.fitur.inputbarang');
+    return view('page.fitur.invoice');
 });
     Route::get('/laporan-keuangan', function () {
         return view('page.fitur.laporan');
@@ -36,6 +39,9 @@ Route::get('/inputbarang', function () {
     Route::get('/history/transaction', function () {
         return view('page.history.transaction');
     });
+    Route::get('/history/hutang', function () {
+        return view('page.history.hutang');
+    });
 Route::resource('/barang', BarangController::class);
 Route::resource('/customer', CustomerController::class);
 Route::resource('/karyawan', KaryawanController::class);
@@ -48,3 +54,20 @@ Route::prefix('dataresource')->group(function () {
     // Route::post('/karyawan', 'KaryawanController@data')->name('karyawan.data');
     // Route::post('/production', 'ProductionController@data')->name('barang.data');
 });
+Route::prefix('payroll')->group(function(){
+    Route::get('/absen', function () {
+        return view('page.payroll.absen');
+    })->name('payroll.absen');
+    Route::get('/gaji', function () {
+        return view('page.payroll.gaji');
+    });
+    Route::get('/detail/{id}', function ($id) {
+        return view('page.payroll.detail', ['id' => $id]);
+    });    
+    Route::get('/absenmasuk','App\Http\Controllers\KaryawanController@gaji')->name('payroll.gaji');
+    
+});
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

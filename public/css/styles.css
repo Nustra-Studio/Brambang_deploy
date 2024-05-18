@@ -3449,7 +3449,7 @@ html[data-color=dark-blue] {
   --body-darker: #a0a0a0;
   --alternate-darker: #6e6e6e;
   --muted-darker: #4e4e4e;
-  --separator-darker: #353535;
+  --separator-darker: #141414;
   --danger-rgb: 182, 40, 54;
   --info-rgb: 41, 138, 153;
   --warning-rgb: 235, 183, 26;
@@ -13868,7 +13868,7 @@ h6,
 }
 
 .text-semi-large {
-  font-size: 1.1em !important;
+  font-size: 1.3em !important;
 }
 
 .text-xlarge {

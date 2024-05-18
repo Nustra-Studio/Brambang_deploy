@@ -111,9 +111,31 @@
                 <span class="label">Transaksi</span>
                 </a>
             </li>
+            <li>
+                <a href="{{url('/history/hutang')}}">
+                <span class="label">Hutang-Piutang</span>
+                </a>
+            </li>
             </ul>
         </li>
-        
+        <li>
+            <a href="#Payroll" data-href="Products.html">
+            <i data-acorn-icon="wallet" class="icon" data-acorn-size="18"></i>
+            <span class="label">Payroll</span>
+            </a>
+            <ul id="Payroll">
+            <li>
+                <a href="{{url('/payroll/absen')}}">
+                <span class="label">Absen Karyawan</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('/payroll/gaji')}}">
+                <span class="label">Gaji</span>
+                </a>
+            </li>
+            </ul>
+        </li>
         <li>
             <a href="{{url('/production')}}">
             <i data-acorn-icon="factory" class="icon" data-acorn-size="18"></i>

@@ -3,6 +3,14 @@
     <head>
         @include('layout.header')
         @stack('custom-style')
+        <script>
+            function showAlert(icon, message) {
+                Swal.fire({
+                    icon: icon,
+                    title: message,
+                });
+            }
+        </script>
     </head>
 
     <body>
@@ -34,6 +42,7 @@
 <script src="{{ asset('js/vendor/Chart.bundle.min.js') }}"></script>
 <script src="{{ asset('js/vendor/chartjs-plugin-rounded-bar.min.js') }}"></script>
 <script src="{{ asset('js/vendor/jquery.barrating.min.js') }}"></script>
+
 <!-- Vendor Scripts End -->
 
 @stack('custom-scripts')

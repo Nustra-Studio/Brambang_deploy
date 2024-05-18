@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Karyawan;
+use App\Models\Gaji;
+use App\Models\Absen;
 
 class KaryawanController extends Controller
 {
@@ -43,11 +45,53 @@ class KaryawanController extends Controller
             'department' => $request->department,
             'status' => 'karyawan'
         ]);
-    
-        Karyawan::create($data);
+        $datas= Karyawan::create($data);
+        Gaji::create([
+            'name'=>'bensin',
+            'total'=>$request->bensin,
+            'id_karyawan'=>$datas->id
+        ]);
+        Gaji::create([
+            'name'=>'makan',
+            'total'=>$request->makan,
+            'id_karyawan'=>$datas->id
+        ]);
         return redirect('karyawan')->with('success', 'Success Daftar Karyawan');
     }
+    public function gaji(Request $request){
+        $gaji = karyawan::where('id',$request->id)->first();
+        $makan = Gaji::where('id_karyawan',$request->id)->where('name','makan')->value('total');
+        if(!empty($makan)){$makan=0;}
+        if($request->status =="lembur")
+        {
+            Absen::create([
+                'date'=>date('Y-m-d'),
+                'id_karyawan'=>$request->id,
+                'status'=>$request->status,
+                'more'=>$gaji->salary * 2 + $makan
+            ]);
+        }
+        elseif($request->status === "masuk"){
+            Absen::create([
+                'date'=>date('Y-m-d'),
+                'id_karyawan'=>$request->id,
+                'status'=>$request->status,
+                'more'=>$gaji->salary
+            ]);
+        }
+        elseif($request->status === "tidak_masuk"){
+            Absen::create([
+                'date'=>date('Y-m-d'),
+                'id_karyawan'=>$request->id,
+                'status'=>$request->status,
+                'more'=>'0'
+            ]);
+        }
+        else{
 
+        }
+        return redirect()->back()->with('success', 'Success Absen Karyawan');
+    }
     /**
      * Display the specified resource.
      *
@@ -84,11 +128,15 @@ class KaryawanController extends Controller
             'address' => 'required',
             'hp' => 'required',
             'salary' => 'required',
-            'department' => 'required'
+            'department' => 'required',
+            'bensin' => 'required',
+            'makan' => 'required',
         ]);
 
         $barang = Karyawan::Find($id);
         $barang->update($validateData);
+        Gaji::where('id_karyawan',$id)->where('name','bensin')->update(['total'=>$request->bensin]);
+        Gaji::where('id_karyawan',$id)->where('name','makan')->update(['total'=>$request->makan]);
         return redirect('karyawan')->with('success', 'Telah Edit Data');
     }
 
@@ -102,7 +150,8 @@ class KaryawanController extends Controller
     {
         $barang = Karyawan::find($id);
         $barang->delete();
-
+        Gaji::where('id_karyawan',$id)->where('name','bensin')->delete();
+        Gaji::where('id_karyawan',$id)->where('name','makan')->delete();
         return redirect('karyawan')->with('hapus', 'Hapus Data Karyawan');
     }
 }

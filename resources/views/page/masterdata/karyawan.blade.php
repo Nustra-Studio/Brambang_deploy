@@ -1,4 +1,7 @@
 @extends('layout.master')
+@push('custom-style')
+<link href="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
+@endpush
     @section('content')
     <div class="container">
         <!-- Title and Top Buttons Start -->
@@ -6,7 +9,9 @@
         <div class="row g-0">
             @php
                 use App\Models\Karyawan;
+                use App\Models\Gaji;
                 $data = Karyawan::all();
+
             @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
@@ -39,130 +44,70 @@
         </div>
         <!-- Title and Top Buttons End -->
 
-        <!-- Controls Start -->
-        <div class="row mb-2">
-        <!-- Search Start -->
-        <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
-            <div class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
-            <input class="form-control" placeholder="Search" />
-            <span class="search-magnifier-icon">
-                <i data-acorn-icon="search"></i>
-            </span>
-            <span class="search-delete-icon d-none">
-                <i data-acorn-icon="close"></i>
-            </span>
-            </div>
-        </div>
-        <!-- Search End -->
-
-        <div class="col-sm-12 col-md-7 col-lg-9 col-xxl-10 text-end mb-1">
-            <div class="d-inline-block">
-            <!-- Print Button Start -->
-            
-            <!-- Print Button End -->
-
-            <!-- Export Dropdown Start -->
-            
-            <!-- Export Dropdown End -->
-
-            <!-- Length Start -->
-            <div class="dropdown-as-select d-inline-block" data-childSelector="span">
-                <button class="btn p-0 shadow" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-offset="0,3">
-                <span
-                    class="btn btn-foreground-alternate dropdown-toggle"
-                    data-bs-toggle="tooltip"
-                    data-bs-placement="top"
-                    data-bs-delay="0"
-                    title="Item Count"
-                >
-                    10 Items
-                </span>
-                </button>
-                <div class="dropdown-menu shadow dropdown-menu-end">
-                <a class="dropdown-item" href="#">5 Items</a>
-                <a class="dropdown-item active" href="#">10 Items</a>
-                <a class="dropdown-item" href="#">20 Items</a>
-                </div>
-            </div>
-            <!-- Length End -->
-            </div>
-        </div>
-        </div>
-        <!-- Controls End -->
 
         <!-- Discount List Start -->
         <div class="row">
         <div class="col-12 mb-5">
-            <div class="card mb-2 bg-transparent no-shadow d-none d-lg-block">
-                <div class="card-body pt-0 pb-0 sh-3">
-                    <div class="row g-0 h-100 align-content-center">
-                    <div class="col-12 col-lg-2 d-flex align-items-center mb-2 mb-lg-0 text-muted text-small">Nama</div>
-                    <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">No. HP</div>
-                    <div class="col-6 col-lg-4 d-flex align-items-center text-alternate text-medium text-muted text-small">Alamat</div>
-                    <div class="col-6 col-lg-2 d-flex align-items-center text-alternate text-medium text-muted text-small">Gaji Harian</div>
-                    <div class="col-6 col-lg-1 d-flex align-items-center text-alternate text-medium text-muted text-small">Jabatan</div>
-                    </div>
-                </div>
-            </div>
-            <div id="checkboxTable">
                 <!-- start LOOP -->
                 <div class="card mb-2">
                     @if (session('success'))
-                        <div class="alert alert-primary">
-                            {{session('success')}}
-                        </div>
+                    <script>
+                        showAlert('success', '{{ session('success') }}');
+                    </script>
                     @elseif (session('hapus'))
-                        <div class="alert alert-danger">
-                            {{session('hapus')}}
-                        </div>
+                        <script>
+                            showAlert('error', '{{ session('hapus') }}');
+                        </script>
                     @endif
-                    @foreach ($data as $item)
-                    <div class="card-body py-4 py-lg-0 sh-lg-8">
-                        <div class="row g-0 h-100 align-content-center">
-                            <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
-                            <div class="text-muted text-small d-lg-none">Nama</div>
-                            <a href="#" class="text-truncate h-100 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#discountDetailModal">
-                                {{$item->name}}
-                            </a>
-                            </div>
-                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-3 order-lg-2">
-                            <div class="text-muted text-small d-lg-none">No. HP</div>
-                            <div class="text-alternate">{{$item->hp}}</div>
-                            </div>
-                            <div class="col-6 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
-                            <div class="text-muted text-small d-lg-none">Alamat</div>
-                            <div class="text-alternate">{{$item->address}}</div>
-                            </div>
-                            @php
-                                $gaji = $item->salary;
-                                $gaji = 'Rp' . number_format($gaji, 0, ',', '.');
-                            @endphp
-                            <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
-                            <div class="text-muted text-small d-lg-none">Gaji Harian</div>
-                            <div class="text-alternate">{{$gaji}}</div>
-                            </div>
-                            <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
-                            <div class="text-muted text-small d-lg-none">Jabatan</div>
-                            <div>
-                                <span class="badge rounded-pill bg-outline-primary">{{$item->department}}</span>
-                            </div>
-                            </div>
-                            <div class="col-1 col-lg-1 d-flex flex-column justify-content-center align-items-lg-end mb-2 mb-lg-0 order-2 text-end order-lg-last">
-                            <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
-                                <div class="col">
-                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal{{$item->id}}">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                </div>
-                                <div class="col">
-                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{$item->id}}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
+                   
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="dataTableExample" class="table">
+                                <thead>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>No. Hp</th>
+                                    <th>Alamat</th>
+                                    <th>Gaji Harian</th>
+                                    <th>Uang Bensin</th>
+                                    <th>Uang Makan</th>
+                                    <th>Jabatan</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody id="tb-category">
+                                    @foreach ($data as $index => $item)
+                                    @php
+                                        $bensin = Gaji::where('id_karyawan',$item->id)->where('name','bensin')->value('total');
+                                        $makan = Gaji::where('id_karyawan',$item->id)->where('name','makan')->value('total');
+                                        $gaji = $item->salary;
+                                        $gaji = 'Rp' . number_format($gaji, 0, ',', '.');
+                                        $bensins = 'Rp' . number_format($bensin, 0, ',', '.');
+                                        $makans = 'Rp' . number_format($makan, 0, ',', '.');
+                                    @endphp
+                                    <tr>
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{$item->hp}}</td>
+                                        <td>{{$item->address}}</td>
+                                        <td>{{$gaji}}</td>
+                                        <td>{{$bensin}}</td>
+                                        <td>{{$makan}}</td>
+                                        <td>{{$item->department}}</td>
+                                        <td>
+                                            <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
+                                                <div class="col">
+                                                    <button class="btn btn-primary d-flex justi fy-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editUserModal{{$item->id}}">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col">
+                                                    <button class="btn btn-danger d-flex justify-content-center align-items-center border shadow fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#deleteUserModal{{$item->id}}">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
                     <div class="modal fade" id="editUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -189,6 +134,14 @@
                                 <div class="mb-3">
                                     <label class="form-label">Gaji Harian</label>
                                     <input type="number" name="salary" class="form-control" value="{{$item->salary}}"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Uang Bensin</label>
+                                    <input type="number" name="bensin" class="form-control" value=@if(!empty($bensin)){{$bensin}} @else{{0}} @endif />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Uang Makan</label>
+                                    <input type="number" name="makan" class="form-control"value=@if(!empty($makan)){{$makan}} @else{{0}} @endif />
                                 </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Jabatan</label>
@@ -232,8 +185,11 @@
                         </div>
                     </div>
                     @endforeach
-                </div>
-            </div>
+                                </tbody>
+                            </table>
+                        
+                            </div>
+                        </div>
         </div>
         </div>
         {{-- add karyawan --}}
@@ -264,6 +220,14 @@
                     <label class="form-label">Gaji Harian</label>
                     <input type="number" name="salary" class="form-control" />
                 </div>
+                <div class="mb-3">
+                    <label class="form-label">Uang Bensin</label>
+                    <input type="number" name="bensin" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Uang Makan</label>
+                    <input type="number" name="makan" class="form-control" />
+                </div>
                 <div class="mb-3 w-100">
                     <label class="form-label">Jabatan</label>
                     <select class="form-select" name="department" aria-placeholder="Pilih jabatan">
@@ -286,3 +250,9 @@
         <!-- Discount Add Modal End -->
     </div>
     @endsection
+    @push('custom-scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
+    <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('js/data-table.js') }}"></script>
+    @endpush

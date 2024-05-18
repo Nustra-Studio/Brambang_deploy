@@ -39,4 +39,5 @@
 <link rel="stylesheet" href="{{ asset('css/styles.css') }}" />
 <!-- Template Base Styles End -->
 <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/base/loader.js') }}"></script>

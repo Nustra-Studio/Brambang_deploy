@@ -10,6 +10,7 @@
                 use App\Models\Barang;
                 use App\Models\Customer;
                 use App\Models\history;
+                use App\Models\Absen;
                 $omset = keuangan::whereDate('created_at', Carbon::today())
                             ->where('status','income')
                             ->sum('money');
@@ -19,6 +20,8 @@
                             ->sum('qty');
                 $customer = Customer::count('name'); 
                 $karyawan = Karyawan::count('name'); 
+                $cost = Absen::where('date',date('Y-m-d'))->sum('more');
+                $cost = 'RP ' . number_format($cost, 0, ',', '.');
             @endphp
             <div class="page-title-container">
                 <div class="row">
@@ -95,7 +98,7 @@
                             <i data-acorn-icon="sale-tag" class="text-primary"></i>
                             </div>
                             <div class="mb-1 d-flex align-items-center text-alternate text-small lh-1-25">COST HARIAN</div>
-                            <div class="text-danger cta-4">-Rp.230.000</div>
+                            <div class="text-danger cta-4">{{$cost}}</div>
                         </div>
                         </div>
                     </div>
@@ -159,7 +162,7 @@
                                         {{$omset}}
                                     </span>
                                     </div>
-                                    <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">12-10-2023</div>
+                                    <div class="col-12 col-md-3 d-flex align-items-center justify-content-md-end mb-1 mb-md-0 text-alternate">{{$item->created_at->format('Y-m-d');}}</div>
                                 </div>
                                 </div>
                             </div>
@@ -181,113 +184,36 @@
                 <div class="col-xl-6 mb-5">
                 <h2 class="small-title fw-bold">Barang Masuk</h2>
                 <div class="scroll-out mb-n2">
-                    <div class="scroll-by-count" data-count="4">
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html">Minyak Bimoli</a>
+                    <div class="scroll-by-count" data-count="5">
+                        @php
+                            $data = history::where('information','barang_masuk')
+                                    ->latest() // Mengambil data terbaru
+                                    ->take(5)
+                                    ->get();
+                        @endphp
+                        @foreach ($data as $item)
+                            <div class="card mb-2">
+                                <div class="row g-0 sh-14 sh-md-10">
+                                <div class="col">
+                                    <div class="card-body pt-0 pb-0 h-100">
+                                    <div class="row g-0 h-100 align-content-center">
+                                        <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
+                                        <a href="Products.Detail.html">{{$item->name}}</a>
+                                        </div>
+                                        <div class="col d-flex justify-content-center align-items-center">
+                                        <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
+                                            {{$item->qty}} Item
+                                        </div>
+                                        </div>
+                                        <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
+                                            {{$item->created_at->format('Y-m-d');}}
+                                        </div>
+                                    </div>
+                                    </div>  
                                 </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
-                                2023-12-11
                                 </div>
                             </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html">Minyak Bimoli</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html">Minyak Bimoli</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html">Minyak Bimoli</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div><div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html">GAS</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div>
-                    
-                    
+                        @endforeach
                     </div>
                 </div>
                 </div>
@@ -297,90 +223,36 @@
                 <div class="col-xl-6 mb-5">
                 <h2 class="small-title fw-bold text-danger">Barang Keluar</h2>
                 <div class="scroll-out mb-n2">
-                    <div class="scroll-by-count" data-count="4">
+                    <div class="scroll-by-count" data-count="5">
+                    @php
+                        $data = transaction::where('information','penjualan')
+                                ->latest() // Mengambil data terbaru
+                                ->take(5)
+                                ->get();
+                    @endphp
+                    @foreach ($data as $item)
                     <div class="card mb-2">
                         <div class="row g-0 sh-14 sh-md-10">
                         <div class="col">
                             <div class="card-body pt-0 pb-0 h-100">
                             <div class="row g-0 h-100 align-content-center">
                                 <div class="col d-flex align-items-center mb-2 mb-md-0 text-large ">
-                                <a href="Products.Detail.html" class="text-danger">Minyak Bimoli</a>
+                                <a href="Products.Detail.html" class="text-danger">{{$item->id_barang}}</a>
                                 </div>
                                 <div class="col d-flex justify-content-center align-items-center">
                                 <div class="border px-2 py-1 rounded border-danger border-2 text-danger">
-                                    12 PCS
+                                    {{$item->qty}} Item
                                 </div>
                                 </div>
-                                <div class="col d-flex align-items-center justify-content-md-end text-muted text-medium">
-                                2023-12-11
+                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
+                                    {{$item->created_at->format('Y-m-d');}}
                                 </div>
                             </div>
                             </div>  
                         </div>
                         </div>
                     </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html" class="text-danger">Minyak Bimoli</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-danger border-2 text-danger">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-md-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html" class="text-danger">Minyak Bimoli</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-danger border-2 text-danger">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-md-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div><div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                <a href="Products.Detail.html" class="text-danger">GAS</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-danger border-2 text-danger">
-                                    12 PCS
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-md-end text-muted text-medium">
-                                2023-12-11
-                                </div>
-                            </div>
-                            </div>  
-                        </div>
-                        </div>
-                    </div>
+                    @endforeach
                     </div>
                 </div>
                 </div>

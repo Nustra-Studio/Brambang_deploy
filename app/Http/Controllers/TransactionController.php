@@ -7,6 +7,7 @@ use App\Models\transaction;
 use App\Models\history;
 use App\Models\Barang;
 use App\Models\keuangan;
+use App\Models\Customer;
 
 
 class TransactionController extends Controller
@@ -43,40 +44,61 @@ class TransactionController extends Controller
         $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
         $randomDate = $currentDate . $randomNumber;
         $name = "PJ$randomDate";
-        $barang = Barang::where('id',$request->produk)->first();
+        $price = $request->input('price');
+        $produk = $request->input('produk');
+        $qty = $request->input('qty');
+
+        
+        for($i = 0; $i< count($produk) ; $i++){
+        $barang = Barang::where('id',$produk[$i])->first();
         $data = [
             'name'=>$name,
-            'price'=>$request->price,
+            'price'=>$price[$i],
             'id_barang'=>$barang->name,
             'id_customer'=>$request->customer,
-            'qty'=>$request->qty,
-            'status'=>$request->metode,
+            'qty'=>$qty[$i],
             'information'=> 'penjualan'
         ];
         transaction::create($data);
         $data_history = [
             'name'=>$name,
-            'price'=>$request->price,
-            'status'=>$request->metode,
-            'qty'=>$request->qty,
+            'price'=>$price[$i],
+            'qty'=>$qty[$i],
             'information'=> 'Penjualan',
             'more'=>$barang->name,
         ];
         history::create($data_history);
-        // update stock
-        $barang = Barang::findOrFail($request->produk);
-        $stock = $barang->qty - $request->qty;
+        $barang = Barang::findOrFail($produk[$i]);
+        $stock = $barang->qty - $qty[$i];
         $barang->qty = $stock; // Update qty dengan nilai yang diterima dari form
         $barang->save();
-        $income = $request->qty * $request->price;
+        $income = $qty[$i] * $price[$i];
             $data = [
                 'name'=>$name,
                 'money'=>$income,
                 'status'=>'income',
                 'information'=>"sell_product",
             ];
-            keuangan::create($data);
-        return redirect('transaction')->with('success', 'Transaction Succsess');
+        keuangan::create($data);
+    }
+    if($request->total_belanja <= $request->bayar){
+        $status = 'Lunas';
+    }
+    else{
+        $status = 'belum_lunas';
+    }
+    $data = [
+        'name'=>$name,
+        'price'=>$request->total_belanja,
+        'id_customer'=>$request->customer,
+        'qty'=>$request->bayar,
+        'information'=> 'nota',
+        'status'=>$status
+    ];
+    transaction::create($data);
+    $customer = Customer::where('id',$request->customer)->value('name');
+        // update stock
+        return view('page.fitur.invoice',['data'=>$request,'kode_invoice'=>$name,'status'=>$status,'customer'=>$customer]);
     
     }
 
@@ -111,20 +133,27 @@ class TransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = [
-            'name'=>$request->name,
-            'price'=>$request->price,
-            'qty'=>$request->qty,
-            'status'=>$request->metode,
-            'information'=> 'pelunasan',
-            'more' => $request->name
-        ];
-
-        
         $barang = transaction::Find($id);
+        $total_bayar = $barang->qty + $request->bayar;
+        if($barang->price <= $total_bayar){
+            $data = [
+                'qty'=>$total_bayar,
+                'status'=>"Lunas"
+            ];
+        }
+        else{
+            $data = [
+                'qty'=>$total_bayar,
+            ];
+        }
         $barang->update($data);
-
-        history::create($data);
+        $data_history = [
+            'name'=>$barang->name,
+            'price'=>$request->bayar,
+            'information'=> 'Pembayaran Hutang',
+            'more'=>$barang->id_customer,
+        ];
+        history::create($data_history);
 
         // $barang = Barang::findOrFail($request->produk);
         // $stock = $barang->qty - $request->qty;
