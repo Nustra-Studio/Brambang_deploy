@@ -6,6 +6,7 @@
         <div class="row g-0">
             @php
                 use App\Models\Customer;
+                use App\Models\transaction;
                 $data = Customer::all();
             @endphp
             <!-- Title Start -->
@@ -116,6 +117,9 @@
                         </div>
                     @endif
                     @foreach ($data as $item)
+                    @php
+                        $transaksi = transaction::where('information','nota')->where('id_customer',$item->id)->count();
+                    @endphp
                     <div class="card-body py-4 py-lg-0 sh-lg-8">
                         <div class="row g-0 h-100 align-content-center">
                             <div class="col-11 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-1 order-lg-1 h-lg-100 position-relative">
@@ -134,7 +138,7 @@
                                 </div>
                                 <div class="col-6 col-lg-2 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-5 order-lg-4">
                                 <div class="text-muted text-small d-lg-none">Jumlah Transaksi</div>
-                                <div class="text-alternate">12</div>
+                                <div class="text-alternate">{{$transaksi}} Transaksi</div>
                                 </div>
                                 <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
                                 
