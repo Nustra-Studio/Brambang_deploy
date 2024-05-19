@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Karyawan;
 use App\Models\Gaji;
 use App\Models\Absen;
+use App\Models\keuangan;
 
 class KaryawanController extends Controller
 {
@@ -70,6 +71,7 @@ class KaryawanController extends Controller
                 'status'=>$request->status,
                 'more'=>$gaji->salary * 2 + $makan
             ]);
+            $money = $gaji->salary * 2 + $makan;
         }
         elseif($request->status === "masuk"){
             Absen::create([
@@ -78,6 +80,7 @@ class KaryawanController extends Controller
                 'status'=>$request->status,
                 'more'=>$gaji->salary
             ]);
+            $money = $gaji->salary;
         }
         elseif($request->status === "tidak_masuk"){
             Absen::create([
@@ -86,10 +89,17 @@ class KaryawanController extends Controller
                 'status'=>$request->status,
                 'more'=>'0'
             ]);
+            $money= 0;
         }
         else{
 
         }
+        keuangan::create([
+            'name'=>$gaji->name,
+            'status'=>'cost',
+            'information'=>"Gaji Karyawan",
+            'money'=>$money
+        ]);
         return redirect()->back()->with('success', 'Success Absen Karyawan');
     }
     /**

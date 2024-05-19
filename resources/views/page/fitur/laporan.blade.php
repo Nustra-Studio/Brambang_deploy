@@ -104,11 +104,17 @@
                                     elseif($item->status == "cost"){
                                         $status ="Pengeluaran";
                                     }
+                                    else{
+                                        $status =$item->status;
+                                    }
                                     if($item->information == "sell_product"){
                                         $keterangan = "Penjualan";
                                     }
                                     elseif($item->information == "buy_product"){
                                         $keterangan = "Pembelian Barang";
+                                    }
+                                    else{
+                                        $keterangan =$item->information;
                                     }
                                 @endphp
                                 <tr>
