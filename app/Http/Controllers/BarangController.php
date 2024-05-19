@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\history;
 use App\Models\keuangan;
+use App\Models\transaction;
 
 class BarangController extends Controller
 {
@@ -136,6 +137,48 @@ class BarangController extends Controller
                 history::create($data_history);
             }
         // Update the record with the new data
+        return redirect('barang')->with('status', 'success Update item');
+    }
+    public function add(Request $request){
+        $currentDate = date('Ymd');
+        $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
+        $randomDate = $currentDate . $randomNumber;
+        $name = "PP$randomDate";
+        $money = $request->qty * $request->price;
+        $barang = Barang::find($request->produk);
+        $uang = keuangan::where('name',$barang->name)->first();
+                    $uang->money = $money + $uang->money; // Update qty dengan nilai yang diterima dari form
+                    $uang->save();
+
+        $barang->qty += $request->qty;
+        $barang->price = $request->price;
+        $barang->save();
+        $data_history = [
+            'name'=>$barang->name,
+            'price'=>$request->price,
+            'qty'=>$request->qty,
+            'unit'=>$request->unit,
+            'more'=>$name,
+            'information'=> 'barang_masuk'
+        ];
+        history::create($data_history);
+        if($request->bayar >= $money){
+            $status = 'Lunas';
+        }
+        else{
+            $status = 'belum_lunas';
+        }
+        $datas = [
+            'name'=>$name,
+            'price'=>$money,
+            'id_customer'=>'owner',
+            'id_barang'=>$barang->name,
+            'qty'=>$request->bayar,
+            'information'=> 'nota',
+            'status'=>$status
+        ];
+        transaction::create($datas);
+        
         return redirect('barang')->with('status', 'success Update item');
     }
     public function search(Request $request)

@@ -229,7 +229,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('barang.store') }}" method="POST">
+                            <form action="{{ route('barang.add') }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label">Nama</label>
@@ -244,11 +244,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Harga</label>
-                                    <input type="text" name="prices" id="harga_beli" class="form-control" />
+                                    <input type="text" name="price" id="harga_beli" class="form-control" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Stok</label>
-                                    <input type="text" name="qtys" id="qty_beli" class="form-control" />
+                                    <input type="text" name="qty" id="qty_beli" class="form-control" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Bayar</label>
@@ -288,7 +288,7 @@
                 type: 'GET',
                 url: url,
                 success: function(data) {
-                    modalBody.find('input[name="prices"]').val(data.price);
+                    modalBody.find('input[name="price"]').val(data.price);
                     calculateSisa(modalBody);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
@@ -299,8 +299,8 @@
     }
 
     function calculateSisa(modalBody) {
-        const qtyInput = parseFloat(modalBody.find('input[name="qtys"]').val());
-        const priceInput = parseFloat(modalBody.find('input[name="prices"]').val());
+        const qtyInput = parseFloat(modalBody.find('input[name="qty"]').val());
+        const priceInput = parseFloat(modalBody.find('input[name="price"]').val());
         const bayarInput = parseFloat(modalBody.find('input[name="bayar"]').val());
 
         if (!isNaN(qtyInput) && !isNaN(priceInput)) {
@@ -314,14 +314,14 @@
 
             if (!isNaN(bayarInput)) {
                 const sisa = total - bayarInput;
-                modalBody.find('#sisa_beli').text(sisa.toLocaleString('id-ID', {
+                modalBody.find('#total_beli').text(sisa.toLocaleString('id-ID', {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0,
                     style: 'currency',
                     currency: 'IDR'
                 }));
             } else {
-                modalBody.find('#sisa_beli').text(total.toLocaleString('id-ID', {
+                modalBody.find('#total_beli').text(total.toLocaleString('id-ID', {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 0,
                     style: 'currency',
@@ -366,7 +366,7 @@
 
     $(document).ready(function() {
         updatePrice();
-        $('input[name="qtys"], input[name="prices"], input[name="bayar"]').on('input', function() {
+        $('input[name="qty"], input[name="price"], input[name="bayar"]').on('input', function() {
             const modalBody = $(this).closest('.modal-body');
             calculateSisa(modalBody);
         });

@@ -43,6 +43,7 @@ Route::get('/inputbarang', function () {
         return view('page.history.hutang');
     });
 Route::resource('/barang', BarangController::class);
+Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');
 Route::resource('/customer', CustomerController::class);
 Route::resource('/karyawan', KaryawanController::class);
 Route::resource('/production', ProductionController::class);

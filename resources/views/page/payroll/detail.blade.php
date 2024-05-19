@@ -40,7 +40,7 @@
                             showAlert('error', '{{ session('hapus') }}');
                         </script>
                     @endif
-                   
+                
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="dataTableExample" class="table">
@@ -52,10 +52,13 @@
                                 </thead>
                                 <tbody id="tb-category">
                                     @foreach ($data as $index => $item)
+                                    @php
+                                        $gaji = 'Rp' . number_format($item->more, 0, ',', '.');
+                                    @endphp
                                     <tr>
                                         <td>{{$index + 1}}</td>
                                         <td>{{$item->date}}</td>
-                                        <td>{{$item->more}}</td>
+                                        <td>{{$gaji}}</td>
                                         <td>{{$item->status}}</td>
                                     </tr>
                     @endforeach
