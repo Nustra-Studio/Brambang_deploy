@@ -63,8 +63,8 @@ class ProductionController extends Controller
             ]);
             costproduksi::create($datas);
             $barang = Barang::findOrFail($name);
-            $stock = $barang->qty - $table->qty;
-            $barang->qty = $stock; // Update qty dengan nilai yang diterima dari form
+            // $stock = $barang->qty - $table->qty;
+            $barang->qty -= $item['qty'] ; // Update qty dengan nilai yang diterima dari form
             $barang->save();
         }
         produksi::create($data);
