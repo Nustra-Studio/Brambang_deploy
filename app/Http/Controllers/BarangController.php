@@ -59,13 +59,33 @@ class BarangController extends Controller
         history::create($data_history);
         $category = $request->category;
         if($category == "bahan_baku"){
+            $currentDate = date('Ymd');
+            $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
+            $randomDate = $currentDate . $randomNumber;
+            $name = "PP$randomDate";
             $cost = $request->qty * $request->price;
+            if($request->bayar >= $cost){
+                $status = 'Lunas';
+            }
+            else{
+                $status = 'belum_lunas';
+            }
             $data = [
                 'name'=>$request->name,
                 'money'=>$cost,
                 'status'=>'cost',
                 'information'=>"buy_product",
             ];
+            $datas = [
+                'name'=>$name,
+                'price'=>$cost,
+                'id_customer'=>'owner',
+                'id_barang'=>$request->name,
+                'qty'=>$request->bayar,
+                'information'=> 'nota',
+                'status'=>$status
+            ];
+            transaction::create($datas);
             keuangan::create($data);
         }
         return redirect('barang')->with('status', 'success insert item');

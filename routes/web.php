@@ -42,6 +42,7 @@ Route::get('/inputbarang', function () {
     Route::get('/history/hutang', function () {
         return view('page.history.hutang');
     });
+    Route::get('/hutang','App\Http\Controllers\TransactionController@hutang');
 Route::resource('/barang', BarangController::class);
 Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');
 Route::resource('/customer', CustomerController::class);

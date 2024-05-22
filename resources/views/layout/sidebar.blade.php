@@ -67,6 +67,12 @@
             </a>
         </li>
         <li>
+            <a href="{{url('/hutang')}}" data-href="Products.html">
+            <i data-acorn-icon="invoice" class="icon" data-acorn-size="18"></i>
+            <span class="label">Hutang</span>
+            </a>
+        </li>
+        <li>
             <a href="#products" data-href="Products.html">
             <i data-acorn-icon="folders" class="icon" data-acorn-size="18"></i>
             <span class="label">Master Data</span>

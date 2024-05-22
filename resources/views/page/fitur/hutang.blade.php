@@ -11,7 +11,7 @@
                 use App\Models\Barang;
                 use App\Models\Customer;
                 use App\Models\transaction;
-                $data = transaction::where('status','belum_lunas')->where('information','nota')->get();
+                $data = transaction::where('status','belum_lunas')->where('information','nota')->where('id_customer','owner')->get();
                 $barang = Barang::all();
                 $customer = Customer::all();
             @endphp
@@ -22,7 +22,7 @@
                         <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                         <span class="text-small align-middle">Home</span>
                     </a>
-                    <h1 class="mb-0 pb-0 display-4" id="title">Penjualan</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Hutang</h1>
                 </div>
             </div>
             <!-- Title End -->
@@ -30,15 +30,7 @@
             <!-- Top Buttons Start -->
             <div class="w-100 d-md-none"></div>
             <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
-                <button
-                    type="button"
-                    class="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addProdukModal"
-                >
-                    <i data-acorn-icon="plus"></i>
-                    <span>Tambah Penjualan</span>
-                </button>
+
             </div>
             <!-- Top Buttons End -->
         </div>
@@ -61,15 +53,14 @@
                             <thead>
                                 <th>No</th>
                                 <th>No.Nota</th>
+                                <th>Name</th>
                                 <th>Hutang</th>
                                 <th>Total Bayar</th>
                                 <th>Status</th>
-                                <th>Customer</th>
                                 <th>Action</th>
                             </thead>
                             <tbody id="tb-category">
                                 @foreach ($data as $index => $item)
-                                @if ($item->id_customer != 'owner')
                                 @php
                                     $basic_price = $item->price * $item->qty;
                                     $price = 'RP ' . number_format($item->price, 0, ',', '.');
@@ -80,13 +71,11 @@
                                 <tr>
                                     <td>{{ $index + 1 }}</td>
                                     <td>{{$item->name}}</td>
+                                    <td>{{$item->id_barang}}</td>
                                     <td>{{ $price }}</td>
                                     <td>{{ $total }}</td>
                                     <td>
                                         <span class="badge rounded-pill bg-outline-danger">{{ $item->status }}</span>
-                                    </td>
-                                    <td>
-                                        {{ !empty($customer->name) ? $customer->name : 'Non' }}
                                     </td>
                                     <td>
                                         <div class="col pt-lg-2">
@@ -125,8 +114,6 @@
                                         </div>
                                     </div>
                                 </tr>
-                                                                    
-                                @endif
                                 @endforeach
                             </tbody>
                         </table>

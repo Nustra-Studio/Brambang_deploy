@@ -21,7 +21,9 @@ class TransactionController extends Controller
     {
         return view("page.fitur.penjualan");
     }
-
+    public function hutang(){
+        return view("page.fitur.hutang");
+    }
     /**
      * Show the form for creating a new resource.
      *
