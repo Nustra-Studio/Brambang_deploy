@@ -11,6 +11,7 @@
                 use App\Models\Barang;
                 use App\Models\Customer;
                 use App\Models\transaction;
+                use App\Models\history;
                 $data = transaction::where('status','belum_lunas')->where('information','nota')->get();
                 $barang = Barang::all();
                 $customer = Customer::all();
@@ -96,34 +97,6 @@
                                         </div>
                                     </td>
                                     <!-- Modal Edit -->
-                                    <div class="modal fade" id="editProdukmodal{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title fw-bold">Edit Pembayaran</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{{ route('transaction.update', $item->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <div class="mb-3 w-100">
-                                                            <label class="form-label">Total Hutang</label>
-                                                            <input type="text" disabled class="form-control" value="{{$dibayar}}">
-                                                            <label class="form-label">Pembayaran</label>
-                                                            <input type="text" name="bayar" class="form-control">
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-icon btn-icon-end btn-primary">
-                                                            <span>Edit</span>
-                                                            <i data-acorn-icon="save"></i>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </tr>
                                                                     
                                 @endif
@@ -135,6 +108,64 @@
             </div>
         </div>
     </div>
+    @foreach ($data as $item)
+    @php
+        $dibayar = 'RP ' . number_format($item->price - $item->qty, 0, ',', '.');
+        $cicilan = history::where('name',$item->name)->where('information','Pembayaran Hutang')->get();
+    @endphp
+                <div class="modal fade" id="editProdukmodal{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title fw-bold">Edit Pembayaran</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body px-5">
+                                <form action="{{ route('transaction.update', $item->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-3 w-100">
+                                        <label class="form-label">Total Hutang</label>
+                                        <input type="text" disabled class="form-control" value="{{$dibayar}}">
+                                        <label class="form-label">Pembayaran</label>
+                                        <input type="text" name="bayar" class="form-control">
+                                    </div>
+                                    <table>
+                                        <table id="dataTableExample" class="table">
+                                            <thead>
+                                                <th>No</th>
+                                                <th>Name</th>
+                                                <th>Nominal</th>
+                                                <th>date</th>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($cicilan as $index => $sub)
+                                                @php
+                                                    $nominal = 'RP ' . number_format($sub->price, 0, ',', '.');
+                                                @endphp
+                                                    <tr>
+                                                        <td>{{$index +1}}</td>
+                                                        <td>{{$sub->name}}</td>
+                                                        <td>{{$nominal}}</td>
+                                                        <td>{{$sub->created_at}}</td>
+                                                    </tr>
+                                                @endforeach
+                                                
+                                            </tbody>
+                                        </table>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-icon btn-icon-end btn-primary">
+                                        <span>Edit</span>
+                                        <i data-acorn-icon="save"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+    @endforeach
     <!-- Discount List End -->
 
     <!-- Discount Add Modal Start -->

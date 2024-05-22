@@ -85,6 +85,13 @@ class BarangController extends Controller
                 'information'=> 'nota',
                 'status'=>$status
             ];
+            $data_history = [
+                'name'=>$name,
+                'price'=>$request->bayar,
+                'information'=> 'Pembayaran Hutang',
+                'more'=>'owner',
+            ];
+            history::create($data_history);
             transaction::create($datas);
             keuangan::create($data);
         }

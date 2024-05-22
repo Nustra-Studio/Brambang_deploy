@@ -98,6 +98,14 @@ class TransactionController extends Controller
         'status'=>$status
     ];
     transaction::create($data);
+    $data_history = [
+        'name'=>$name,
+        'price'=>$request->bayar,
+        'information'=> 'Pembayaran Hutang',
+        'more'=>$request->customer,
+    ];
+    history::create($data_history);
+
     $customer = Customer::where('id',$request->customer)->value('name');
         // update stock
         return view('page.fitur.invoice',['data'=>$request,'kode_invoice'=>$name,'status'=>$status,'customer'=>$customer]);
