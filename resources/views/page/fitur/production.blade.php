@@ -206,6 +206,7 @@
                             <div class="col">
                                 <label class="form-label">Name Barang:</label>
                                 <select name="barang" class="form-select mb-4 mb-md-0" id="product_select" >
+                                    <option value="" >Select Item</option>
                                     @foreach ($data as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
@@ -213,7 +214,10 @@
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Jumlah Barang</label>
-                                <input name="jumlah" class="form-control mb-4 mb-md-0" id="jumlah-input" type="text"  />
+                                <div class="input-group mb-4 mb-md-0">
+                                    <input name="jumlah" class="form-control " id="jumlah-input" type="text"  />
+                                    <span class="input-group-text total">0</span>
+                                </div>
                             </div>
                             <div class="col-md-3">
                                 <label class="form-label">Harga</label>
@@ -338,6 +342,7 @@
      <script>
         function updateprice() {
             const product = document.getElementById('product_select').value;
+            const totalSpan = document.querySelector('.total');
             const url = `/dataresource/barang/?namaproduct=${product}`; // Corrected URL assuming it's the correct endpoint
             $.ajax({
                 type: 'GET',
@@ -348,6 +353,13 @@
                     const price = data.price; // Adjust this based on your actual response structure
                     // Update the price field in the form
                     $('input[name="price"]').val(price);
+                    if (typeof data === 'undefined' || typeof data.qty === 'undefined') {
+                        stock = 0;
+                    } else {
+                        var stock = (data.qty < 1) ? 0 : data.qty;
+                    }
+                    totalSpan.textContent = 'stock:'+' ' + stock;
+
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error:', textStatus, errorThrown);

@@ -161,6 +161,7 @@
                                 <input type="text" name="price[]" class="form-control price" />
                                 <label class="form-label">Jumlah</label>
                                 <div class="input-group">
+                                    <span class="input-group-text Stock">Stock:</span>
                                     <input type="text" name="qty[]" class="form-control qty" />
                                     <span class="input-group-text">Total:</span>
                                     <span class="input-group-text total">0</span>
@@ -217,6 +218,8 @@
                         console.log(data);
                         const price = data.price; // Adjust this based on your actual response structure
                         const priceInput = select.parentElement.querySelector('input[name="price[]"]');
+                        const Stock = select.parentElement.querySelector('.Stock');
+                        Stock.textContent=  "Stock:"+" "+ data.qty;
                         priceInput.value = price;
                         calculateTotal();
                     },

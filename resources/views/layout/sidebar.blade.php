@@ -111,11 +111,11 @@
                 <span class="label">Transaksi</span>
                 </a>
             </li>
-            {{-- <li>
+            <li>
                 <a href="{{url('/history/hutang')}}">
                 <span class="label">Hutang-Piutang</span>
                 </a>
-            </li> --}}
+            </li>
             </ul>
         </li>
         <li>

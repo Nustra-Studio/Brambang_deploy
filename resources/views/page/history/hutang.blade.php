@@ -5,8 +5,10 @@
     @section('content')
         <div class="data" id="Data-div">
             @php
-            use App\Models\keuangan;
-                $data = keuangan::all();
+            use App\Models\transaction;
+            use App\Models\Customer;
+            use App\Models\history;
+                $data = transaction::where('information','nota')->get();
             @endphp
         </div>
     <div class="container" id="Results">
@@ -62,35 +64,37 @@
                                 <th>Customer</th>
                                 <th>Jumlah</th>
                                 <th>Status</th>
-                                <th>keterangan</th>
                                 <th>Tanggal</th>
                             </tr>
                         </thead>
                     <tbody id="tb-category">    
                 @foreach ($data as $item)
                     @php
-                        $total = $item->price * $item->qty;
-                        $price = $item->money;
-                        $total = 'RP ' . number_format($total, 0, ',', '.');
+                        $price = $item->price;
                         $price = 'RP ' . number_format($price, 0, ',', '.');
-                        $date = $item->created_at->format('Y-m-d H:i:s')
+                        $date = $item->created_at->format('Y-m-d H:i:s');
+                        $id_customer = $item->id_customer;
+                        $customers = Customer::where('id',$id_customer)->first();
+                        $customer = "";
+                        if (!empty($customers)) {
+                            $customer = $customers->name;
+                            $name = $item->name;
+                        }
+                        else {
+                            $customer = "Owner";
+                            $name = history::where('more',$item->name)->value('name');
+                        }
                     @endphp
                     <tr>
                         <td>{{ $loop->index+1 }}</td>
-                        <td>{{$item->name}}</td>
-                        <td>@if ($item->status =="cost")
-                            
-                        @else
-                            Yudha
-                        @endif
-                    </td>
+                        <td>{{$name}}</td>
+                        <td>{{$customer}}</td>
                         <td>{{$price}}</td>
-                        <td>{{$item->status}}</td>
                         <td>
-                        @if($item->information =="buy_product")
-                                Bayar Hutang
+                        @if($item->status =="belum_lunas")
+                                Belum Lunas
                         @else
-                            Hutang
+                            Lunas
                         @endif
                         </td>
                         <td>{{$date}}</td>
