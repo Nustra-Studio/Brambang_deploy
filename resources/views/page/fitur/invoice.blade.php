@@ -5,10 +5,10 @@
 @endphp
 <style>
     .separator-darker {
-        background-color: rgb(126, 29, 29);
+        background-color: rgb(85, 13, 13);
     }
     .separator {
-        border-bottom: 2px solid #6b0000;
+        border-bottom: 2px solid #330101;
     }
     .card-print {
         min-height: 100vh;
@@ -54,20 +54,20 @@
         <div class="card-body">
             <div class="row d-flex flex-row align-items-center pt-2">
                 <div class="col-12 col-md-6 ps-3">
-                    <h1 class="ps-4">Brambang Nganjuk</h1>
-                    <div class="ps-4 text-semi-large">Jalan Kengan 12 <br> Nganjuk, Jawa Timur</div>
-                    <div class="ps-4 text-semi-large">+6443884455</div>
+                    <h1 class="ps-5">Brambang Nganjuk</h1>
+                    <h2 class="ps-5 ">Jalan Kengan 12 <br> Nganjuk, Jawa Timur</h2>
+                    <h2 class="ps-5 ">+6443884455</h2>
                 </div>
-                <div class="col-12 col-md-6 pe-3 text-end">
-                    <h2 class="pe-4 mb-2">Tanggal: {{date('Y-m-d')}}</h2>
-                    <h2 class="pe-4 mb-2">Nota: {{$kode_invoice}}</h2>
-                    <h2 class="pe-4">Customer: {{$customer}}</h2>
+                <div class="col-12 col-md-6 pe-4 text-end">
+                    <h2 class="pe-5 mb-2">Tanggal: {{date('Y-m-d')}}</h2>
+                    <h2 class="pe-5 mb-2">Nota: {{$kode_invoice}}</h2>
+                    <h2 class="pe-5">Customer: {{$customer}}</h2>
                 </div>
             </div>
             <div class="separator separator-darker my-5 px-5"></div>
             <div class="mx-2">
                 <div class="row mb-4 d-none d-sm-flex">
-                    <div class="col-4 ps-3">
+                    <div class="col-4 ps-4">
                         <p class="mb-0 ms-3 text-large">Product</p>
                     </div>
                     <div class="col-2">
@@ -76,7 +76,7 @@
                     <div class="col-3 text-end">
                         <p class="mb-0 text-large">Harga</p>
                     </div>
-                    <div class="col-3 text-end pe-3">
+                    <div class="col-3 text-end pe-4">
                         <p class="mb-0 text-large">Total</p>
                     </div>
                 </div>
@@ -87,8 +87,8 @@
                         $total_harga = 'RP ' . number_format($price[$i] * $qty[$i], 0, ',', '.');
                     @endphp
                     <div class="row mb-4 mb-sm-2">
-                        <div class="col-4 col-sm-4 ps-3">
-                            <h3 class="mb-0">{{$barang->name}}</h3>
+                        <div class="col-4 col-sm-4 ps-4">
+                            <h3 class="mb-0 text-center">{{$barang->name}}</h3>
                         </div>
                         <div class="col-2 col-sm-2">
                             <p class="mb-0 text-large">{{$qty[$i]}} Item</p>
@@ -96,7 +96,7 @@
                         <div class="col-3 col-sm-3 text-end">
                             <p class="mb-0 text-large">{{ $harga }}</p>
                         </div>
-                        <div class="col-3 col-sm-3 text-end pe-3">
+                        <div class="col-3 col-sm-3 text-end pe-4">
                             <p class="mb-0 text-large">{{ $total_harga }}</p>
                         </div>
                     </div>
