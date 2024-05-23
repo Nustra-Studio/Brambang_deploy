@@ -187,7 +187,7 @@
                             <div class="product-item mb-3">
                                 <label class="form-label">Product</label>
                                 <select name="produk[]" class="form-select">
-                                    <option value=""></option>Select Product
+                                    <option value="">Select Product</option>
                                     @foreach ($barang as $item)
                                         <option value="{{ $item->id }}">{{ $item->name }}</option>
                                     @endforeach
