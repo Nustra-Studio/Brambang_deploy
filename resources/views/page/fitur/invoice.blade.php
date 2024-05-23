@@ -17,7 +17,7 @@
             $produk = $data->input('produk');
             $qty = $data->input('qty');
     @endphp
-    <div class="container">
+    <div class="container->fluid">
             <div class="row" id="btn-printer">
                 <div class="col-12 d-flex align-items-center justify-content-end">
                     <button onclick="printDiv()" class="btn btn-outline-primary btn-icon btn-icon-start w-100 w-md-auto">
