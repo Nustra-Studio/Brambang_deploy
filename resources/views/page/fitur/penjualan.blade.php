@@ -177,7 +177,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 @php
-                    $barang = Barang::all();
+                    $barang = Barang::where('information','produk')->get();
                     $customer = Customer::all();
                 @endphp
                 <div class="modal-body">
