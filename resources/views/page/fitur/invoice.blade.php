@@ -73,10 +73,10 @@
                     <div class="col-2">
                         <p class="mb-0 text-large">Jumlah</p>
                     </div>
-                    <div class="col-3 pe-3 text-end">
+                    <div class="col-3 text-center ps-2">
                         <p class="mb-0 text-large">Harga</p>
                     </div>
-                    <div class="col-3 text-end pe-5">
+                    <div class="col-3 text-center pe-5">
                         <p class="mb-0 text-large">Total</p>
                     </div>
                 </div>
@@ -93,10 +93,10 @@
                         <div class="col-2 col-sm-2">
                             <p class="mb-0 text-large">{{$qty[$i]}} Item</p>
                         </div>
-                        <div class="col-3 col-sm-3 pe-3 text-end">
+                        <div class="col-3 col-sm-3 ps-2  text-center">
                             <p class="mb-0 text-large">{{ $harga }}</p>
                         </div>
-                        <div class="col-3 col-sm-3 text-end pe-5">
+                        <div class="col-3 col-sm-3 text-center pe-5">
                             <p class="mb-0 text-large">{{ $total_harga }}</p>
                         </div>
                     </div>
