@@ -18,29 +18,29 @@
     <div class="user-container d-flex">
         <a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <img src="{{asset('icon/circle-user-solid.svg')}}" class="profile" alt="profile">
-        <div class="name">Galang Wira</div>
+        <div class="name">{{Auth::user()->name}}</div>
         </a>
-        <div class="dropdown-menu dropdown-menu-end user-menu wide">
+        <div class="dropdown-menu dropdown-menu-end user-menu">
         <div class="row mb-1 ms-0 me-0">
             <div class="col-12 p-1 mb-3 pt-3">
             <div class="separator-light"></div>
             </div>
-            <div class="col-6 ps-1 pe-1">
-            </div>
-            <div class="col-6 pe-1 ps-1">
-            <ul class="list-unstyled">
-                <li>
-                <a href="#">
-                    <i data-acorn-icon="gear" class="me-2" data-acorn-size="17"></i>
-                    <span class="align-middle">Settings</span>
-                </a>
+            <div class="col-6  ps-1 text-center">
+            <ul class="list text-center">
+                <li class="ms-5">
+                <button type="button" class="btn btn-sm btn-primary"  data-bs-toggle="modal"  data-bs-target="#registerModal">
+                    <span>Add User</span>
+                </button>
                 </li>
-                <li>
-                <a href="#">
-                    <i data-acorn-icon="logout" class="me-2" data-acorn-size="17"></i>
-                    <span class="align-middle">Logout</span>
-                </a>
+                <li class="ms-5">
+                    <button class="btn btn-sm btn-warning ms-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="align-middle">Logout</span>
+                    </button>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </li>
+                
             </ul>
             </div>
         </div>

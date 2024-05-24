@@ -9,7 +9,9 @@
         <div class="row g-0">
             @php
                 use App\Models\Absen;
+                use App\Models\Karyawan;
                 $data = Absen::where('id_karyawan',$id)->get();
+                $name = Karyawan::where('id',$id)->value('name');
 
             @endphp
                 <div class="col-auto mb-3 mb-md-0 me-auto">
@@ -46,6 +48,7 @@
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <th>No</th>
+                                    <th>Nama</th>
                                     <th>Date</th>
                                     <th>Price</th>
                                     <th>Status</th>
@@ -57,6 +60,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{$index + 1}}</td>
+                                        <td>{{$name}}</td>
                                         <td>{{$item->date}}</td>
                                         <td>{{$gaji}}</td>
                                         <td>{{$item->status}}</td>

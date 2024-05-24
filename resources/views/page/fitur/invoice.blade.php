@@ -91,7 +91,7 @@
                             <h3 class="mb-0 text-center">{{$barang->name}}</h3>
                         </div>
                         <div class="col-2 col-sm-2">
-                            <p class="mb-0 text-large">{{$qty[$i]}} Item</p>
+                            <p class="mb-0 text-large">{{$qty[$i]}} {{$barang->unit}}</p>
                         </div>
                         <div class="col-3 col-sm-3 ps-2  text-center">
                             <p class="mb-0 text-large">{{ $harga }}</p>

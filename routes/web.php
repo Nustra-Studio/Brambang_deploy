@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,15 +19,17 @@ use App\Http\Controllers\TransactionController;
 |
 */
 
-Route::get('/', function () {
-    return view('page.dashboard');
-});
 Route::get('/login',function(){
-    return view('page.auth.index');
+    return view('page.auth.login');
 });
-Route::get('/inputbarang', function () {
-    return view('page.fitur.invoice');
-});
+Route::post('/login', 'App\Http\Controllers\AuthController@login')->name('login');
+Route::post('/logout', 'App\Http\Controllers\AuthController@logout')->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
+    Route::get('/', function () {
+        return view('page.dashboard');
+    });
     Route::get('/laporan-keuangan', function () {
         return view('page.fitur.laporan');
     });
@@ -69,7 +72,7 @@ Route::prefix('payroll')->group(function(){
     Route::get('/absenmasuk','App\Http\Controllers\KaryawanController@gaji')->name('payroll.gaji');
     
 });
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    
+});
 

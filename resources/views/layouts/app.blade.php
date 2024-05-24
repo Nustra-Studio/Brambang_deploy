@@ -74,7 +74,16 @@
 
         <main class="py-4">
             @yield('content')
+        
         </main>
     </div>
+    
+    <script>
+        $(document).ready(function () {
+            @if ($errors->any())
+                $('#registerModal').modal('show');
+            @endif
+        });
+    </script>
 </body>
 </html>

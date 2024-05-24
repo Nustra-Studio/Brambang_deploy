@@ -48,7 +48,7 @@
 
     <!-- Cards for Totals Start -->
     <div class="row mt-3">
-        <div class="col-6">
+        <div class="col-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Pengeluaran</h5>
@@ -56,7 +56,15 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Keuntungan Bersih</h5>
+                    <p class="card-text" id="income">RP 0</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Pendapatan</h5>
@@ -220,7 +228,8 @@
                     totalIncome += amount;
                 }
             });
-
+            var income = totalIncome - totalCost ;
+            $('#income').text('RP ' + income.toLocaleString('id-ID', { minimumFractionDigits: 0 }));
             $('#totalCost').text('RP ' + totalCost.toLocaleString('id-ID', { minimumFractionDigits: 0 }));
             $('#totalIncome').text('RP ' + totalIncome.toLocaleString('id-ID', { minimumFractionDigits: 0 }));
         }
