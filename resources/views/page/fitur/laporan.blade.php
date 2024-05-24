@@ -223,9 +223,9 @@
             var totalIncome = 0;
             dataTable.rows({ filter: 'applied' }).data().each(function(value, index) {
                 var amount = parseFloat(value[2].replace(/[^0-9,-]+/g,"").replace(',', '.'));
-                if (value[4] === 'Pembelian Barang') {
+                if (value[3] === 'Pengeluaran') {
                     totalCost += amount;
-                } else if (value[4] === 'Penjualan') {
+                } else if (value[3] === 'Pendapatan') {
                     totalIncome += amount;
                 }
             });
