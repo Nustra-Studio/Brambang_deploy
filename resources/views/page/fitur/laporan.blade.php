@@ -33,6 +33,7 @@
                     <option value="">Filter by Status</option>
                     <option value="Pembelian Barang">Pembelian Barang</option>
                     <option value="Penjualan">Penjualan</option>
+                    <option value="Gaji Karyawan">Gaji Karyawan</option>
                 </select>
             </div>
             <!-- Date Range Pickers Start -->
