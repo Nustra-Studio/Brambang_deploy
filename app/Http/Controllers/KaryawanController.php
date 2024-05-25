@@ -62,34 +62,40 @@ class KaryawanController extends Controller
     public function gaji(Request $request){
         $gaji = karyawan::where('id',$request->id)->first();
         $makan = Gaji::where('id_karyawan',$request->id)->where('name','makan')->value('total');
+        $bensins = Gaji::where('id_karyawan',$request->id)->where('name','bensin')->value('total');
+        $bensin = 0;
         if(empty($makan)){$makan=0;}
+        $dayOfWeek = date('l');
+        if ($dayOfWeek === 'Saturday') {
+            $bensin = $bensins;
+        }
         if($request->status =="lembur")
         {
             Absen::create([
                 'date'=>date('Y-m-d'),
                 'id_karyawan'=>$request->id,
                 'status'=>$request->status,
-                'more'=>$gaji->salary * 2 + $makan
+                'more'=>$gaji->salary * 2 + $makan + $bensin
             ]);
-            $money = $gaji->salary * 2 + $makan;
+            $money = $gaji->salary * 2 + $makan + $bensin;
         }
         elseif($request->status === "masuk"){
             Absen::create([
                 'date'=>date('Y-m-d'),
                 'id_karyawan'=>$request->id,
                 'status'=>$request->status,
-                'more'=>$gaji->salary
+                'more'=>$gaji->salary + $bensin
             ]);
-            $money = $gaji->salary;
+            $money = $gaji->salary + $bensin;
         }
         elseif($request->status === "tidak_masuk"){
             Absen::create([
                 'date'=>date('Y-m-d'),
                 'id_karyawan'=>$request->id,
                 'status'=>$request->status,
-                'more'=>'0'
+                'more'=>0  + $bensin
             ]);
-            $money= 0;
+            $money= 0 + $bensin;
         }
         else{
 
@@ -139,8 +145,6 @@ class KaryawanController extends Controller
             'hp' => 'required',
             'salary' => 'required',
             'department' => 'required',
-            'bensin' => 'required',
-            'makan' => 'required',
         ]);
 
         $barang = Karyawan::Find($id);
