@@ -16,7 +16,7 @@
                 <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                 <span class="text-small align-middle">Home</span>
                 </a>
-                <h1 class="mb-0 pb-0 display-4" id="title">Data Customer</h1>
+                <h1 class="mb-0 pb-0 display-4" id="title">Data User</h1>
             </div>
             </div>
             <!-- Title End -->
