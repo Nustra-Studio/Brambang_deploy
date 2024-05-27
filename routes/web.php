@@ -7,6 +7,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/history/hutang', function () {
         return view('page.history.hutang');
     });
+    Route::resource('user', UserController::class);
     Route::get('/hutang','App\Http\Controllers\TransactionController@hutang');
 Route::resource('/barang', BarangController::class);
 Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');

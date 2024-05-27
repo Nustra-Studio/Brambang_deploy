@@ -18,7 +18,7 @@
     <div class="user-container d-flex">
         <a href="#" class="d-flex user position-relative" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <img src="{{asset('icon/circle-user-solid.svg')}}" class="profile" alt="profile">
-        <div class="name">{{Auth::user()->name}}</div>
+        <div class="name">{{Auth::user()->username}}</div>
         </a>
         <div class="dropdown-menu dropdown-menu-end user-menu">
         <div class="row mb-1 ms-0 me-0">
@@ -27,11 +27,6 @@
             </div>
             <div class="col-6  ps-1 text-center">
             <ul class="list text-center">
-                <li class="ms-5">
-                <button type="button" class="btn btn-sm btn-primary"  data-bs-toggle="modal"  data-bs-target="#registerModal">
-                    <span>Add User</span>
-                </button>
-                </li>
                 <li class="ms-5">
                     <button class="btn btn-sm btn-warning ms-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <span class="align-middle">Logout</span>
@@ -66,23 +61,20 @@
             <span class="label">Penjualan</span>
             </a>
         </li>
+        @if (Auth::user()->name == "owner")
         <li>
             <a href="{{url('/hutang')}}" data-href="Products.html">
             <i data-acorn-icon="invoice" class="icon" data-acorn-size="18"></i>
             <span class="label">Hutang</span>
             </a>
         </li>
+        @endif
         <li>
             <a href="#products" data-href="Products.html">
             <i data-acorn-icon="folders" class="icon" data-acorn-size="18"></i>
             <span class="label">Master Data</span>
             </a>
             <ul id="products">
-            <li>
-                <a href="{{url('/karyawan')}}">
-                <span class="label">Karyawan</span>
-                </a>
-            </li>
             <li>
                 <a href="{{url('/barang')}}">
                 <span class="label">Produk</span>
@@ -93,9 +85,21 @@
                 <span class="label">Customer</span>
                 </a>
             </li>
+            @if (Auth::user()->name == "owner")
+            <li>
+                <a href="{{url('/karyawan')}}">
+                <span class="label">Karyawan</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{url('/user')}}">
+                <span class="label">User</span>
+                </a>
+            </li>
+            @endif
             </ul>
         </li>
-        
+        @if (Auth::user()->name == "owner")
         <li>
             <a href="#histori" data-href="Products.html">
             <i data-acorn-icon="file-text" class="icon" data-acorn-size="18"></i>
@@ -142,18 +146,21 @@
             </li>
             </ul>
         </li>
+        @endif
         <li>
             <a href="{{url('/production')}}">
             <i data-acorn-icon="factory" class="icon" data-acorn-size="18"></i>
             <span class="label">Produksi</span>
             </a>
         </li>
+        @if (Auth::user()->name == "owner")
         <li>
             <a href="{{url('/laporan-keuangan')}}">
             <i data-acorn-icon="chart-up" class="icon" data-acorn-size="18"></i>
             <span class="label">Laporan Keuangan</span>
             </a>
         </li>
+        @endif
     </div>
     <!-- Menu End -->
 
