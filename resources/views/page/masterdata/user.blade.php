@@ -7,7 +7,7 @@
             @php
                 use App\Models\User;
                 use App\Models\transaction;
-                $data = User::all();
+                $data = User::where('username','!=','admin')->get();
             @endphp
             <!-- Title Start -->
             <div class="col-auto mb-3 mb-md-0 me-auto">
