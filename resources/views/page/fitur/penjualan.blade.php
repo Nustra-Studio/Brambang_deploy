@@ -198,6 +198,7 @@
                                 <div class="input-group">
                                     <span class="input-group-text Stock">Stock:</span>
                                     <input type="text" name="qty[]" class="form-control qty" />
+                                    <input type="hidden" name="stock[]" class="form-control qty" />
                                     <span class="input-group-text">Total:</span>
                                     <span class="input-group-text total">0</span>
                                 </div>
@@ -223,7 +224,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-icon btn-icon-end btn-primary">
+                            <button type="submit" id="submit-data" class="btn btn-icon btn-icon-end btn-primary">
                                 <span>Tambah</span>
                                 <i data-acorn-icon="plus"></i>
                             </button>
@@ -240,6 +241,8 @@
 @push('custom-scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    let stockAlertShown = false; // Flag to track if the alert has been shown
+
     function updatePrice() {
         const productSelect = document.querySelectorAll('select[name="produk[]"]');
         productSelect.forEach(select => {
@@ -253,10 +256,13 @@
                         console.log(data);
                         const price = data.price; // Adjust this based on your actual response structure
                         const priceInput = select.parentElement.querySelector('input[name="price[]"]');
-                        const Stock = select.parentElement.querySelector('.Stock');
-                        Stock.textContent=  "Stock:"+" "+ data.qty;
-                        priceInput.value = price;
+                        const stockSpan = select.parentElement.querySelector('.Stock');
+                        const stockInput = select.parentElement.querySelector('input[name="stock[]"]');
+                        if (priceInput) priceInput.value = price;
+                        if (stockSpan) stockSpan.textContent = "Stock: " + data.qty;
+                        if (stockInput) stockInput.value = data.qty;
                         calculateTotal();
+                        checkStockAvailability();
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error('Error:', textStatus, errorThrown);
@@ -266,23 +272,25 @@
         });
     }
 
-
     function calculateTotal() {
         const productItems = document.querySelectorAll('.product-item');
         productItems.forEach(item => {
             const priceInput = item.querySelector('input[name="price[]"]');
             const qtyInput = item.querySelector('input[name="qty[]"]');
             const totalSpan = item.querySelector('.total');
-            const price = parseFloat(priceInput.value) || 0;
-            const qty = parseInt(qtyInput.value) || 0;
+            const price = parseFloat(priceInput?.value) || 0;
+            const qty = parseInt(qtyInput?.value) || 0;
             const total = price * qty;
-            totalSpan.textContent = total.toLocaleString('id-ID', {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-                style: 'currency',
-                currency: 'IDR'
-            });
+            if (totalSpan) {
+                totalSpan.textContent = total.toLocaleString('id-ID', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0,
+                    style: 'currency',
+                    currency: 'IDR'
+                });
+            }
         });
+        checkStockAvailability();
     }
 
     function totalBayar() {
@@ -292,7 +300,7 @@
         let total = 0;
         priceInputs.forEach((priceInput, index) => {
             const qtyInput = qtyInputs[index];
-            total += (parseFloat(priceInput.value) || 0) * (parseInt(qtyInput.value) || 0);
+            total += (parseFloat(priceInput?.value) || 0) * (parseInt(qtyInput?.value) || 0);
         });
         const kurang = total - bayar;
         document.getElementById('sisa').textContent = kurang.toLocaleString('id-ID', {
@@ -301,7 +309,34 @@
             style: 'currency',
             currency: 'IDR'
         });
-        document.getElementById('total_belanja').value=total;
+        document.getElementById('total_belanja').value = total;
+        checkStockAvailability();
+    }
+
+    function checkStockAvailability() {
+        const productItems = document.querySelectorAll('.product-item');
+        let isStockAvailable = true;
+        productItems.forEach(item => {
+            const qtyInput = item.querySelector('input[name="qty[]"]');
+            const stockInput = item.querySelector('input[name="stock[]"]');
+            const qty = parseInt(qtyInput?.value) || 0;
+            const stock = parseInt(stockInput?.value) || 0;
+            if (qty > stock) {
+                isStockAvailable = false;
+                if (!stockAlertShown) {
+                    alert(`Stock tidak cukup `);
+                    qtyInput.value = stock;
+                    calculateTotal(); // Recalculate total with the adjusted quantity
+                isStockAvailable = false;
+                }
+            }
+        });
+        document.getElementById('submit-data').disabled = !isStockAvailable;
+
+        // Reset the flag if all stocks are sufficient
+        if (isStockAvailable) {
+            stockAlertShown = false;
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -322,11 +357,13 @@
                 </select>
                 <label class="form-label">Harga</label>
                 <input type="text" name="price[]" class="form-control price" />
+                <input type="hidden" name="stock[]" class="form-control stock" />
                 <label class="form-label">Jumlah</label>
                 <div class="input-group">
                     <input type="text" name="qty[]" class="form-control qty" />
                     <span class="input-group-text">Total:</span>
                     <span class="input-group-text total">0</span>
+                    <span class="Stock">Stock: 0</span>
                 </div>
             `;
             productContainer.appendChild(productItem);
@@ -341,8 +378,11 @@
             }
         });
     });
-
 </script>
+
+
+
+
 
 <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
