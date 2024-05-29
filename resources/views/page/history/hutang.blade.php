@@ -82,7 +82,7 @@
                         }
                         else {
                             $customer = "Owner";
-                            $name = $item->name;
+                            $name = $item->id_barang;
                         }
                     @endphp
                     <tr>
