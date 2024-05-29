@@ -32,8 +32,8 @@
             <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end  mb-2 mb-sm-0 order-sm-3">
                 <select id="filterStatus" class="form-select">
                     <option value="">Filter by Status</option>
-                    <option value="buy_product">Hutang</option>
-                    <option value="sell_product">Utang</option>
+                    <option value="Owner">Owner</option>
+                    <option value="Customer">Customer</option>
                 </select>
             </div>
             <!-- Top Buttons End -->
@@ -136,10 +136,38 @@
             length_sel.removeClass('form-control-sm');
         });
 
+        $(document).ready(function() {
+        var table = $('#dataTableExample').DataTable();
+
         $('#filterStatus').on('change', function() {
             var status = $(this).val();
-            $('#dataTableExample').DataTable().columns(4).search(status).draw();
+
+            // Clear previous filters
+            $.fn.dataTable.ext.search = [];
+
+            if (status == "Owner") {
+                // Direct column search
+                table.columns(2).search(status).draw();
+            } else if (status == "Customer") {
+                // Custom filter for excluding "owner"
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        var user = data[2]; // Kolom ke-3 (index 2)
+                        if (user === "Owner") {
+                            return false;
+                        }
+                        return true;
+                    }
+                );
+                table.draw();
+            } else {
+                // Clear filters if no status is selected
+                table.search('').columns().search('').draw();
+            }
         });
+    });
+
+
     });
     </script>   
     <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
