@@ -92,7 +92,6 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'jabatan' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $id],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
 
         if ($validator->fails()) {
