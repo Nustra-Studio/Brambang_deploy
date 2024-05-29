@@ -90,8 +90,8 @@
                                         <td>{{$item->hp}}</td>
                                         <td>{{$item->address}}</td>
                                         <td>{{$gaji}}</td>
-                                        <td>{{$bensin}}</td>
-                                        <td>{{$makan}}</td>
+                                        <td>{{$bensins}}</td>
+                                        <td>{{$makans}}</td>
                                         <td>{{$item->department}}</td>
                                         <td>
                                             <div class="container-fluid d-lg-flex flex-lg-row gap-1 gap-lg-2 justify-content-lg-end">
