@@ -82,7 +82,7 @@
                         }
                         else {
                             $customer = "Owner";
-                            $name = history::where('more',$item->name)->value('name');
+                            $name = $item->name;
                         }
                     @endphp
                     <tr>
