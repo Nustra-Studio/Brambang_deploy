@@ -147,7 +147,7 @@
                                 <div class="card-body pt-0 pb-0 h-100">
                                 <div class="row g-0 h-100 align-content-center">
                                     <div class="col-10 col-md-4 d-flex align-items-center mb-3 mb-md-0 h-md-100">
-                                    <a class="body-link stretched-link" style="cursor: pointer;">{{$item->name}}</a>
+                                    <span class="body-link stretched-link" style="cursor: pointer;">{{$item->name}}</span>
                                     </div>
                                     <div class="col-2 col-md-3 d-flex align-items-center text-muted mb-1 mb-md-0 justify-content-end justify-content-md-start">
                                     <span class="badge bg-outline-primary me-1">TERJUAL</span>
@@ -197,10 +197,10 @@
                                 <div class="col">
                                     <div class="card-body pt-0 pb-0 h-100">
                                     <div class="row g-0 h-100 align-content-center">
-                                        <div class="col d-flex align-items-center mb-2 mb-md-0 text-large">
-                                        <a href="Products.Detail.html">{{$item->name}}</a>
+                                        <div class="col d-flex align-items-center mb-2 mb-md-0 text-semi-large ps-3">
+                                        <span class="text-primary">{{$item->name}}</span>
                                         </div>
-                                        <div class="col d-flex justify-content-center align-items-center">
+                                        <div class="col d-flex justify-content-center align-items-center ">
                                         <div class="border px-2 py-1 rounded border-primary border-2 text-primary">
                                             {{$item->qty}} Item
                                         </div>
@@ -221,43 +221,42 @@
         
                 <!-- Top Search Terms Start -->
                 <div class="col-xl-6 mb-5">
-                <h2 class="small-title fw-bold text-danger">Barang Keluar</h2>
-                <div class="scroll-out mb-n2">
-                    <div class="scroll-by-count" data-count="5">
-                    @php
-                        $data = transaction::where('information','penjualan')
-                                ->latest() // Mengambil data terbaru
-                                ->take(5)
-                                ->get();
-                    @endphp
-                    @foreach ($data as $item)
-                    <div class="card mb-2">
-                        <div class="row g-0 sh-14 sh-md-10">
-                        <div class="col">
-                            <div class="card-body pt-0 pb-0 h-100">
-                            <div class="row g-0 h-100 align-content-center">
-                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-large ">
-                                <a href="Products.Detail.html" class="text-danger">{{$item->id_barang}}</a>
-                                </div>
-                                <div class="col d-flex justify-content-center align-items-center">
-                                <div class="border px-2 py-1 rounded border-danger border-2 text-danger">
-                                    {{$item->qty}} Item
-                                </div>
-                                </div>
-                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
-                                    {{$item->created_at->format('Y-m-d');}}
+                    <h2 class="small-title fw-bold text-danger">Barang Keluar</h2>
+                    <div class="scroll-out mb-n2">
+                        <div class="scroll-by-count" data-count="5">
+                            @php
+                                $data = transaction::where('information','penjualan')
+                                        ->latest() // Mengambil data terbaru
+                                        ->take(5)
+                                        ->get();
+                            @endphp
+                            @foreach ($data as $item)
+                            <div class="card mb-2">
+                                <div class="row g-0 sh-14 sh-md-10">
+                                    <div class="col">
+                                        <div class="card-body pt-0 pb-0 h-100">
+                                            <div class="row g-0 h-100 align-content-center">
+                                                <div class="col d-flex align-items-center mb-2 mb-md-0 text-semi-large text-truncate">
+                                                    <span  class="text-danger">{{$item->id_barang}}</span>
+                                                </div>
+                                                <div class="col d-flex justify-content-center align-items-center">
+                                                    <div class="border px-2 py-1 rounded border-danger border-2 text-danger">
+                                                        {{$item->qty}} Item
+                                                    </div>
+                                                </div>
+                                                <div class="col d-flex align-items-center justify-content-end text-muted text-medium">
+                                                    {{$item->created_at->format('Y-m-d');}}
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
                                 </div>
                             </div>
-                            </div>  
-                        </div>
+                            @endforeach
                         </div>
                     </div>
-                    @endforeach
-                    </div>
                 </div>
-                </div>
-                <!-- Top Search Terms End -->
-            </div>
+                
         
             <div class="row">
                 <div class="col-12 col-xxl">
