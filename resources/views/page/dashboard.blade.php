@@ -197,7 +197,7 @@
                                 <div class="col">
                                     <div class="card-body pt-0 pb-0 h-100">
                                     <div class="row g-0 h-100 align-content-center">
-                                        <div class="col d-flex align-items-center mb-2 mb-md-0 text-semi-large ps-3">
+                                        <div class="col d-flex align-items-center mb-2 mb-md-0 text-semi-large ">
                                         <span class="text-primary">{{$item->name}}</span>
                                         </div>
                                         <div class="col d-flex justify-content-center align-items-center ">
