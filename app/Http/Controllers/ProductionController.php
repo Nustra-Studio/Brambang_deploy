@@ -101,30 +101,64 @@ class ProductionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $data = produksi::findOrFail($id);
-        $datas =([
-            'finish'=>$request->finish,
-            'results'=>$request->results,
-            'information'=>'finish'
-        ]);
-        history::create([
-            'name'=>$data->name,
-            'status'=>$data->start,
-            'unit'=>$data->unit,
-            'information'=>'Production',
-            'more'=>$request->finish,
-            'price'=>$request->cost
-        ]);
-        $barang = Barang::findOrFail($data->id_product);
-        $stock = $barang->qty + $request->results;
-        $update = ([
-            'qty'=>$stock
-        ]);
-        $data->update($datas);
-        $barang->update($update);
-    return redirect('production')->with('success', 'Success production ');
+{
+    // Validasi request
+    $request->validate([
+        'results1' => 'required|numeric',
+        'results2' => 'required|numeric',
+        'results3' => 'required|numeric',
+        'results4' => 'required|numeric',
+    ]);
+
+    // Temukan data produksi berdasarkan ID
+    $data = produksi::findOrFail($id);
+
+    // Hitung total hasil
+    $results = $request->results1 + $request->results2 + $request->results3 + $request->results4;
+
+    // Buat array data yang akan diupdate
+    $datas = [
+        'finish' => $request->finish,
+        'results' => $results,
+        'information' => 'finish'
+    ];
+
+    // Buat entri history
+    history::create([
+        'name' => $data->name,
+        'status' => $data->start,
+        'unit' => $data->unit,
+        'information' => 'Production',
+        'more' => $request->finish,
+        'price' => $request->cost
+    ]);
+
+    // Ambil produk berdasarkan nama
+    $products = [
+        'results1' => 'Bawang Goreng A',
+        'results2' => 'Bawang Goreng B',
+        'results3' => 'Bawang Goreng C',
+        'results4' => 'Bawang Goreng D'
+    ];
+
+    // Cek dan update stok untuk setiap produk
+    foreach ($products as $key => $name) {
+        $product = Barang::where('name', $name)->first();
+        if ($product ) {
+            $barang = Barang::findOrFail($product->id);
+            $stock = $barang->qty + $request->$key;
+            $barang->update(['qty' => $stock]);
+        }
     }
+
+    // Update data produksi
+    $data->update($datas);
+
+    // Redirect ke halaman produksi dengan pesan sukses
+    return redirect('production')->with('success', 'Success production');
+}
+
+    
 
     /**
      * Remove the specified resource from storage.

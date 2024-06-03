@@ -117,9 +117,21 @@
                                                 <form action="{{Route('production.update', $item->id)}}" method="POST">
                                                     @csrf
                                                     @method('PUT')
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Hasil A</label>
+                                                        <input type="number" class="form-control" required name="results1" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Hasil  B</label>
+                                                        <input type="number" class="form-control" required name="results2" />
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Hasil C</label>
+                                                        <input type="number" class="form-control" required name="results3" />
+                                                    </div>
                                                 <div class="mb-3">
-                                                    <label class="form-label">Hasil</label>
-                                                    <input type="number" class="form-control" name="results" />
+                                                    <label class="form-label">Hasil D</label>
+                                                    <input type="number" class="form-control" required name="results4" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Selesai Produksi</label>
