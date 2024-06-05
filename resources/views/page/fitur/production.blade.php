@@ -238,28 +238,31 @@
                         </div>
                         <!-- Rest of the form content -->
 
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <h6 class="card-title">Tabel Input</h6>
-                                <div class="tabel-sementara" class="mt-5">
-                                    <div class="table-responsive">
-                                        <table id="product-table" class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nama Barang</th>
-                                                    <th>Jumlah Barang</th>
-                                                    <th>Harga</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- Table rows will be dynamically added here -->
-                                            </tbody>
-                                        </table>
+                        <!-- Tabel Input Section inside the modal -->
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <h6 class="card-title">Tabel Input</h6>
+                                    <div class="tabel-sementara mt-5">
+                                        <div class="table-responsive">
+                                            <table id="product-table" class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nama Barang</th>
+                                                        <th>Jumlah Barang</th>
+                                                        <th>Harga</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Table rows will be dynamically added here -->
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+
 
                         <input type="hidden" id="data-table-values" name="data_table_values">
                         <button type="button" class="btn btn-primary me-2" onclick="addRow()">Tambah Baris</button>
@@ -307,49 +310,60 @@
     </script> --}}
     <script>
         const productTable = $('#product-table').DataTable();
-        const existingValues = [];
+                const existingValues = [];
 
-        function addRow() {
-            const name = document.getElementById('product_select').value;
-            const jumlah = document.getElementById('jumlah-input').value;
-            const harga = document.getElementById('harga-input').value;
-            const url = `/dataresource/barang/?namaproduct=${name}`;
-            const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
-            const rowValues = {
-                'name': name,
-                'qty': jumlah,
-                'price': harga,
-            };
-            existingValues.push(rowValues);
-            $('#data-table-values').val(JSON.stringify(existingValues));
-            $.ajax({
-                type: 'GET',
-                url: url,
-                success: function(data) {
-                    console.log(data);
-                    // Assuming the response data contains the price
-                    const names = data.name; // Adjust this based on your actual response structure
-                    const newRow = productTable.row.add([names, jumlah, harga, deleteButton]).draw();
-                    $(newRow.node()).data('node', newRow);
-                    document.getElementById('product_select').value = '';
-                    document.getElementById('jumlah-input').value = '';
-                    document.getElementById('harga-input').value = '';
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error('Error:', textStatus, errorThrown);
+                function addRow() {
+                    const name = document.getElementById('product_select').value;
+                    const jumlah = document.getElementById('jumlah-input').value;
+                    const harga = document.getElementById('harga-input').value;
+                    const url = `/dataresource/barang/?namaproduct=${name}`;
+                    const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
+                    const rowValues = {
+                        'name': name,
+                        'qty': jumlah,
+                        'price': harga,
+                    };
+                    existingValues.push(rowValues);
+                    $('#data-table-values').val(JSON.stringify(existingValues));
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        success: function(data) {
+                            console.log(data);
+                            const names = data.name;
+                            const no = productTable.rows().count() + 1; // Get the row count and increment by 1
+                            const newRow = productTable.row.add([no, names, jumlah, harga, deleteButton]).draw();
+                            $(newRow.node()).data('node', newRow);
+                            document.getElementById('product_select').value = '';
+                            document.getElementById('jumlah-input').value = '';
+                            document.getElementById('harga-input').value = '';
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.error('Error:', textStatus, errorThrown);
+                        }
+                    });
                 }
-            });
-        }   
-        function deleteRow(button) {
-            const rowNode = $(button).closest('tr');
-            const rowData = productTable.row(rowNode).data();
-            const rowIndex = productTable.row(rowNode).index();
 
-            existingValues.splice(rowIndex, 1); // Hapus data dari existingValues
-            $('#data-table-values').val(JSON.stringify(existingValues)); // Perbarui nilai input
+                function deleteRow(button) {
+                    const rowNode = $(button).closest('tr');
+                    const rowData = productTable.row(rowNode).data();
+                    const rowIndex = productTable.row(rowNode).index();
 
-            productTable.row(rowNode).remove().draw(); // Hapus baris dari tabel
-}
+                    existingValues.splice(rowIndex, 1); // Remove data from existingValues
+                    $('#data-table-values').val(JSON.stringify(existingValues)); // Update the input value
+
+                    productTable.row(rowNode).remove().draw(); // Remove the row from the table
+                    renumberRows(); // Renumber the rows after a deletion
+                }
+
+                function renumberRows() {
+                    productTable.rows().every(function(index) {
+                        const data = this.data();
+                        data[0] = index + 1; // Update the "No" column with the new index
+                        this.data(data).draw();
+                    });
+                }
+
     </script>
      <script>
         function updateprice() {

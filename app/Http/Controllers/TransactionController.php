@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\transaction;
 use App\Models\history;
 use App\Models\Barang;
@@ -40,77 +39,109 @@ class TransactionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
-    {   
-        $currentDate = date('Ymd');
+    {
+        $request->validate([
+            'date' => 'required|date_format:Y-m-d',
+        ]);
+
+        // Mengonversi tanggal input ke format Carbon
+        try {
+            $date = Carbon::createFromFormat('Y-m-d', $request->input('date'));
+        } catch (\Exception $e) {
+            return back()->withErrors(['date' => 'Format tanggal tidak valid.']);
+        }
+        $currentDate = $date->format('Ymd');
         $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
         $randomDate = $currentDate . $randomNumber;
         $name = "PJ$randomDate";
         $price = $request->input('price');
         $produk = $request->input('produk');
         $qty = $request->input('qty');
-
-        
-        for($i = 0; $i< count($produk) ; $i++){
-        $barang = Barang::where('id',$produk[$i])->first();
-        $data = [
-            'name'=>$name,
-            'price'=>$price[$i],
-            'id_barang'=>$barang->name,
-            'id_customer'=>$request->customer,
-            'qty'=>$qty[$i],
-            'information'=> 'penjualan'
-        ];
-        transaction::create($data);
-        $data_history = [
-            'name'=>$name,
-            'price'=>$price[$i],
-            'qty'=>$qty[$i],
-            'information'=> 'Penjualan',
-            'more'=>$barang->name,
-        ];
-        history::create($data_history);
-        $barang = Barang::findOrFail($produk[$i]);
-        $stock = $barang->qty - $qty[$i];
-        $barang->qty = $stock; // Update qty dengan nilai yang diterima dari form
-        $barang->save();
-        $income = $qty[$i] * $price[$i];
-            $data = [
-                'name'=>$name,
-                'money'=>$income,
-                'status'=>'income',
-                'information'=>"sell_product",
-            ];
-        keuangan::create($data);
-    }
-    if($request->total_belanja <= $request->bayar){
-        $status = 'Lunas';
-    }
-    else{
-        $status = 'belum_lunas';
-    }
-    $data = [
-        'name'=>$name,
-        'price'=>$request->total_belanja,
-        'id_customer'=>$request->customer,
-        'qty'=>$request->bayar,
-        'information'=> 'nota',
-        'status'=>$status
-    ];
-    transaction::create($data);
-    $data_history = [
-        'name'=>$name,
-        'price'=>$request->bayar,
-        'information'=> 'Pembayaran Hutang',
-        'more'=>$request->customer,
-    ];
-    history::create($data_history);
-
-    $customer = Customer::where('id',$request->customer)->value('name');
-        // update stock
-        return view('page.fitur.invoice',['data'=>$request,'kode_invoice'=>$name,'status'=>$status,'customer'=>$customer]);
     
+        for ($i = 0; $i < count($produk); $i++) {
+            $barang = Barang::where('id', $produk[$i])->first();
+            $data = [
+                'name' => $name,
+                'price' => $price[$i],
+                'id_barang' => $barang->name,
+                'id_customer' => $request->customer,
+                'qty' => $qty[$i],
+                'information' => 'penjualan',
+                'created_at' => $date,
+                'updated_at' => now(), // atau bisa disamakan dengan created_at
+            ];
+            Transaction::create($data);
+    
+            $data_history = [
+                'name' => $name,
+                'price' => $price[$i],
+                'qty' => $qty[$i],
+                'information' => 'Penjualan',
+                'more' => $barang->name,
+                'created_at' => $date,
+                'updated_at' => now(), // atau bisa disamakan dengan created_at
+            ];
+            History::create($data_history);
+    
+            $barang = Barang::findOrFail($produk[$i]);
+            $stock = $barang->qty - $qty[$i];
+            $barang->qty = $stock; // Update qty dengan nilai yang diterima dari form
+            $barang->save();
+    
+            $income = $qty[$i] * $price[$i];
+            $data = [
+                'name' => $name,
+                'money' => $income,
+                'status' => 'income',
+                'information' => "sell_product",
+                'created_at' => $date,
+                'updated_at' => now(), // atau bisa disamakan dengan created_at
+            ];
+            Keuangan::create($data);
+        }
+    
+        if ($request->total_belanja <= $request->bayar) {
+            $status = 'Lunas';
+        } else {
+            $status = 'belum_lunas';
+        }
+    
+        $data = [
+            'name' => $name,
+            'price' => $request->total_belanja,
+            'id_customer' => $request->customer,
+            'qty' => $request->bayar,
+            'information' => 'nota',
+            'status' => $status,
+            'created_at' => $date,
+            'updated_at' => now(), // atau bisa disamakan dengan created_at
+        ];
+        Transaction::create($data);
+    
+        $data_history = [
+            'name' => $name,
+            'price' => $request->bayar,
+            'information' => 'Pembayaran Hutang',
+            'more' => $request->customer,
+            'created_at' => $date,
+            'updated_at' => now(), // atau bisa disamakan dengan created_at
+        ];
+        History::create($data_history);
+    
+        $customer = Customer::where('id', $request->customer)->value('name');
+    
+        // Mengirim data ke view
+        return view('page.fitur.invoice', [
+            'data' => $request,
+            'kode_invoice' => $name,
+            'status' => $status,
+            'customer' => $customer,
+            'date'=>$date->format('Y-m-d')
+        ]);
     }
+    
 
     /**
      * Display the specified resource.

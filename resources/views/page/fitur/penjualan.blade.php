@@ -215,6 +215,10 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label">Tanggal</label>
+                            <input type="date" name="date" class="form-control">
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Bayar</label>
                             <div class="input-group">
                                 <input type="text" name="bayar" class="form-control" id="bayar" />

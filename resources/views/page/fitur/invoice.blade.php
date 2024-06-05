@@ -59,7 +59,7 @@
                     <h2 class="ps-5 ">+6443884455</h2>
                 </div>
                 <div class="col-12 col-md-6 pe-5 text-end">
-                    <h2 class="pe-5 mb-2">Tanggal: {{date('Y-m-d')}}</h2>
+                    <h2 class="pe-5 mb-2">Tanggal: {{$date}}</h2>
                     <h2 class="pe-5 mb-2">Nota: {{$kode_invoice}}</h2>
                     <h2 class="pe-5">Customer: {{$customer}}</h2>
                 </div>
