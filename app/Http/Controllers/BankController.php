@@ -35,7 +35,13 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'name' =>$request->nama,
+            'information'=>$request->rekening,
+            'saldo'=>$request->saldo,
+        ];
+        bank::create($data);
+        return redirect('bank')->with('status', 'Success Input Bank');
     }
 
     /**
@@ -57,7 +63,7 @@ class BankController extends Controller
      */
     public function edit($id)
     {
-        //
+      
     }
 
     /**
@@ -69,7 +75,16 @@ class BankController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required',
+            'information' => 'required',
+            'saldo' => 'required'
+        ]);
+
+        $barang = bank::find($id);
+    
+        $barang->update($validateData);
+        return redirect('bank')->with('status', 'Edit data Berhasil');
     }
 
     /**
@@ -80,6 +95,9 @@ class BankController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = bank::find($id);
+
+        $data->delete();
+        return redirect('bank')->with('hapus', 'Berhasil Hapus Data');
     }
 }

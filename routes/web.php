@@ -36,6 +36,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan-keuangan', function () {
         return view('page.fitur.laporan');
     });
+    Route::get('/mutasi', function () {
+        return view('page.fitur.keuangan');
+    });
     Route::get('/history/barangmasuk', function () {
         return view('page.history.masuk');
     });

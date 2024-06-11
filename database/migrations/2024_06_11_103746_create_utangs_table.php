@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('hutangs', function (Blueprint $table) {
+        Schema::create('utangs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('jumlah')->nullable();
-            $table->string('more ')->nullable();
+            $table->string('name')->nullable();
+            $table->string('saldo')->nullable();
+            $table->string('more')->nullable();
             $table->string('option')->nullable();
             $table->string('information')->nullable();
             $table->timestamps();
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hutangs');
+        Schema::dropIfExists('utangs');
     }
 };

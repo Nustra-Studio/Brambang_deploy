@@ -43,7 +43,7 @@
         <!-- Controls Start -->
         <div class="row mb-2">
         <!-- Search Start -->
-        <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
+        {{-- <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
             <div class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
             <input class="form-control" placeholder="Search" />
             <span class="search-magnifier-icon">
@@ -53,7 +53,7 @@
                 <i data-acorn-icon="close"></i>
             </span>
             </div>
-        </div>
+        </div> --}}
         <!-- Search End -->
 
         <div class="col-sm-12 col-md-7 col-lg-9 col-xxl-10 text-end mb-1">
@@ -155,15 +155,15 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="modal fade" id="editUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="editUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Edit Data Customer</h5>
+                                <h5 class="modal-title">Edit Data Bank</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="{{Route('customer.update', $item->id)}}" method="POST">
+                                <form action="{{Route('bank.update', $item->id)}}" method="POST">
                                     @csrf
                                     @method('PUT')
                                 <div class="mb-3">
@@ -171,12 +171,12 @@
                                     <input type="text" class="form-control" name="name" value="{{$item->name}}" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">No hp</label>
-                                    <input type="text" class="form-control" name="hp" value="{{$item->hp}}" />
+                                    <label class="form-label">No Rekening</label>
+                                    <input type="number" class="form-control" name="information" value="{{$item->information}}" />
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Alamat</label>
-                                    <input type="text" class="form-control" name="address" value="{{$item->address}}" />
+                                    <label class="form-label">Saldo</label>
+                                    <input type="number" class="form-control" name="saldo" value="{{$item->saldo}}" />
                                 </div>
                                 
                             </div>
@@ -189,7 +189,7 @@
                         </form>
                             </div>
                         </div>
-                    </div> --}}
+                    </div>
                     <div class="modal fade" id="deleteUserModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -201,7 +201,7 @@
                                 Konfirmasi Hapus Data
                             </div>
                             <div class="modal-footer">
-                                <form action="{{Route('customer.destroy', $item->id)}}" method="POST">
+                                <form action="{{Route('bank.destroy', $item->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger border shadow" type="submit">Hapus</button>
@@ -232,23 +232,23 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title fw-bold">Tambahkan Customer</h5>
+                <h5 class="modal-title fw-bold">Tambahkan Bank</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{Route('customer.store')}}" method="POST">
+                <form action="{{Route('bank.store')}}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label class="form-label">Nama</label>
                     <input type="text" name="nama" class="form-control" />
                 </div>
                 <div class="mb-3 w-100">
-                    <label class="form-label">No Hp.</label>
-                    <input type="text" name="nohp" class="form-control">
+                    <label class="form-label">No Rekening.</label>
+                    <input type="number" name="rekening" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Alamat</label>
-                    <input type="text" name="alamat" class="form-control" />
+                    <label class="form-label">Saldo</label>
+                    <input type="number" name="saldo" class="form-control" />
                 </div>
             </div>
             <div class="modal-footer">
