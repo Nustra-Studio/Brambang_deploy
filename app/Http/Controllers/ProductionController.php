@@ -148,6 +148,14 @@ class ProductionController extends Controller
             $barang = Barang::findOrFail($product->id);
             $stock = $barang->qty + $request->$key;
             $barang->update(['qty' => $stock]);
+            history::create([
+                'name' => $name,
+                'status' => $data->start,
+                'unit' => $data->unit,
+                'information' => 'Hasil Production',
+                'more' => $request->finish,
+                'price' => $request->$key
+            ]);
         }
     }
 

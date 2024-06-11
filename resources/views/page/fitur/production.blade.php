@@ -119,19 +119,19 @@
                                                     @method('PUT')
                                                     <div class="mb-3">
                                                         <label class="form-label">Hasil A</label>
-                                                        <input type="number" class="form-control" required name="results1" />
+                                                        <input type="number" value="0" class="form-control" required name="results1" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Hasil  B</label>
-                                                        <input type="number" class="form-control" required name="results2" />
+                                                        <input type="number"  value="0" class="form-control" required name="results2" />
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Hasil C</label>
-                                                        <input type="number" class="form-control" required name="results3" />
+                                                        <input type="number" value="0" class="form-control" required name="results3" />
                                                     </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Hasil D</label>
-                                                    <input type="number" class="form-control" required name="results4" />
+                                                    <input type="number" value="0" class="form-control" required name="results4" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Selesai Produksi</label>
