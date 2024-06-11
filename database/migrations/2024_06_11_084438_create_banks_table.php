@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('saldo')->nullable();
             $table->string('more')->nullable();
             $table->string('option')->nullable();
+            $table->string('information')->nullable();
             $table->timestamps();
         });
     }

@@ -35,7 +35,6 @@
                         @csrf
                     </form>
                 </li>
-                
             </ul>
             </div>
         </div>
@@ -86,6 +85,11 @@
                 </a>
             </li>
             @if (Auth::user()->name == "owner")
+            <li>
+                <a href="{{url('/bank')}}">
+                    <span class="label">Bank</span>
+                    </a>
+            </li>
             <li>
                 <a href="{{url('/karyawan')}}">
                 <span class="label">Karyawan</span>
@@ -155,10 +159,35 @@
         </li>
         @if (Auth::user()->name == "owner")
         <li>
+            <a href="#catatan" data-href="Products.html">
+                <i data-acorn-icon="activity" class="icon" data-acorn-size="18"></i>
+                <span class="label">Catatan</span>
+            </a>
+            <ul id="catatan">
+                <li>
+                    <a href="{{url('/catatan')}}">
+                    <span class="label">Hutang Pribadi</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li>
             <a href="{{url('/laporan-keuangan')}}">
             <i data-acorn-icon="chart-up" class="icon" data-acorn-size="18"></i>
             <span class="label">Laporan Keuangan</span>
             </a>
+        </li>
+        <li>
+            <a href="{{url('/mutasi')}}">
+                <i data-acorn-icon="wallet" class="icon" data-acorn-size="18"></i>
+                <span class="label">Laporan Asset</span>
+            </a>
+        </li>
+        <li  class="text-center mt-2">
+            <button class="btn btn-lg btn-warning" type="button" data-toggle="modal" data-target="#settingpage" >
+                <i data-acorn-icon="settings-1" class="icon" data-acorn-size="18"></i>
+                <span class="label">Setting</span>
+            </button>
         </li>
         @endif
     </div>

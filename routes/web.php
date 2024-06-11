@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BankController;
+use App\Http\Controllers\CatatanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,8 +54,10 @@ Route::resource('/barang', BarangController::class);
 Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');
 Route::resource('/customer', CustomerController::class);
 Route::resource('/karyawan', KaryawanController::class);
+Route::resource('/bank', BankController::class);
 Route::resource('/production', ProductionController::class);
 Route::resource('/transaction', TransactionController::class);
+Route::resource('/catatan', CatatanController::class);
 Route::prefix('dataresource')->group(function () {
     Route::get('/barang', 'App\Http\Controllers\BarangController@data')->name('barang.data');
     Route::get('/barang/jual', 'App\Http\Controllers\BarangController@jual')->name('barang.jual');

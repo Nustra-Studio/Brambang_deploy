@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('hutangs', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
+            $table->string('name');
             $table->string('jumlah')->nullable();
             $table->string('more ')->nullable();
             $table->string('option')->nullable();
+            $table->string('information')->nullable();
             $table->timestamps();
         });
     }
