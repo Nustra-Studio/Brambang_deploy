@@ -7,7 +7,7 @@
 <div class="data" id="Data-div">
     @php
     use App\Models\Barang;
-    $data = Barang::where('information','produk')->get();
+    $data = Barang::where('information','bahan_baku')->get();
     @endphp
 </div>
 
@@ -33,10 +33,10 @@
                     <i data-acorn-icon="plus"></i>
                     <span>Tambah Produk</span>
                 </button>
-                {{-- <button type="button" class="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#BeliProduk">
+                <button type="button" class="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#BeliProduk">
                     <i data-acorn-icon="plus"></i>
                     <span>Pembelian Produk</span>
-                </button> --}}
+                </button>
             </div>
             <!-- Top Buttons End -->
         </div>
@@ -184,18 +184,18 @@
                                     <label class="form-label">Stok</label>
                                     <input type="text" name="qty" id="qty_add" class="form-control" />
                                 </div>
-                                {{-- <div class="mb-3">
+                                <div class="mb-3">
                                     <label class="form-label">Bayar</label>
                                     <div class="input-group">
                                         <input type="text" name="bayar" id="bayars_add" class="form-control" />
                                         <span class="input-group-text">Sisa:</span>
                                         <span class="input-group-text" id="sisas_add"></span>
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="mb-3 w-100">
                                     <label class="form-label">Category</label>
                                     <select name="category" class="form-select">
-                                        <option value="produk">Produk</option>
+                                        <option value="bahan_baku">Bahan Baku</option>
                                     </select>
                                 </div>
                                 <div class="mb-3 w-100">

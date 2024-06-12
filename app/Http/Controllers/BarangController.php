@@ -17,8 +17,12 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $data = Barang::all();
+        $data = Barang::where('information','produk')->get();
         return view('page.masterdata.barang');
+    }
+    public function bahanbaku(){
+        $data = Barang::where('information','bahan_baku')->get();
+        return view('page.masterdata.bahanbaku');
     }
 
     /**

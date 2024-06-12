@@ -80,6 +80,11 @@
                 </a>
             </li>
             <li>
+                <a href="{{url('/bahan-baku')}}">
+                <span class="label">Bahan Baku</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{url('/customer')}}">
                 <span class="label">Customer</span>
                 </a>
