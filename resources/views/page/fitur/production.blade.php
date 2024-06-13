@@ -84,6 +84,7 @@
                                     <tr>
                                         @php
                                             $produksis = costproduksi::where('id_produksi',$item->unit)->get();
+                                            $produk = Barang::where("id",$item->id_product)->value('name');
                                             $cost = 0;
                                             foreach ($produksis as $produksi) {
                                                 $biayaItemProduksi = $produksi->qty * $produksi->price;
@@ -117,6 +118,7 @@
                                                 <form action="{{Route('production.update', $item->id)}}" method="POST">
                                                     @csrf
                                                     @method('PUT')
+                                                    @if ($produk === "Bawang Goreng A"||$produk === "Bawang Goreng B"||$produk === "Bawang Goreng C"||$produk === "Bawang Goreng D" )
                                                     <div class="mb-3">
                                                         <label class="form-label">Hasil A</label>
                                                         <input type="number" value="0" class="form-control" required name="results1" />
@@ -129,10 +131,16 @@
                                                         <label class="form-label">Hasil C</label>
                                                         <input type="number" value="0" class="form-control" required name="results3" />
                                                     </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Hasil D</label>
-                                                    <input type="number" value="0" class="form-control" required name="results4" />
-                                                </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Hasil D</label>
+                                                        <input type="number" value="0" class="form-control" required name="results4" />
+                                                    </div>
+                                                    @else
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Hasil</label>
+                                                        <input type="number" value="0" class="form-control" required name="hasil" />
+                                                    </div>
+                                                    @endif
                                                 <div class="mb-3">
                                                     <label class="form-label">Selesai Produksi</label>
                                                     <input type="date" class="form-control" name="finish" />
