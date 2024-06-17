@@ -134,7 +134,10 @@
                                     </div>
                                 <div class="col-6 col-lg-4 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-4 order-lg-3">
                                 <div class="text-muted text-small d-lg-none">Saldo</div>
-                                <div class="text-alternate">{{$item->saldo}}</div>
+                                @php
+                                    $saldo = 'RP ' . number_format($item->saldo, 0, ',', '.');
+                                @endphp
+                                <div class="text-alternate">{{$saldo}}</div>
                                 </div>
                                 <div class="col-6 col-lg-1 d-flex flex-column justify-content-center mb-2 mb-lg-0 order-last order-lg-5">
                                 

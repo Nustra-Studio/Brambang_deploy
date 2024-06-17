@@ -103,17 +103,19 @@ class ProductionController extends Controller
     public function update(Request $request, $id)
 {// Temukan data produksi berdasarkan ID
     $data = produksi::findOrFail($id);
-    if(empty($request->hasil)){
+    if(empty($request->hasil1)&&empty($request->hasil2)&&empty($request->hasil3)){
          // Validasi request
         $request->validate([
             'results1' => 'required|numeric',
             'results2' => 'required|numeric',
             'results3' => 'required|numeric',
             'results4' => 'required|numeric',
+            'results5' => 'required|numeric',
+            'results6' => 'required|numeric',
         ]);
 
         // Hitung total hasil
-        $results = $request->results1 + $request->results2 + $request->results3 + $request->results4;
+        $results = $request->results1 + $request->results2 + $request->results3 + $request->results4 + $request->results5 + $request->results6 ;
 
         // Buat array data yang akan diupdate
             $datas = [
@@ -137,7 +139,9 @@ class ProductionController extends Controller
             'results1' => 'Bawang Goreng A',
             'results2' => 'Bawang Goreng B',
             'results3' => 'Bawang Goreng C',
-            'results4' => 'Bawang Goreng D'
+            'results4' => 'Bawang Goreng D',
+            'results5' => 'Bawang Merah Goreng CyS',
+            'results6' => 'Bawang Goreng B Kemasan 1 KG'
         ];
 
         // Cek dan update stok untuk setiap produk
@@ -165,30 +169,48 @@ class ProductionController extends Controller
         return redirect('production')->with('success', 'Success production');
     }
     else{
+        $request->validate([
+            'hasil1' => 'required|numeric',
+            'hasil2' => 'required|numeric',
+            'hasil3' => 'required|numeric',
+        ]);
+        $results =$request->hasil1 + $request->hasil2 + $request->hasil3;
         $datas = [
             'finish' => $request->finish,
-            'results' => $request->hasil,
+            'results' => $results,
             'information' => 'finish'
         ];
-        $barang = Barang::findOrFail($data->id_product);
-                $stock = $barang->qty + $request->hasil;
+
+        // Buat entri history
+        history::create([
+            'name' => $data->name,
+            'status' => $data->start,
+            'unit' => $data->unit,
+            'information' => 'Production',
+            'more' => $request->finish,
+            'price' => $request->cost
+        ]);
+        $productss = [
+            'hasil1' => 'Bawang Putih Goreng Bungkusan 1 KG',
+            'hasil2' => 'Bawang Putih Goreng CyS',
+            'hasil3' => 'Bawang Putih Goreng',
+        ];
+        foreach ($productss as $key => $name) {
+            $product = Barang::where('name', $name)->first();
+            if ($product ) {
+                $barang = Barang::findOrFail($product->id);
+                $stock = $barang->qty + $request->$key;
                 $barang->update(['qty' => $stock]);
                 history::create([
-                    'name' => $barang->name,
+                    'name' => $name,
                     'status' => $data->start,
                     'unit' => $data->unit,
                     'information' => 'Hasil Production',
                     'more' => $request->finish,
-                    'price' => $request->cost
+                    'price' => $request->$key
                 ]);
-            history::create([
-                'name' => $data->name,
-                'status' => $data->start,
-                'unit' => $data->unit,
-                'information' => 'Production',
-                'more' => $request->finish,
-                'price' => $request->cost
-            ]);
+            }
+        }
             $data->update($datas);
 
             // Redirect ke halaman produksi dengan pesan sukses

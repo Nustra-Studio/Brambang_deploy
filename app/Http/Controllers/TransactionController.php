@@ -23,6 +23,10 @@ class TransactionController extends Controller
     public function hutang(){
         return view("page.fitur.hutang");
     }
+    public function invoice(Request $request){
+        $id = $request->id;
+        return view("page.fitur.invoicelama",['kode_invoice'=>$id]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -53,7 +57,7 @@ class TransactionController extends Controller
             return back()->withErrors(['date' => 'Format tanggal tidak valid.']);
         }
         $currentDate = $date->format('Ymd');
-        $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
+        $randomNumber = str_pad(mt_rand(0, 999), 2, '0', STR_PAD_LEFT);
         $randomDate = $currentDate . $randomNumber;
         $name = "PJ$randomDate";
         $price = $request->input('price');

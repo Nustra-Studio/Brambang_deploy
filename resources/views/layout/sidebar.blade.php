@@ -170,9 +170,13 @@
             </a>
             <ul id="catatan">
                 <li>
+                    {{-- /catatan/hutanglama --}}
                     <a href="{{url('/catatan')}}">
                     <span class="label">Hutang Pribadi</span>
                     </a>
+                    <a href="{{url('/catatan/hutanglama')}}">
+                        <span class="label">Hutang Lama</span>
+                        </a>
                 </li>
             </ul>
         </li>
@@ -186,6 +190,12 @@
             <a href="{{url('/mutasi')}}">
                 <i data-acorn-icon="wallet" class="icon" data-acorn-size="18"></i>
                 <span class="label">Laporan Asset</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{url('/laporan-produksi')}}">
+                <i data-acorn-icon="gear" class="icon" data-acorn-size="18"></i>
+                <span class="label">Laporan Produksi</span>
             </a>
         </li>
         <li  class="text-center mt-2">

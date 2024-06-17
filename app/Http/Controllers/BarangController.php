@@ -64,7 +64,7 @@ class BarangController extends Controller
         $category = $request->category;
         if($category == "bahan_baku"){
             $currentDate = date('Ymd');
-            $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
+            $randomNumber = str_pad(mt_rand(0, 999), 2, '0', STR_PAD_LEFT);
             $randomDate = $currentDate . $randomNumber;
             $name = "PP$randomDate";
             $cost = $request->qty * $request->price;
@@ -172,7 +172,7 @@ class BarangController extends Controller
     }
     public function add(Request $request){
         $currentDate = date('Ymd');
-        $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
+        $randomNumber = str_pad(mt_rand(0, 999), 2, '0', STR_PAD_LEFT);
         $randomDate = $currentDate . $randomNumber;
         $name = "PP$randomDate";
         $money = $request->qty * $request->price;

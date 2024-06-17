@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\hutang;
 
-class CatatanController extends Controller
+class UtangController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +13,7 @@ class CatatanController extends Controller
      */
     public function index()
     {
-        return view('page.catatan.hutang');
+        //
     }
 
     /**
@@ -35,14 +34,7 @@ class CatatanController extends Controller
      */
     public function store(Request $request)
     {
-        hutang::create([
-            'name'=>$request->name,
-            'saldo'=>$request->saldo,
-            'information'=>$request->information,
-            'option'=>$request->option
-        ]);
-        return redirect()->back()->with('success', 'Success Tambah Hutang');
-
+        //
     }
 
     /**
@@ -76,14 +68,7 @@ class CatatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validateData = $request->validate([
-            'name' => 'required',
-            'saldo' => 'required',
-            'information' => 'required',
-        ]);
-        $hutang = hutang::Find($id);
-        $hutang->update($validateData);
-        return redirect()->back()->with('success', 'Success Update Hutang');
+        //
     }
 
     /**
@@ -94,8 +79,6 @@ class CatatanController extends Controller
      */
     public function destroy($id)
     {
-        $hutang = hutang::Find($id);
-        $hutang->delete();
-        return redirect()->back()->with('success', 'Success Delete Hutang');
+        //
     }
 }

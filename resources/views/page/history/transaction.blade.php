@@ -61,6 +61,7 @@
                                 <th>Total</th>
                                 <th>Keterangan</th>
                                 <th>Tanggal</th>
+                                <th>Print</th>
                             </tr>
                         </thead>
                     <tbody id="tb-category">    
@@ -80,6 +81,16 @@
                         <td>{{$total}}</td>
                         <td>{{$item->information}}</td>
                         <td>{{$date}}</td>
+                        <td>
+                            <div class="col">
+                                <a 
+                                href="{{url("/invoicelama?id=$item->name")}}"
+                                class="btn btn-primary d-flex justify-content-center align-items-center 
+                                border shadow fw-bold">
+                                    <i class="fa-solid fa-print"></i>
+                                </a>
+                            </div>
+                        </td>
                     </td>
                     </tr>
                 @endforeach
