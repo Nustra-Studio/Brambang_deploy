@@ -194,7 +194,7 @@
         </div>
         {{-- add karyawan --}}
         <!-- Discount Add Modal Start -->
-        <div class="modal fade" id="addKaryawanModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="addKaryawanModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
@@ -246,7 +246,7 @@
         </form>
             </div>
         </div>
-        </div>
+    </div>
         <!-- Discount Add Modal End -->
     </div>
     @endsection

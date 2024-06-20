@@ -14,7 +14,7 @@
             use App\Models\costproduksi;
             $data = Barang::where('information','bahan_baku')->get();
             $product = Barang::where('information','produk')->get();
-            $produksi = produksi::all();
+            $produksi = produksi::where('information','pending')->get();
         @endphp
     </div>
 

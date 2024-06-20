@@ -54,6 +54,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/catatan/hutanglama', function () {
         return view('page.catatan.hutanglama');
     });
+    Route::get('/laporan/produksi', function () {
+        return view('page.fitur.laporanproduction');
+    });
     Route::resource('user', UserController::class);
     Route::get('/hutang','App\Http\Controllers\TransactionController@hutang');
     Route::get('/invoicelama','App\Http\Controllers\TransactionController@invoice');

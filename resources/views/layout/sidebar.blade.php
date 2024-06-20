@@ -193,17 +193,20 @@
             </a>
         </li>
         <li>
-            <a href="{{url('/laporan-produksi')}}">
+            <a href="{{url('/laporan/produksi')}}">
                 <i data-acorn-icon="gear" class="icon" data-acorn-size="18"></i>
                 <span class="label">Laporan Produksi</span>
             </a>
         </li>
-        <li  class="text-center mt-2">
-            <button class="btn btn-lg btn-warning" type="button" data-toggle="modal" data-target="#settingpage" >
+        {{-- <li  class="text-center mt-2">
+            <button class="btn btn-lg btn-warning" 
+            type="button" 
+            data-bs-toggle="modal"
+            data-bs-target="#settingpage">
                 <i data-acorn-icon="settings-1" class="icon" data-acorn-size="18"></i>
                 <span class="label">Setting</span>
             </button>
-        </li>
+        </li> --}}
         @endif
     </div>
     <!-- Menu End -->

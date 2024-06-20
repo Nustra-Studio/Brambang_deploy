@@ -21,23 +21,26 @@
             @yield('content')
         </main>
         <!-- Layout Footer Start -->
-        <div class="modal fade" id="settingpage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+        <div class="modal fade" id="settingpage" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                    <h5 class="modal-title fw-bold">Setting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                ...
+                <form action="{{Route('karyawan.store')}}" method="POST">
+                    @csrf
+                    
                 </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                    <button class="btn btn-icon btn-icon-end btn-primary" type="submit">
+                        <span>Tambah</span>
+                        <i data-acorn-icon="plus"></i>
+                    </button>
                 </div>
-            </div>
+            </form>
+                </div>
             </div>
         </div>
             @include('layout.footer')

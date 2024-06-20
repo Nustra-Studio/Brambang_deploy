@@ -7,7 +7,55 @@
 <div class="data" id="Data-div">
     @php
     use App\Models\keuangan;
+    use App\Models\bank;
+    use App\Models\Barang;
+    use App\Models\hutang;
+    use App\Models\transaction;
         $data = keuangan::all();
+        // bank
+        $bank = bank::sum('saldo');
+        $bank = 'RP ' . number_format($bank, 0, ',', '.');
+        // bahan baku
+        $bahan_bakus = 0;
+        $data_bahan = Barang::where('information','bahan_baku')->get();
+        foreach ($data_bahan as $key => $item) {
+            $bahanbaku = $item->qty * $item->price;
+            $bahan_bakus += $bahanbaku;
+        }
+        $bahan_baku = 'RP ' . number_format($bahan_bakus, 0, ',', '.');
+        //  Produk
+        $products = 0;
+        $data_bahan = Barang::where('information','produk')->get();
+        foreach ($data_bahan as $key => $item) {
+            $products = $item->qty * $item->price;
+            $products += $products;
+        }
+        $product = 'RP ' . number_format($products, 0, ',', '.');
+        // hutang
+        $hutangs = hutang::where('option','pribadi')->sum('saldo');
+        $hutang = 'RP ' . number_format($hutangs, 0, ',', '.');
+        //hutang Lama
+        $hutang_lamas = hutang::where('option','lama')->sum('saldo');
+        $hutang_lama = 'RP ' . number_format($hutang_lamas, 0, ',', '.');
+        // hutang customer
+        $customers = 0;
+        $data = transaction::where('status','belum_lunas')->where("id_customer",'!=','owner')->where('information','nota')->get();
+        foreach ($data as $key => $item) {
+            $data_customer = $item->price - $item->qty;
+            $customers += $data_customer;
+        }
+        $customer = 'RP ' . number_format($customers, 0, ',', '.');
+        // hutang perusahaan
+        $perusahaans = 0;
+        $datap = transaction::where('status','belum_lunas')->where('information','nota')->where('id_customer','owner')->get();
+        foreach ($datap as $key => $item) {
+            $datas = $item->price - $item->qty;
+            $perusahaans += $datas;
+        }
+        $perusahaan = 'RP ' . number_format($perusahaans, 0, ',', '.');
+        // total
+        $total = $products + $bahan_bakus + $customers - $hutangs - $hutang_lamas - $perusahaans;
+        $total = 'RP ' . number_format($total, 0, ',', '.');
     @endphp
 </div>
 <div class="container" id="Results">
@@ -21,26 +69,26 @@
                         <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                         <span class="text-small align-middle">Home</span>
                     </a>
-                    <h1 class="mb-0 pb-0 display-4" id="title">Laporan Keuangan</h1>
+                    <h1 class="mb-0 pb-0 display-4" id="title">Laporan Assets</h1>
                 </div>
             </div>
             <!-- Title End -->
 
             <!-- Top Buttons Start -->
             <div class="w-100 d-md-none"></div>
-            <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end mb-2 mb-sm-0 order-sm-3">
+            {{-- <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end mb-2 mb-sm-0 order-sm-3">
                 <select id="filterStatus" class="form-select">
                     <option value="">Filter by Status</option>
                     <option value="Pembelian Barang">Pembelian Barang</option>
                     <option value="Penjualan">Penjualan</option>
                     <option value="Gaji Karyawan">Gaji Karyawan</option>
                 </select>
-            </div>
+            </div> --}}
             <!-- Date Range Pickers Start -->
-            <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end mb-2 mb-sm-0">
+            {{-- <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end mb-2 mb-sm-0">
                 <input type="text" id="startDate" class="form-control" placeholder="Start Date" autocomplete="off" />
                 <input type="text" id="endDate" class="form-control ms-2" placeholder="End Date" autocomplete="off" />
-            </div>
+            </div> --}}
             <!-- Date Range Pickers End -->
             <!-- Top Buttons End -->
         </div>
@@ -49,27 +97,72 @@
 
     <!-- Cards for Totals Start -->
     <div class="row mt-3">
-        <div class="col-4">
+        <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Pengeluaran</h5>
-                    <p class="card-text" id="totalCost">RP 0</p>
+                    <h5 class="card-title">Total Uang Di Bank</h5>
+                    <p class="card-text" id="">{{$bank}}</p>
                 </div>
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Keuntungan Bersih</h5>
-                    <p class="card-text" id="income">RP 0</p>
+                    <h5 class="card-title">Total Sisa Bahan Baku</h5>
+                    <p class="card-text" id="">{{$bahan_baku}}</p>
                 </div>
             </div>
         </div>
-        <div class="col-4">
-            <div class="card">
+    </div>
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="card"> 
                 <div class="card-body">
-                    <h5 class="card-title">Total Pendapatan</h5>
-                    <p class="card-text" id="totalIncome">RP 0</p>
+                    <h5 class="card-title">Total Sisa Product</h5>
+                    <p class="card-text" id="">{{$product}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card"> 
+                <div class="card-body">
+                    <h5 class="card-title">Total Hutang Pribadi</h5>
+                    <p class="card-text" id="">{{$hutang}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-6">
+            <div class="card"> 
+                <div class="card-body">
+                    <h5 class="card-title">Total Hutang Lama</h5>
+                    <p class="card-text" id="">{{$hutang_lama}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card"> 
+                <div class="card-body">
+                    <h5 class="card-title">Total Hutang Customer</h5>
+                    <p class="card-text" id="">{{$customer}}</p>
+                </div>
+            </div>
+        </div>
+    </div><div class="row mt-3">
+        <div class="col-6">
+            <div class="card"> 
+                <div class="card-body">
+                    <h5 class="card-title">Hutang Perusahaan</h5>
+                    <p class="card-text" id="">{{$perusahaan}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card"> 
+                <div class="card-body">
+                    <h5 class="card-title">Total Asset</h5>
+                    <p class="card-text" id="">{{$total}}</p>
                 </div>
             </div>
         </div>
@@ -79,7 +172,7 @@
     <!-- Controls End -->
 
     <!-- Discount List Start -->
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-12 mb-5">
             @if(session('status'))
             <div class="alert alert-success">
@@ -140,7 +233,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection
 @push('custom-scripts')
