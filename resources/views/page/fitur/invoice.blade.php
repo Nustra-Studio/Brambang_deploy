@@ -54,9 +54,12 @@
         <div class="card-body">
             <div class="row d-flex flex-row align-items-center pt-2">
                 <div class="col-12 col-md-6 ps-3">
-                    <h1 class="ps-5">Brambang Nganjuk</h1>
-                    <h2 class="ps-5 ">Jalan Kengan 12 <br> Nganjuk, Jawa Timur</h2>
-                    <h2 class="ps-5 ">+6443884455</h2>
+                    <h1 class="ps-5">CYS</h1>
+                    <h2 class="ps-5 ">Dsn Templek Ds Sukomoro, RT.1/RW.9, Sukomoro, Nganjuk 
+                        <br>
+                        SUKOMORO, KAB. NGANJUK, JAWA TIMUR, ID 6448
+                    </h2>
+                    <h2 class="ps-5 ">(+62) 812-3401-9125</h2>
                 </div>
                 <div class="col-12 col-md-6 pe-5 text-end">
                     <h2 class="pe-5 mb-2">Tanggal: {{$date}}</h2>
@@ -106,7 +109,7 @@
             <div class="row me-5">
                 <div class="col text-sm-end">
                     <div><p class="mb-0 text-large">Total :</p></div>
-                    <div><p class="mb-0 text-large">@if ($status == 'Lunas') Status : @else Hutang : @endif</p></div>
+                    <div><p class="mb-0 text-large">@if ($status == 'Lunas') Status : @else Belum Lunas : @endif</p></div>
                     <div><p class="mb-0 text-large">Total Bayar :</p></div>
                 </div>
                 <div class="col-auto text-end">

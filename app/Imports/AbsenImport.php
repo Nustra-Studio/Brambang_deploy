@@ -12,6 +12,8 @@ class AbsenImport implements ToCollection
     */
     public function collection(Collection $collection)
     {
-        //
+        $data = $collection[2][9];
+        dd($data);
+        
     }
 }

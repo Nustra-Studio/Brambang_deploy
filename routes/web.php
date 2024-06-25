@@ -87,6 +87,7 @@ Route::prefix('payroll')->group(function(){
         return view('page.payroll.detail', ['id' => $id]);
     });    
     Route::get('/absenmasuk','App\Http\Controllers\KaryawanController@gaji')->name('payroll.gaji');
+    Route::post('/absen/excel','App\Http\Controllers\KaryawanController@excel')->name('absen.excel');
     
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

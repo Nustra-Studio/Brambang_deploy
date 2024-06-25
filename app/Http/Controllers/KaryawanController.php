@@ -7,6 +7,9 @@ use App\Models\Karyawan;
 use App\Models\Gaji;
 use App\Models\Absen;
 use App\Models\keuangan;
+use Excel;
+use App\Imports\AbsenImports;
+use Maatwebsite\Excel\Excel as ExcelType;
 
 class KaryawanController extends Controller
 {
@@ -107,6 +110,20 @@ class KaryawanController extends Controller
             'money'=>$money
         ]);
         return redirect()->back()->with('success', 'Success Absen Karyawan');
+    }
+    public function excel(Request $request){
+        try {
+            Excel::import(new AbsenImports, request()->file('file'),ExcelType::XLSX);
+            return redirect()->back()->with('success', 'Data Imported');
+        } catch (\Exception $e) {
+            // Handle the exception
+            // return redirect()->back()->with('error', 'Error importing data: ' . $e->getMessage());
+            $message = [
+                'error'=>true,
+                "message"=>$e->getMessage()
+            ];
+            dd($message);
+        }
     }
     /**
      * Display the specified resource.

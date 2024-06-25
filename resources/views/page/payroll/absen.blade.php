@@ -27,7 +27,19 @@
                         </a>
                         <h1 class="mb-0 pb-0 display-4" id="title">Absen</h1>
                     </div>
-                    </div>
+                </div>
+                <div class="w-100 d-md-none"></div>
+                <div class="col-12 col-sm-6 col-md-auto d-flex align-items-end justify-content-end mb-2 mb-sm-0 order-sm-3">
+                    <button
+                        type="button"
+                        class="btn btn-outline-primary btn-icon btn-icon-start ms-0 ms-sm-1 w-100 w-md-auto"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addProdukModal"
+                    >
+                        <i data-acorn-icon="plus"></i>
+                        <span>Excel Absen</span>
+                    </button>
+                </div>
         </div>
         </div>
         <!-- Title and Top Buttons End -->
@@ -147,6 +159,33 @@
         </div>
         </div>
         <!-- Discount Add Modal End -->
+    </div>
+    <div class="modal fade" id="addProdukModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Tambahkan Absen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('absen.excel') }}" method="POST" id="transactionForm">
+                        @csrf
+                        <div id="product-container">
+                            <div class="product-item mb-3">
+                                <label class="form-label">Excel</label>
+                                <input type="file" name="file" class="form-control price" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" id="submit-data" class="btn btn-icon btn-icon-end btn-primary">
+                                <span>Tambah</span>
+                                <i data-acorn-icon="plus"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     @endsection
     @push('custom-scripts')
