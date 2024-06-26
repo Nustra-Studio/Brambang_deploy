@@ -89,6 +89,7 @@
                                                 $produk = Barang::where("name",$sub->name)->value('price');
                                                 $untung += $produk * $sub->price;
                                             }
+                                            $untung = $untung - $cost;
                                             $untung = 'RP ' . number_format($untung, 0, ',', '.');
                                         @endphp
                                         <td>{{ $loop->index+1 }}</td>
