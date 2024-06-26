@@ -13,6 +13,7 @@
             use App\Models\produksi;
             use App\Models\costproduksi;
             use App\Models\history;
+            use App\Models\Absen;
             $produksi = produksi::where('information','finish')->get();
         @endphp
     </div>
@@ -72,9 +73,12 @@
                                         @php
                                             $produksis = costproduksi::where('id_produksi',$item->unit)->get();
                                             $produk = Barang::where("id",$item->id_product)->value('name');
+                                            $trasnport = history::where('information','trasnportasi')->where('unit',$item->unit)->value('price');
+                                            $oprasional = history::where('information','oprasional')->where('unit',$item->unit)->value('price');
+                                            $gaji = Absen::where('date',$item->start)->sum('more');
                                             $cost = 0;
                                             foreach ($produksis as $produksi) {
-                                                $biayaItemProduksi = $produksi->qty * $produksi->price;
+                                                $biayaItemProduksi = $produksi->qty * $produksi->price + $trasnport + $gaji +$oprasional;
                                                 $cost += $biayaItemProduksi;
                                             }
                                             $cost = 'RP ' . number_format($cost, 0, ',', '.');

@@ -133,6 +133,19 @@ class ProductionController extends Controller
             'more' => $request->finish,
             'price' => $request->cost
         ]);
+        history::create([
+            'name' => $data->name,
+            'unit' => $data->unit,
+            'information' => 'trasnportasi',
+            'price' => $request->trasnportasi
+        ]);
+        history::create([
+        'name' => $data->name,
+        'information' => 'oprasional',
+        'unit' => $data->unit,
+        'price' => $request->opsional
+        ]);
+        
 
         // Ambil produk berdasarkan nama
         $products = [
@@ -189,6 +202,17 @@ class ProductionController extends Controller
             'information' => 'Production',
             'more' => $request->finish,
             'price' => $request->cost
+        ]);
+        history::create([
+            'name' => $data->name,
+            'information' => 'trasnportasi',
+            'unit' => $data->unit,
+            'price' => $request->trasnportasi
+        ]); history::create([
+            'name' => $data->name,
+            'information' => 'oprasional',
+            'unit' => $data->unit,
+            'price' => $request->opsional
         ]);
         $productss = [
             'hasil1' => 'Bawang Putih Goreng Bungkusan 1 KG',

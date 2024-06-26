@@ -162,6 +162,14 @@
                                                     <input type="date" class="form-control" name="finish" />
                                                     <input type="hidden" value="{{$cost}}" name="cost">
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Biaya Pengiriman</label>
+                                                    <input type="number" value="0" class="form-control" name="trasnportasi" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Biaya Oprasional</label>
+                                                    <input type="number" value="0" class="form-control" name="opsional" />
+                                                </div>
                                             </div>
                                             <div class="modal-footer border-1">
                                                 <button class="btn btn-icon btn-icon-end btn-primary" type="submit">

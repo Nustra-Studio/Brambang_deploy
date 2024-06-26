@@ -90,6 +90,7 @@ Route::prefix('payroll')->group(function(){
     Route::post('/absen/excel','App\Http\Controllers\KaryawanController@excel')->name('absen.excel');
     
 });
+Route::post('/karyawab/setting','App\Http\Controllers\KaryawanController@setting')->name('karyawan.setting');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     
 });

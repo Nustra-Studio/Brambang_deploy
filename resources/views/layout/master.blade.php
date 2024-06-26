@@ -29,7 +29,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form action="{{Route('karyawan.store')}}" method="POST">
+                <form action="{{Route('karyawan.setting')}}" method="POST"  enctype="multipart/form-data">
                     @csrf
                     
                 </div>

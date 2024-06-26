@@ -62,7 +62,7 @@
         <div class="card-body">
             <div class="row d-flex flex-row align-items-center pt-2">
                 <div class="col-12 col-md-6 ps-3">
-                    <h1 class="ps-5">CYS</h1>
+                    <h1 class="ps-5">Bawang Goreng CYS</h1>
                     <h3 class="ps-5 ">Dsn Templek Ds Sukomoro, RT.1/RW.9, Sukomoro, Nganjuk 
                         <br>
                         SUKOMORO, KAB. NGANJUK, JAWA TIMUR, ID 6448
