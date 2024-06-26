@@ -81,7 +81,7 @@
                                                 $biayaItemProduksi = $produksi->qty * $produksi->price + $trasnport + $gaji +$oprasional;
                                                 $costs += $biayaItemProduksi;
                                             }
-                                            $cost = 'RP ' . number_format($coss, 0, ',', '.');
+                                            $cost = 'RP ' . number_format($costs, 0, ',', '.');
                                             // ke utungan 
                                             $untung =0;
                                             $history = history::where('information','Hasil Production')->where('unit',$item->unit)->get();
