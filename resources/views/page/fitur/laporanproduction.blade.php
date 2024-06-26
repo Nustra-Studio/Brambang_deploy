@@ -76,12 +76,12 @@
                                             $trasnport = history::where('information','trasnportasi')->where('unit',$item->unit)->value('price');
                                             $oprasional = history::where('information','oprasional')->where('unit',$item->unit)->value('price');
                                             $gaji = Absen::where('date',$item->start)->sum('more');
-                                            $cost = 0;
+                                            $costs = 0;
                                             foreach ($produksis as $produksi) {
                                                 $biayaItemProduksi = $produksi->qty * $produksi->price + $trasnport + $gaji +$oprasional;
-                                                $cost += $biayaItemProduksi;
+                                                $costs += $biayaItemProduksi;
                                             }
-                                            $cost = 'RP ' . number_format($cost, 0, ',', '.');
+                                            $cost = 'RP ' . number_format($coss, 0, ',', '.');
                                             // ke utungan 
                                             $untung =0;
                                             $history = history::where('information','Hasil Production')->where('unit',$item->unit)->get();
@@ -89,7 +89,7 @@
                                                 $produk = Barang::where("name",$sub->name)->value('price');
                                                 $untung += $produk * $sub->price;
                                             }
-                                            $untung = $untung - $cost;
+                                            $untung = $untung - $costs;
                                             $untung = 'RP ' . number_format($untung, 0, ',', '.');
                                         @endphp
                                         <td>{{ $loop->index+1 }}</td>
