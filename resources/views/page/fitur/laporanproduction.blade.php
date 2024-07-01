@@ -76,9 +76,9 @@
                                             $trasnport = history::where('information','trasnportasi')->where('unit',$item->unit)->value('price');
                                             $oprasional = history::where('information','oprasional')->where('unit',$item->unit)->value('price');
                                             $gaji = Absen::where('date',$item->start)->sum('more');
-                                            $costs = 0;
+                                            $costs = 0  + $trasnport + $gaji +$oprasional ;
                                             foreach ($produksis as $produksi) {
-                                                $biayaItemProduksi = $produksi->qty * $produksi->price + $trasnport + $gaji +$oprasional;
+                                                $biayaItemProduksi = $produksi->qty * $produksi->price;
                                                 $costs += $biayaItemProduksi;
                                             }
                                             $cost = 'RP ' . number_format($costs, 0, ',', '.');
