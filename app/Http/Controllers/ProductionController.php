@@ -103,7 +103,51 @@ class ProductionController extends Controller
     public function update(Request $request, $id)
 {// Temukan data produksi berdasarkan ID
     $data = produksi::findOrFail($id);
-    if(empty($request->hasil1)&&empty($request->hasil2)&&empty($request->hasil3)){
+    if(!empty($request->input('hasil4'))){
+        $results = $request->hasil4;
+        $datas = [
+            'finish' => $request->finish,
+            'results' => $results,
+            'information' => 'finish'
+        ];
+        // Buat entri history
+        history::create([
+            'name' => $data->name,
+            'status' => $data->start,
+            'unit' => $data->unit,
+            'information' => 'Production',
+            'more' => $request->finish,
+            'price' => $request->cost
+        ]);
+        history::create([
+            'name' => $data->name,
+            'unit' => $data->unit,
+            'information' => 'trasnportasi',
+            'price' => $request->trasnportasi
+        ]);
+        history::create([
+        'name' => $data->name,
+        'information' => 'oprasional',
+        'unit' => $data->unit,
+        'price' => $request->opsional
+        ]);
+        $barang = Barang::findOrFail($data->id_product);
+        $stock = $barang->qty + $request->hasil4;
+        $barang->update(['qty' => $stock]);
+        history::create([
+            'name' => $barang->name,
+            'status' => $data->start,
+            'unit' => $data->unit,
+            'information' => 'Hasil Production',
+            'more' => $request->finish,
+            'price' => $request->hasil4
+        ]);
+        $data->update($datas);
+
+        // Redirect ke halaman produksi dengan pesan sukses
+        return redirect('production')->with('success', 'Success production');
+    }
+    elseif(empty($request->hasil1)&&empty($request->hasil2)&&empty($request->hasil3)){
          // Validasi request
         $request->validate([
             'results1' => 'required|numeric',
