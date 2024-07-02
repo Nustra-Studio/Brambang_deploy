@@ -99,7 +99,7 @@ class BarangController extends Controller
             transaction::create($datas);
             keuangan::create($data);
         }
-        return redirect('barang')->with('status', 'success insert item');
+        return redirect()->back()->with('status', 'success insert item');
     }
 
     /**
@@ -145,18 +145,18 @@ class BarangController extends Controller
         $barang->update($validatedData);
         $category = $barang->information;
         if($category == "bahan_baku"){
-                if($barang->qty < $request->qty){
-                    $money = $request->qty * $request->price;
-                    $uang = keuangan::where('name',$barang->name)->first();
-                    $uang->money = $money + $uang->money; // Update qty dengan nilai yang diterima dari form
-                    $uang->save();
-                }
-                else{
-                    $money = $request->qty * $request->price;
-                    $uang = keuangan::where('name',$barang->name)->first();
-                    $uang->money = $money - $uang->money; // Update qty dengan nilai yang diterima dari form
-                    $uang->save();
-                }
+                // if($barang->qty < $request->qty){
+                //     $money = $request->qty * $request->price;
+                //     $uang = keuangan::where('name',$barang->name)->first();
+                //     $uang->money = $money + $uang->money; // Update qty dengan nilai yang diterima dari form
+                //     $uang->save();
+                // }
+                // else{
+                //     $money = $request->qty * $request->price;
+                //     $uang = keuangan::where('name',$barang->name)->first();
+                //     $uang->money = $money - $uang->money; // Update qty dengan nilai yang diterima dari form
+                //     $uang->save();
+                // }
                 $data_history = [
                     'name'=>$request->name,
                     'price'=>$request->price,
@@ -168,7 +168,7 @@ class BarangController extends Controller
                 history::create($data_history);
             }
         // Update the record with the new data
-        return redirect('barang')->with('status', 'success Update item');
+        return redirect()->back()->with('status', 'success Update item');
     }
     public function add(Request $request){
         $currentDate = date('Ymd');
@@ -210,7 +210,7 @@ class BarangController extends Controller
         ];
         transaction::create($datas);
         
-        return redirect('barang')->with('status', 'success Update item');
+        return redirect()->back()->with('status', 'success Update item');
     }
     public function search(Request $request)
     {
@@ -251,6 +251,6 @@ class BarangController extends Controller
 
         // Delete the record
         $yourModel->delete();
-        return redirect('barang')->with('status', 'success Update item');
+        return redirect()->back()->with('status', 'success Update item');
     }
 }
