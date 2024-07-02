@@ -54,6 +54,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/catatan/hutanglama', function () {
         return view('page.catatan.hutanglama');
     });
+    Route::get('/catatan/piutangpribadi', function () {
+        return view('page.catatan.piutanglama');
+    });
     Route::get('/laporan/produksi', function () {
         return view('page.fitur.laporanproduction');
     });
