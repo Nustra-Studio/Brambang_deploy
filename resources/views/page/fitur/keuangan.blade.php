@@ -57,7 +57,7 @@
         }
         $perusahaan = 'RP ' . number_format($perusahaans, 0, ',', '.');
         // total
-        $total = $products + $bahan_bakus + $customers - $hutangs + $hutang_lamas - $perusahaans + piutang_lama;
+        $total = $products + $bahan_bakus + $customers - $hutangs + $hutang_lamas - $perusahaans + $piutang_lama;
         $total = 'RP ' . number_format($total, 0, ',', '.');
     @endphp
 </div>

@@ -176,7 +176,10 @@
                     </a>
                     <a href="{{url('/catatan/hutanglama')}}">
                         <span class="label">Hutang Lama</span>
-                        </a>
+                    </a>
+                    <a href="{{url('/catatan/hutanglama')}}">
+                        <span class="label">Piutang Pribadi</span>
+                    </a>
                 </li>
             </ul>
         </li>
