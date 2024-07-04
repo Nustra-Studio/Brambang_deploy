@@ -161,8 +161,6 @@ class KaryawanController extends Controller
     {
         $validateData = $request->validate([
             'name' => 'required',
-            'address' => 'required',
-            'hp' => 'required',
             'salary' => 'required',
             'department' => 'required',
         ]);

@@ -37,6 +37,9 @@
         //hutang Lama
         $hutang_lamas = hutang::where('option','lama')->sum('saldo');
         $hutang_lama = 'RP ' . number_format($hutang_lamas, 0, ',', '.');
+        // piutang lama
+        $piutang_lamas = hutang::where('option','piutang_lama')->sum('saldo');
+        $piutang_lama = 'RP ' . number_format($piutang_lamas, 0, ',', '.');
         // hutang customer
         $customers = 0;
         $data = transaction::where('status','belum_lunas')->where("id_customer",'!=','owner')->where('information','nota')->get();
@@ -54,7 +57,7 @@
         }
         $perusahaan = 'RP ' . number_format($perusahaans, 0, ',', '.');
         // total
-        $total = $products + $bahan_bakus + $customers - $hutangs - $hutang_lamas - $perusahaans;
+        $total = $products + $bahan_bakus + $customers - $hutangs + $hutang_lamas - $perusahaans + $piutang_lamas;
         $total = 'RP ' . number_format($total, 0, ',', '.');
     @endphp
 </div>
@@ -136,7 +139,7 @@
         <div class="col-6">
             <div class="card"> 
                 <div class="card-body">
-                    <h5 class="card-title">Total Hutang Lama</h5>
+                    <h5 class="card-title">Total Hutang Customer Lama</h5>
                     <p class="card-text" id="">{{$hutang_lama}}</p>
                 </div>
             </div>
@@ -161,12 +164,23 @@
         <div class="col-6">
             <div class="card"> 
                 <div class="card-body">
+                    <h5 class="card-title">Total Piutang Pribadi</h5>
+                    <p class="card-text" id="">{{$piutang_lama}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="card"> 
+                <div class="card-body">
                     <h5 class="card-title">Total Asset</h5>
                     <p class="card-text" id="">{{$total}}</p>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Cards for Totals End -->
 
     <!-- Controls End -->

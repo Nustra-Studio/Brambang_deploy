@@ -143,7 +143,8 @@
                                                         <label class="form-label">Hasil Bawang Goreng B Kemasan 1 KG</label>
                                                         <input type="number" value="0" class="form-control" required name="results6" />
                                                     </div>
-                                                    @else
+                                                    @endif
+                                                    @if ($produk === "Bawang Putih Goreng Bungkusan 1 KG"||$produk === " Bawang Putih Goreng CyS"||$produk === "Bawang Putih Goreng")
                                                     <div class="mb-3">
                                                         <label class="form-label">Hasil Bawang Putih Goreng Bungkusan 1 KG</label>
                                                         <input type="number" value="0" class="form-control" required name="hasil1" />
@@ -157,6 +158,21 @@
                                                         <input type="number" value="0" class="form-control" required name="hasil3" />
                                                     </div>
                                                     @endif
+                                                    @if(
+                                                            $produk !== "Bawang Goreng A" &&
+                                                            $produk !== "Bawang Goreng B" &&
+                                                            $produk !== "Bawang Goreng C" &&
+                                                            $produk !== "Bawang Goreng D" &&
+                                                            $produk !== "Bawang Merah Goreng CyS" &&
+                                                            $produk !== "Bawang Goreng B Kemasan 1 KG"
+                                                        )
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Hasil</label>
+                                                        <input type="number" value="0" class="form-control" required name="hasil4" />
+                                                    </div>
+                                                    @endif
+                                                    
                                                 <div class="mb-3">
                                                     <label class="form-label">Selesai Produksi</label>
                                                     <input type="date" class="form-control" name="finish" />

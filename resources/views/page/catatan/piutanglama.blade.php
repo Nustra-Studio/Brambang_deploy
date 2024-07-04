@@ -9,7 +9,7 @@
         <div class="row g-0">
             @php
                 use App\Models\hutang;
-                $data = hutang::where('option','lama')->get();
+                $data = hutang::where('option','piutang_lama')->get();
 
             @endphp
             <!-- Title Start -->
@@ -19,7 +19,7 @@
                 <i data-acorn-icon="chevron-left" data-acorn-size="13"></i>
                 <span class="text-small align-middle">Home</span>
                 </a>
-                <h1 class="mb-0 pb-0 display-4" id="title">Hutang Lama</h1>
+                <h1 class="mb-0 pb-0 display-4" id="title">Piutang Pribadi</h1>
             </div>
             </div>
             <!-- Title End -->
@@ -34,7 +34,7 @@
                 data-bs-target="#addKaryawanModal"
             >
                 <i data-acorn-icon="plus"></i>
-                <span>Tambah Hutang</span>
+                <span>Tambah Piutang</span>
             </button>
             
             </div>
@@ -180,7 +180,7 @@
                 <div class="mb-3">
                     <label class="form-label">Deskripsi</label>
                     <input type="text" name="information" class="form-control" />
-                    <input type="hidden" required name="option" value="lama">
+                    <input type="hidden" required name="option" value="piutang_lama">
                 </div>
             </div>
             <div class="modal-footer">
