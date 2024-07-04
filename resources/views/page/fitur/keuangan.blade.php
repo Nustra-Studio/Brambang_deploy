@@ -27,8 +27,8 @@
         $products = 0;
         $data_bahan = Barang::where('information','produk')->get();
         foreach ($data_bahan as $key => $item) {
-            $products = $item->qty * $item->price;
-            $products += $products;
+            $produc = $item->qty * $item->price;
+            $products += $produc;
         }
         $product = 'RP ' . number_format($products, 0, ',', '.');
         // hutang
