@@ -21,18 +21,22 @@ class AbsenImport implements ToCollection
             $data = $collection->slice('11','33');
             $time = [];
             foreach($data as $index => $item){
-                $day = str_pad(substr($item[0], 0, 2), 2, '0', STR_PAD_LEFT);
-                // $parsedDate = Carbon::createFromFormat('d', $day);
-                // $year = Carbon::now()->year;
-                // $formattedDate = $parsedDate->format('d');
-                // $date = $year.'-'.$formattedDate;
-                $time[] = [
-                   
-                    'index'=>$index,
-                    'in'=>$item[6],
-                    'out'=>$item[8],
-                    'date'=>$formattedDate
-                ];
+                if(!empty($item[0])){
+                    $day = str_pad(substr($item[0], 0, 2), 2, '0', STR_PAD_LEFT);
+                    $parsedDate = Carbon::createFromFormat('d', $day);
+                    list($startDate, $endDate) = explode(' ~ ', $periode);
+                    list($year, $month, $days) = explode('/', $startDate);
+                    // $year = Carbon::now()->year;
+                    $day = $parsedDate->format('d');
+                    $formattedDate =  $year . '-' . $month . '-'.$day;
+                    // $date = $year.'-'.$formattedDate;
+                    $time[] = [
+                        'index'=>$index,
+                        'in'=>$item[6],
+                        'out'=>$item[8],
+                        'date'=>$formattedDate
+                    ];
+                }
             }
         }
         dd($time);

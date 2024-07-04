@@ -14,7 +14,7 @@
         $data = keuangan::all();
         // bank
         $bank = bank::sum('saldo');
-        $bank = 'RP ' . number_format($bank, 0, ',', '.');
+        $banks = 'RP ' . number_format($bank, 0, ',', '.');
         // bahan baku
         $bahan_bakus = 0;
         $data_bahan = Barang::where('information','bahan_baku')->get();
@@ -57,7 +57,7 @@
         }
         $perusahaan = 'RP ' . number_format($perusahaans, 0, ',', '.');
         // total
-        $total = $products + $bahan_bakus + $customers - $hutangs + $hutang_lamas - $perusahaans + $piutang_lamas;
+        $total = $products + $bahan_bakus + $customers - $hutangs + $hutang_lamas - $perusahaans + $piutang_lamas + $bank;
         $total = 'RP ' . number_format($total, 0, ',', '.');
     @endphp
 </div>
@@ -104,7 +104,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Total Uang Di Bank</h5>
-                    <p class="card-text" id="">{{$bank}}</p>
+                    <p class="card-text" id="">{{$banks}}</p>
                 </div>
             </div>
         </div>
