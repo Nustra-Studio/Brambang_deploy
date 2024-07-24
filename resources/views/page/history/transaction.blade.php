@@ -1,6 +1,8 @@
 @extends('layout.master')
     @push('custom-style')
     <link href="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     @endpush
     @section('content')
         <div class="data" id="Data-div">
@@ -21,6 +23,25 @@
                 <span class="text-small align-middle">Home</span>
                 </a>
                 <h1 class="mb-0 pb-0 display-4" id="title">Transaction</h1>
+                @if (session('success'))
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: '{{ session('success') }}',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+            @elseif (session('hapus'))
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Deleted',
+                        text: '{{ session('hapus') }}',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+            @endif
             </div>
             </div>
             <!-- Title End -->
@@ -41,11 +62,7 @@
         <div class="row">
         <div class="col-12 mb-5">
             <!-- start LOOP -->
-                @if(session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-                @endif
+        
             <div class="card-body">
                 {{-- <p class="text-muted mb-3">Read the <a href="https://datatables.net/" target="_blank"> Official DataTables Documentation </a>for a full list of instructions and other options.</p> --}}
                 
@@ -88,6 +105,12 @@
                                 class="btn btn-primary d-flex justify-content-center align-items-center 
                                 border shadow fw-bold">
                                     <i class="fa-solid fa-print"></i>
+                                </a>
+                                <a 
+                                href="{{url("/hapusinvoice?id=$item->name")}}"
+                                class="btn btn-danger d-flex justify-content-center align-items-center 
+                                border shadow fw-bold">
+                                    <i class="fa-solid fa-trash"></i>
                                 </a>
                             </div>
                         </td>
@@ -132,7 +155,9 @@
         //     });
         // });
     </script>
+
     <script src="{{ asset('js/plugin/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('js/plugin/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/data-table.js') }}"></script>
 @endpush

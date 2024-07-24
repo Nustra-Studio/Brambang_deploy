@@ -27,6 +27,14 @@ class TransactionController extends Controller
         $id = $request->id;
         return view("page.fitur.invoicelama",['kode_invoice'=>$id]);
     }
+    public function invoicehapus(Request $request){
+        $id = $request->id;
+        transaction::where('name',$id)->delete();
+        history::where('name',$id)->delete();
+        Keuangan::where('name',$id)->delete();
+        return view("page.history.transaction")->with('success', "Success Hapus Data Invoiece ");
+
+    }
     /**
      * Show the form for creating a new resource.
      *

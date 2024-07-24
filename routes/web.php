@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('user', UserController::class);
     Route::get('/hutang','App\Http\Controllers\TransactionController@hutang');
     Route::get('/invoicelama','App\Http\Controllers\TransactionController@invoice');
+    Route::get('/hapusinvoice','App\Http\Controllers\TransactionController@invoicehapus');
     Route::get('/bahan-baku','App\Http\Controllers\BarangController@bahanbaku');
 Route::resource('/barang', BarangController::class);
 Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');
