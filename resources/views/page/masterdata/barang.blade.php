@@ -204,6 +204,7 @@
                                         <option value="PCS">PCS</option>
                                         <option value="KG">KG</option>
                                         <option value="Liter">Liter</option>
+                                        <option value="Kardung">Kardus</option>
                                     </select>
                                 </div>
                         </div>
