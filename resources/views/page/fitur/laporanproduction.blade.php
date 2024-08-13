@@ -65,6 +65,7 @@
                                     <th>Mulai</th>
                                     <th>Biaya</th>
                                     <th>Keuntungan</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody id="tb-category">
@@ -97,6 +98,9 @@
                                         <td>{{$item->start}}</td>
                                         <td>{{$cost}}</td>
                                         <td>{{$untung}}</td>
+                                        <td>
+                                            <a href="/printproduction?id={{$item->id}}" class="btn btn-success">Print</a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -35,6 +35,10 @@ class TransactionController extends Controller
         return view("page.history.transaction")->with('success', "Success Hapus Data Invoiece ");
 
     }
+    public function print(Request $request){
+        $id = $request->id;
+        return view("page.fitur.rekapproduction",['kode_invoice'=>$id]);
+    }
     /**
      * Show the form for creating a new resource.
      *
