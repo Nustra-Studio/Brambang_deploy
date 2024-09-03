@@ -94,7 +94,7 @@
                                             $untung = 'RP ' . number_format($untung, 0, ',', '.');
                                         @endphp
                                         <td>{{ $loop->index+1 }}</td>
-                                        <td>{{$item->name ?? " "}}</td>
+                                        <td>{{$item->name}}</td>
                                         <td>{{$item->start}}</td>
                                         <td>{{$cost}}</td>
                                         <td>{{$untung}}</td>

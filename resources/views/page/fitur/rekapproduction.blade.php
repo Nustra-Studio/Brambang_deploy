@@ -245,7 +245,7 @@
                                         {{$loop->index+1}}
                                     </td>
                                     <td>
-                                        {{$produk->name}}
+                                        {{$produk->name ?? ""}}
                                     </td>
                                     <td>
                                         {{ 'RP ' . number_format($produk->price, 0, ',', '.');}}
