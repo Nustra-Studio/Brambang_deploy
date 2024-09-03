@@ -248,13 +248,13 @@
                                         {{$produk->name ?? ""}}
                                     </td>
                                     <td>
-                                        {{ 'RP ' . number_format($produk->price, 0, ',', '.');}}
+                                        {{ 'RP ' . number_format($produk->price ?? 0 , 0, ',', '.');}}
                                     </td>
                                     <td>
                                         {{$item->price}}
                                     </td>
                                     <td>
-                                        {{ 'RP ' . number_format($item->price * $produk->price , 0, ',', '.');}}
+                                        {{ 'RP ' . number_format($item->price ?? 0 * $produk->price , 0, ',', '.');}}
                                     </td>
                                 </tr>
                                 @endforeach
