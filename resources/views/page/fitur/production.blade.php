@@ -140,7 +140,7 @@
                                                         <input type="number" value="0" class="form-control" required name="results5" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Goreng B Kemasan 1 KG</label>
+                                                        <label class="form-label">Hasil Bawang Goreng B Kemasan 1KG</label>
                                                         <input type="number" value="0" class="form-control" required name="results6" />
                                                     </div>
                                                     @endif
@@ -157,6 +157,10 @@
                                                         <label class="form-label">Hasil Bawang Putih Goreng</label>
                                                         <input type="number" value="0" class="form-control" required name="hasil3" />
                                                     </div>
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Bawang Putih Goreng Kemasan 1 KG</label>
+                                                        <input type="number" value="0" class="form-control" name="hasil4" />
+                                                    </div>
                                                     @endif
                                                     @if(
                                                             $produk !== "Bawang Goreng A" &&
@@ -164,7 +168,8 @@
                                                             $produk !== "Bawang Goreng C" &&
                                                             $produk !== "Bawang Goreng D" &&
                                                             $produk !== "Bawang Merah Goreng CyS" &&
-                                                            $produk !== "Bawang Goreng B Kemasan 1 KG"
+                                                            $produk !== "Bawang Goreng B Kemasan 1 KG" &
+                                                            $produk !== "Bawang Goreng B Kemasan 1KG"
                                                         )
 
                                                     <div class="mb-3">

@@ -198,7 +198,7 @@ class ProductionController extends Controller
             'results3' => 'Bawang Goreng C',
             'results4' => 'Bawang Goreng D',
             'results5' => 'Bawang Merah Goreng CyS',
-            'results6' => 'Bawang Goreng B Kemasan 1 KG'
+            'results6' => 'Bawang Goreng B Kemasan 1KG'
         ];
 
         // Cek dan update stok untuk setiap produk
@@ -262,6 +262,7 @@ class ProductionController extends Controller
             'hasil1' => 'Bawang Putih Goreng Bungkusan 1 KG',
             'hasil2' => 'Bawang Putih Goreng CyS',
             'hasil3' => 'Bawang Putih Goreng',
+            'hasil4' => 'Bawang Putih Goreng Kemasan 1 KG'
         ];
         foreach ($productss as $key => $name) {
             $product = Barang::where('name', $name)->first();
