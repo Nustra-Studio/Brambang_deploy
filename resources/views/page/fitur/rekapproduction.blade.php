@@ -254,7 +254,10 @@
                                         {{$item->price}}
                                     </td>
                                     <td>
-                                        {{ 'RP ' . number_format($item->price  * $produk->price , 0, ',', '.');}}
+                                        @php
+                                            $total_harga =  $item->price   * $produk->price;
+                                        @endphp
+                                        {{ 'RP ' . number_format($total_harga ?? 0 , 0, ',', '.');}}
                                     </td>
                                 </tr>
                                 @endforeach
