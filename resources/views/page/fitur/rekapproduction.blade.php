@@ -59,7 +59,7 @@
                 $costs += $biayaItemProduksi;
             }
             $cost = 'RP ' . number_format($costs, 0, ',', '.');
-            // ke utungan 
+            // ke utungan
             $untung =0;
             $history = history::where('information','Hasil Production')->where('unit',$item->unit)->get();
             foreach ($history as $key => $sub) {
@@ -181,7 +181,7 @@
                                         {{ 'RP ' . number_format($oprasionals->price ?? 0, 0, ',', '.');}}
                                     </td>
                                     <td>
-                                        
+
                                     </td>
                                     <td>
                                         {{ 'RP ' . number_format($oprasionals->price ?? 0, 0, ',', '.');}}
@@ -201,7 +201,7 @@
                                         {{ 'RP ' . number_format($trasnports->price ?? 0, 0, ',', '.');}}
                                     </td>
                                     <td>
-                                        
+
                                     </td>
                                     <td>
                                         {{ 'RP ' . number_format($trasnports->price ?? 0, 0, ',', '.');}}
@@ -254,7 +254,7 @@
                                         {{$item->price}}
                                     </td>
                                     <td>
-                                        {{ 'RP ' . number_format($item->price ?? 0 * $produk->price , 0, ',', '.');}}
+                                        {{ 'RP ' . number_format($item->price  * $produk->price , 0, ',', '.');}}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -342,7 +342,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Sisa Product</h5>
                                 <p class="card-text" id="">{{$product}}</p>
@@ -350,7 +350,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Hutang Pribadi</h5>
                                 <p class="card-text" id="">{{$hutang}}</p>
@@ -360,7 +360,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-6">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Hutang Customer Lama</h5>
                                 <p class="card-text" id="">{{$hutang_lama}}</p>
@@ -368,7 +368,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Hutang Customer</h5>
                                 <p class="card-text" id="">{{$customer}}</p>
@@ -377,7 +377,7 @@
                     </div>
                 </div><div class="row mt-3">
                     <div class="col-6">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Hutang Perusahaan</h5>
                                 <p class="card-text" id="">{{$perusahaan}}</p>
@@ -385,7 +385,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Piutang Pribadi</h5>
                                 <p class="card-text" id="">{{$piutang_lama}}</p>
@@ -395,7 +395,7 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-12">
-                        <div class="card"> 
+                        <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Total Asset</h5>
                                 <p class="card-text" id="">{{$total}}</p>

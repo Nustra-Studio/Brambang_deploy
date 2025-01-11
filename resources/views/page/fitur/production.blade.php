@@ -87,7 +87,9 @@
                                             $produk = Barang::where("id",$item->id_product)->value('name');
                                             $cost = 0;
                                             foreach ($produksis as $produksi) {
-                                                $biayaItemProduksi = $produksi->qty * $produksi->price;
+                                                $produksi_qty = $produksi-> qty ?? 0;
+                                                $produksi_price = $produksi->price ?? 0;
+                                                $biayaItemProduksi = $produksi_qty * $produksi_price;
                                                 $cost += $biayaItemProduksi;
                                             }
                                             $cost = 'RP ' . number_format($cost, 0, ',', '.');
@@ -97,7 +99,7 @@
                                         <td>{{$item->start}}</td>
                                         <td>{{$cost}}</td>
                                         <td>{{$item->information}}</td>
-                                        <td>  
+                                        <td>
                                             <button class="btn btn-sm btn-primary d-flex justify-content-center align-items-center border shadow p-3 fw-bold p-lg-2 p-xl-3" data-bs-toggle="modal" data-bs-target="#editModal{{$item->id}}">
                                                 <i class="fa-solid fa-pen-to-square"></i>
                                             </button>
@@ -108,7 +110,7 @@
                                     </tr>
                                     <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered">
-                                        
+
                                             <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Hasil Produksi</h5>
@@ -177,7 +179,7 @@
                                                         <input type="number" value="0" class="form-control" required name="hasil4" />
                                                     </div>
                                                     @endif
-                                                    
+
                                                 <div class="mb-3">
                                                     <label class="form-label">Selesai Produksi</label>
                                                     <input type="date" class="form-control" name="finish" />
@@ -250,7 +252,7 @@
                                     $randomNumber = str_pad(mt_rand(0, 99), 2, '0', STR_PAD_LEFT);
                                     $randomDate = $currentDate . $randomNumber;
                                     $name_random = "PRB$randomDate";
-                                @endphp 
+                                @endphp
                                 <label class="form-label">Name:</label>
                                 <input value="{{$name_random}}" required name="name" class="form-control mb-4 mb-md-0" id="production" type="text" />
                             </div>
@@ -445,7 +447,7 @@
                 }
             });
         }
-    
+
         function initialize() {
             const selectElement = document.getElementById("product_select");
             selectElement.addEventListener('change', updateprice);
