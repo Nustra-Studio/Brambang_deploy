@@ -149,6 +149,7 @@ class ProductionController extends Controller
     }
     elseif(empty($request->hasil1)&&empty($request->hasil2)&&empty($request->hasil3)){
          // Validasi request
+        dd($request);
         $request->validate([
             'results1' => 'required|numeric',
             'results2' => 'required|numeric',
@@ -189,7 +190,7 @@ class ProductionController extends Controller
         'unit' => $data->unit,
         'price' => $request->opsional
         ]);
-        
+
 
         // Ambil produk berdasarkan nama
         $products = [
@@ -197,7 +198,7 @@ class ProductionController extends Controller
             'results2' => 'Bawang Goreng B',
             'results3' => 'Bawang Goreng C',
             'results4' => 'Bawang Goreng D',
-            'results5' => 'Bawang Merah Goreng CyS',
+            'results5' => 'Bawang MERAH Goreng CYS Shopee',
             'results6' => 'Bawang Goreng B Kemasan 1KG'
         ];
 
@@ -260,7 +261,7 @@ class ProductionController extends Controller
         ]);
         $productss = [
             'hasil1' => 'Bawang Putih Goreng Bungkusan 1 KG',
-            'hasil2' => 'Bawang Putih Goreng CyS',
+            'hasil2' => 'Bawang Putih Goreng CyS Shopee',
             'hasil3' => 'Bawang Putih Goreng',
             'hasil4' => 'Bawang Putih Goreng Kemasan 1 KG'
         ];
@@ -287,7 +288,7 @@ class ProductionController extends Controller
     }
 }
 
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -302,7 +303,7 @@ class ProductionController extends Controller
         $costs = costproduksi::where('id_produksi',$id_barang)->get();
         foreach ($costs as $cost) {
             $cost->delete();
-        }        
+        }
         $data->delete();
         return redirect('production')->with('success', 'Success production Delete');
     }
