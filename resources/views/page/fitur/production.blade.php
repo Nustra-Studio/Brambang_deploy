@@ -454,5 +454,6 @@
             updateprice();
         }
         document.addEventListener('DOMContentLoaded', initialize);
+        // new
     </script>
 @endpush
