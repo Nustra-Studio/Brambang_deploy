@@ -108,6 +108,9 @@
             <div class="separator separator-darker mt-5 mb-3 px-5"></div>
             <div class="row me-5">
                 <div class="col text-sm-end">
+                    <div class=" ms-5 col text-sm-start">
+                    <div><p class="mb-0 text-large">BCA 1410472941<br>(Winda Mariana)</p></div>
+                    </div>
                     <div><p class="mb-0 text-large">Total :</p></div>
                     <div><p class="mb-0 text-large">@if ($status == 'Lunas') Status : @else Belum Lunas : @endif</p></div>
                     <div><p class="mb-0 text-large">Total Bayar :</p></div>

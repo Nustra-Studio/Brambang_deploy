@@ -1,0 +1,36 @@
+[05-Jun-2024 10:24:19 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:19 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:19 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/bawm8925/public_html/Brambang_deploy/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:20 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:20 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:20 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/bawm8925/public_html/Brambang_deploy/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:20 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:20 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:20 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/bawm8925/public_html/Brambang_deploy/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:21 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:21 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:21 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/bawm8925/public_html/Brambang_deploy/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:21 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:21 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:21 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/bawm8925/public_html/Brambang_deploy/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:22 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:22 Asia/Jakarta] PHP Warning:  require(/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34
+[05-Jun-2024 10:24:22 Asia/Jakarta] PHP Fatal error:  Uncaught Error: Failed opening required '/home/bawm8925/public_html/Brambang_deploy/public/../vendor/autoload.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/bawm8925/public_html/Brambang_deploy/public/index.php:34
+Stack trace:
+#0 {main}
+  thrown in /home/bawm8925/public_html/Brambang_deploy/public/index.php on line 34

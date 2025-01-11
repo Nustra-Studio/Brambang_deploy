@@ -64,7 +64,10 @@ class ProductionController extends Controller
             costproduksi::create($datas);
             $barang = Barang::findOrFail($name);
             // $stock = $barang->qty - $table->qty;
-            $barang->qty -= $item['qty'] ; // Update qty dengan nilai yang diterima dari form
+            $barang_qty = $barang->qty ?? 0;
+            $item_qty = $item['qty'] ?? 0 ;
+            $stock_qty = $barang_qty - $item_qty ; // Update qty dengan nilai yang diterima dari form
+            $barang->qty = $stock_qty;
             $barang->save();
         }
         produksi::create($data);
