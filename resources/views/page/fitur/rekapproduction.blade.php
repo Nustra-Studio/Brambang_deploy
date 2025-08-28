@@ -48,10 +48,10 @@
         @php
             $produksis = costproduksi::where('id_produksi',$item->unit)->get();
             $produk = Barang::where("id",$item->id_product)->value('name');
-            $trasnport = history::where('information','trasnportasi')->where('unit',$item->unit)->value('price');
-            $oprasional = history::where('information','oprasional')->where('unit',$item->unit)->value('price');
-            $trasnports = history::where('information','trasnportasi')->where('unit',$item->unit)->first();
-            $oprasionals = history::where('information','oprasional')->where('unit',$item->unit)->first();
+            $trasnport = history::whereIn('information', ['trasnportasi', 'transportasi'])->where('unit',$item->unit)->value('price');
+            $oprasional = history::whereIn('information', ['oprasional', 'operasional'])->where('unit',$item->unit)->value('price');
+            $trasnports = history::whereIn('information', ['trasnportasi', 'transportasi'])->where('unit',$item->unit)->first();
+            $oprasionals = history::whereIn('information', ['oprasional', 'operasional'])->where('unit',$item->unit)->first();
             $gaji = Absen::where('date',$item->start)->sum('more');
             $costs = 0  + $trasnport + $gaji +$oprasional ;
             foreach ($produksis as $produksi) {
@@ -255,7 +255,7 @@
                                     </td>
                                     <td>
                                         @php
-                                            $total_harga =  $item->price   * $produk->price;
+                                            $total_harga =  $item->price    * $produk->price ;
                                         @endphp
                                         {{ 'RP ' . number_format($total_harga ?? 0 , 0, ',', '.');}}
                                     </td>

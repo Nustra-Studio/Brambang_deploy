@@ -109,7 +109,7 @@
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
 
                                             <div class="modal-content">
                                             <div class="modal-header">
@@ -121,29 +121,52 @@
                                                     @csrf
                                                     @method('PUT')
                                                     @if ($produk === "Bawang Goreng A"||$produk === "Bawang Goreng B"||$produk === "Bawang Goreng C"||$produk === "Bawang Goreng D" )
+                                                  <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Hasil Bawang Goreng A</label>
+                                                            <input type="number" value="0" class="form-control" required name="results1" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Hasil Bawang Goreng B</label>
+                                                            <input type="number" value="0" class="form-control" required name="results2" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Hasil Bawang Goreng C</label>
+                                                            <input type="number" value="0" class="form-control" required name="results3" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Hasil Bawang Goreng D</label>
+                                                            <input type="number" value="0" class="form-control" required name="results4" />
+                                                        </div>
+                                                    </div>
+                                                  <div class ="row mb-6">
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Hasil Bawang Merah Goreng CyS</label>
+                                                            <input type="number" value="0" class="form-control" required name="results5" />
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label class="form-label">Hasil Bawang Goreng B Kemasan 1KG</label>
+                                                            <input type="number" value="0" class="form-control" required name="results6" />
+                                                        </div>
+                                                  </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Goreng A</label>
-                                                        <input type="number" value="0" class="form-control" required name="results1" />
+                                                        <label class="form-label">Hasil Panir Bawang Putih</label>
+                                                        <input type="number" value="0" class="form-control" required name="hasil1" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Goreng  B</label>
-                                                        <input type="number"  value="0" class="form-control" required name="results2" />
+                                                        <label class="form-label">Hasil Bawang Putih Goreng CyS</label>
+                                                        <input type="number" value="0" class="form-control" required name="hasil2" />
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Goreng C</label>
-                                                        <input type="number" value="0" class="form-control" required name="results3" />
+                                                        <label class="form-label">Hasil Bawang Putih Goreng</label>
+                                                        <input type="number" value="0" class="form-control" required name="hasil3" />
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Goreng D</label>
-                                                        <input type="number" value="0" class="form-control" required name="results4" />
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Merah Goreng CyS</label>
-                                                        <input type="number" value="0" class="form-control" required name="results5" />
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Hasil Bawang Goreng B Kemasan 1KG</label>
-                                                        <input type="number" value="0" class="form-control" required name="results6" />
+                                                    <div class="mb-12">
+                                                        <label for="" class="form-label">Bawang Putih Goreng Kemasan 1 KG</label>
+                                                        <input type="number" value="0" class="form-control" name="hasil4" />
                                                     </div>
                                                     @endif
                                                     @if ($produk === "Bawang Putih Goreng Bungkusan 1 KG"||$produk === " Bawang Putih Goreng CyS"||$produk === "Bawang Putih Goreng")
