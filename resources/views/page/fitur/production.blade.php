@@ -131,7 +131,7 @@
                                                             <input type="number" value="0" class="form-control" required name="results2" />
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <label class="form-label">Hasil Bawang Goreng C</label>

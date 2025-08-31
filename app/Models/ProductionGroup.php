@@ -14,4 +14,8 @@ class ProductionGroup extends Model
         'item',
         'optional',
     ];
+    public function barangs()
+    {
+        return $this->belongsToMany(Barang::class, 'production_group_barang');
+    }
 }

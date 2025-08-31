@@ -18,4 +18,8 @@ class Barang extends Model
         'information',
         'unit'
     ];
+    public function productionGroups()
+    {
+        return $this->belongsToMany(ProductionGroup::class, 'production_group_barang');
+    }
 }

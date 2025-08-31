@@ -152,7 +152,7 @@ class ProductionController extends Controller
     }
     elseif(empty($request->hasil1)&&empty($request->hasil2)&&empty($request->hasil3)){
          // Validasi request
-  
+
         $request->validate([
             'results1' => 'required|numeric',
             'results2' => 'required|numeric',
@@ -311,25 +311,25 @@ class ProductionController extends Controller
         return redirect('production')->with('success', 'Success production Delete');
     }
 }
-    private function validateRequest(Request $request)
-    {
-        // Validasi input berdasarkan kondisi
-        if (!empty($request->input('hasil4'))) {
-            $request->validate(['hasil4' => 'required|numeric']);
-        } elseif (empty($request->input('hasil1')) && empty($request->input('hasil2')) && empty($request->input('hasil3'))) {
-            $request->validate([
-                'results1' => 'required|numeric',
-                'results2' => 'required|numeric',
-                'results3' => 'required|numeric',
-                'results4' => 'required|numeric',
-                'results5' => 'required|numeric',
-                'results6' => 'required|numeric',
-            ]);
-        } else {
-            $request->validate([
-                'hasil1' => 'required|numeric',
-                'hasil2' => 'required|numeric',
-                'hasil3' => 'required|numeric',
-            ]);
-        }
-    }
+    // private function validateRequest(Request $request)
+    // {
+    //     // Validasi input berdasarkan kondisi
+    //     if (!empty($request->input('hasil4'))) {
+    //         $request->validate(['hasil4' => 'required|numeric']);
+    //     } elseif (empty($request->input('hasil1')) && empty($request->input('hasil2')) && empty($request->input('hasil3'))) {
+    //         $request->validate([
+    //             'results1' => 'required|numeric',
+    //             'results2' => 'required|numeric',
+    //             'results3' => 'required|numeric',
+    //             'results4' => 'required|numeric',
+    //             'results5' => 'required|numeric',
+    //             'results6' => 'required|numeric',
+    //         ]);
+    //     } else {
+    //         $request->validate([
+    //             'hasil1' => 'required|numeric',
+    //             'hasil2' => 'required|numeric',
+    //             'hasil3' => 'required|numeric',
+    //         ]);
+    //     }
+    // }

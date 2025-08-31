@@ -10,6 +10,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CatatanController;
+use App\Http\Controllers\ProductionGroupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,20 +61,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/laporan/produksi', function () {
         return view('page.fitur.laporanproduction');
     });
+
     Route::resource('user', UserController::class);
     Route::get('/hutang','App\Http\Controllers\TransactionController@hutang');
     Route::get('/invoicelama','App\Http\Controllers\TransactionController@invoice');
     Route::get('/printproduction','App\Http\Controllers\TransactionController@print');
     Route::get('/hapusinvoice','App\Http\Controllers\TransactionController@invoicehapus');
     Route::get('/bahan-baku','App\Http\Controllers\BarangController@bahanbaku');
-Route::resource('/barang', BarangController::class);
-Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');
-Route::resource('/customer', CustomerController::class);
-Route::resource('/karyawan', KaryawanController::class);
-Route::resource('/bank', BankController::class);
-Route::resource('/production', ProductionController::class);
-Route::resource('/transaction', TransactionController::class);
-Route::resource('/catatan', CatatanController::class);
+    Route::resource('/barang', BarangController::class);
+    Route::post('/barang/add','App\Http\Controllers\BarangController@add')->name('barang.add');
+    Route::resource('/productiongroup', ProductionGroupController::class);
+    Route::resource('/customer', CustomerController::class);
+    Route::resource('/karyawan', KaryawanController::class);
+    Route::resource('/bank', BankController::class);
+    Route::resource('/production', ProductionController::class);
+    Route::resource('/transaction', TransactionController::class);
+    Route::resource('/catatan', CatatanController::class);
 Route::prefix('dataresource')->group(function () {
     Route::get('/barang', 'App\Http\Controllers\BarangController@data')->name('barang.data');
     Route::get('/barang/jual', 'App\Http\Controllers\BarangController@jual')->name('barang.jual');
@@ -90,13 +93,13 @@ Route::prefix('payroll')->group(function(){
     });
     Route::get('/detail/{id}', function ($id) {
         return view('page.payroll.detail', ['id' => $id]);
-    });    
+    });
     Route::get('/absenmasuk','App\Http\Controllers\KaryawanController@gaji')->name('payroll.gaji');
     Route::post('/absen/excel','App\Http\Controllers\KaryawanController@excel')->name('absen.excel');
-    
+
 });
 Route::post('/karyawab/setting','App\Http\Controllers\KaryawanController@setting')->name('karyawan.setting');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    
+
 });
 
