@@ -91,6 +91,11 @@
             </li>
             @if (Auth::user()->name == "owner")
             <li>
+                <a href="{{url('/productiongroup')}}">
+                    <span class="label">Produksi Group</span>
+                </a>
+            </li>
+            <li>
                 <a href="{{url('/bank')}}">
                     <span class="label">Bank</span>
                     </a>
@@ -162,6 +167,12 @@
             <span class="label">Produksi</span>
             </a>
         </li>
+        <li>
+            <a href="{{url('/newproduction')}}">
+            <i data-acorn-icon="factory" class="icon" data-acorn-size="18"></i>
+            <span class="label">Produksi Baru</span>
+            </a>
+        </li>
         @if (Auth::user()->name == "owner")
         <li>
             <a href="#catatan" data-href="Products.html">
@@ -202,8 +213,8 @@
             </a>
         </li>
         {{-- <li  class="text-center mt-2">
-            <button class="btn btn-lg btn-warning" 
-            type="button" 
+            <button class="btn btn-lg btn-warning"
+            type="button"
             data-bs-toggle="modal"
             data-bs-target="#settingpage">
                 <i data-acorn-icon="settings-1" class="icon" data-acorn-size="18"></i>

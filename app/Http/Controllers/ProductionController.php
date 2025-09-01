@@ -113,9 +113,9 @@ class ProductionController extends Controller
             'results' => $results,
             'information' => 'finish'
         ]);
-    
+
         $this->createHistoryEntries($data, $request);
-    
+
         $this->updateStockAndCreateHistory($request, $data);
         return redirect('production')->with('success', 'Success production');
 
@@ -182,14 +182,14 @@ class ProductionController extends Controller
             'more' => $request->finish,
             'price' => $request->cost
         ]);
-    
+
         history::create([
             'name' => $data->name,
             'unit' => $data->unit,
             'information' => 'transportasi',
             'price' => $request->trasnportasi
         ]);
-    
+
         history::create([
             'name' => $data->name,
             'information' => 'operasional',
@@ -211,7 +211,7 @@ class ProductionController extends Controller
             'results5' => 'Bawang MERAH Goreng CYS Shopee',
             'results6' => 'Bawang Goreng B Kemasan 1KG',
         ];
-    
+
         foreach ($productsMapping as $key => $name) {
             if ($request->has($key)) {
                 $product = Barang::where('name', $name)->first();
@@ -219,7 +219,7 @@ class ProductionController extends Controller
                     $barang = Barang::findOrFail($product->id);
                     $stock = $barang->qty + $request->$key;
                     $barang->update(['qty' => $stock]);
-    
+
                     history::create([
                         'name' => $name,
                         'status' => $data->start,

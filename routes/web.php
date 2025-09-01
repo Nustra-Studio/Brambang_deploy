@@ -11,7 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CatatanController;
 use App\Http\Controllers\ProductionGroupController;
-
+use App\Http\Controllers\NewProductionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/production', ProductionController::class);
     Route::resource('/transaction', TransactionController::class);
     Route::resource('/catatan', CatatanController::class);
+    Route::resource('/newproduction', NewProductionController::class);
 Route::prefix('dataresource')->group(function () {
     Route::get('/barang', 'App\Http\Controllers\BarangController@data')->name('barang.data');
     Route::get('/barang/jual', 'App\Http\Controllers\BarangController@jual')->name('barang.jual');
