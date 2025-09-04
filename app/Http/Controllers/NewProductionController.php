@@ -105,7 +105,17 @@ class NewProductionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $results = $this->calculateResults($request);
+        $data = produksi::findOrFail($id);
+        // dd($results);
+        $data->update([
+            'finish' => $request->finish,
+            'results' => $results,
+            'information' => 'finish'
+        ]);
+        $this->createHistoryEntries($data, $request);
+        $this->updateStockAndCreateHistory($request, $data);
+        return redirect('newproduction')->with('success', 'Success production');
     }
 
     /**
@@ -123,6 +133,63 @@ class NewProductionController extends Controller
             $cost->delete();
         }
         $data->delete();
-        return redirect('production')->with('success', 'Success production Delete');
+        return redirect('newproduction')->with('success', 'Success production Delete');
+    }
+    private function calculateResults(Request $request){
+        $results = 0;
+        for($x = 1; $x <= $request->lenght_data ; $x++){
+            $query ='results'.$x;
+            $results += $request->input($query,0);
+        }
+        return $results;
+    }
+    private function createHistoryEntries($data, $request)
+    {
+        history::create([
+            'name' => $data->name,
+            'status' => $data->start,
+            'unit' => $data->unit,
+            'information' => 'Production',
+            'more' => $request->finish,
+            'price' => $request->cost
+        ]);
+
+        history::create([
+            'name' => $data->name,
+            'unit' => $data->unit,
+            'information' => 'transportasi',
+            'price' => $request->trasnportasi
+        ]);
+
+        history::create([
+            'name' => $data->name,
+            'information' => 'operasional',
+            'unit' => $data->unit,
+            'price' => $request->opsional
+        ]);
+    }
+    private function updateStockAndCreateHistory(Request $request, $data)
+    {
+        for($x = 1; $x <= $request->lenght_data ; $x++){
+            $query_results ='results'.$x;
+            $results = $request->input($query_results,0);
+            $query_item ='productresult'.$x;
+            $item = $request->input($query_item,0);
+            $product = Barang::where('id', $item)->first();
+            if ($product) {
+                $barang = Barang::findOrFail($product->id);
+                $stock = $barang->qty + $results;
+                $barang->update(['qty' => $stock]);
+
+                history::create([
+                    'name' => $product->name,
+                    'status' => $data->start,
+                    'unit' => $data->unit,
+                    'information' => 'Hasil Production',
+                    'more' => $request->finish,
+                    'price' => $results
+                ]);
+            }
+        }
     }
 }

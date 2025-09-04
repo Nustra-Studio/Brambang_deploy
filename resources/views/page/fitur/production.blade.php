@@ -391,9 +391,22 @@
                 const existingValues = [];
 
                 function addRow() {
+                    const Stock = $('.total').text();
                     const name = document.getElementById('product_select').value;
                     const jumlah = document.getElementById('jumlah-input').value;
                     const harga = document.getElementById('harga-input').value;
+                    if (name === '' || jumlah === '' || harga === '') {
+                        alert('Semua kolom harus diisi!');
+                        return;
+                    }
+                    const stock = parseFloat(Stock.replace('stock: ', ''));
+                    const Jumlah = parseFloat(jumlah);
+                    if ( stock < jumlah ) {
+                        alert('Stock Tidak Mencukupi');
+                        return;
+                    }
+
+
                     const url = `/dataresource/barang/?namaproduct=${name}`;
                     const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
                     const rowValues = {

@@ -13,6 +13,7 @@
             use App\Models\ProductionGroup;
             use App\Models\produksi;
             use App\Models\costproduksi;
+            use App\Models\production_group_barang;
             $data = Barang::where('information','bahan_baku')->get();
             $product = ProductionGroup::all();
             $produksi = produksi::where('information','pending_new')->get();
@@ -85,7 +86,7 @@
                                     <tr>
                                         @php
                                             $produksis = costproduksi::where('id_produksi',$item->unit)->get();
-                                            $produk = Barang::where("id",$item->id_product)->value('name');
+                                            $data_hasil = production_group_barang::where('production_group_id',$item->id_product)->get();
                                             $cost = 0;
                                             foreach ($produksis as $produksi) {
                                                 $produksi_qty = $produksi-> qty ?? 0;
@@ -94,8 +95,9 @@
                                                 $cost += $biayaItemProduksi;
                                             }
                                             $cost = 'RP ' . number_format($cost, 0, ',', '.');
+                                            $index =  $loop->index+1;
                                         @endphp
-                                        <td>{{ $loop->index+1 }}</td>
+                                        <td>{{$index}}</td>
                                         <td>{{$item->name}}</td>
                                         <td>{{$item->start}}</td>
                                         <td>{{$cost}}</td>
@@ -122,19 +124,22 @@
                                                     @csrf
                                                     @method('PUT')
                                                   <div class="row mb-3">
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Hasil Bawang Goreng A</label>
-                                                            <input type="number" value="0" class="form-control" required name="results1" />
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="form-label">Hasil Bawang Goreng B</label>
-                                                            <input type="number" value="0" class="form-control" required name="results2" />
-                                                        </div>
+                                                        @foreach($data_hasil as $hasil_product)
+                                                            @php
+                                                                $index =  $loop->index+1;
+                                                                $barang_hasil = Barang::where('id',$hasil_product->barang_id)->first();
+                                                            @endphp
+                                                            <div class="col-md-6">
+                                                                <label class="form-label">Hasil {{$barang_hasil->name}}</label>
+                                                                <input type="number" value="0" class="form-control" required name="results{{$index}}" />
+                                                                <input type="hidden" value="{{$barang_hasil->id}}" required name="productresult{{$index}}">
+                                                            </div>
+                                                        @endforeach
                                                     </div>
-
+                                                    <input type="hidden" name="lenght_data" value="{{$data_hasil->count()}}">
                                                 <div class="mb-3">
                                                     <label class="form-label">Selesai Produksi</label>
-                                                    <input type="date" class="form-control" name="finish" />
+                                                    <input type="date" required class="form-control" name="finish" />
                                                     <input type="hidden" value="{{$cost}}" name="cost">
                                                 </div>
                                                 <div class="mb-3">
@@ -323,6 +328,16 @@
                     const name = document.getElementById('product_select').value;
                     const jumlah = document.getElementById('jumlah-input').value;
                     const harga = document.getElementById('harga-input').value;
+                    if (name === '' || jumlah === '' || harga === '') {
+                        alert('Semua kolom harus diisi!');
+                        return;
+                    }
+                    const stock = parseFloat(Stock.replace('stock: ', ''));
+                    const Jumlah = parseFloat(jumlah);
+                    if ( stock < jumlah ) {
+                        alert('Stock Tidak Mencukupi');
+                        return;
+                    }
                     const url = `/dataresource/barang/?namaproduct=${name}`;
                     const deleteButton = `<button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>`;
                     const rowValues = {
