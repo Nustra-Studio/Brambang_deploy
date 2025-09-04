@@ -17,7 +17,7 @@ class NewProductionController extends Controller
      */
     public function index()
     {
-        return view('Page.fitur.newproduction');
+        return view('page.fitur.newproduction');
     }
 
     /**
